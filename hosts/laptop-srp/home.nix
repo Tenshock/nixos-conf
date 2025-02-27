@@ -3,7 +3,9 @@ let
   hosts = import ../../config/hosts.nix;
 in
 {
-  imports = [];
+  imports = [
+    ../../home/features/cli/bat.nix
+  ];
   home.packages = [];
 
   home = {

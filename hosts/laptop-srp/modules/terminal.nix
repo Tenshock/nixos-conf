@@ -8,7 +8,6 @@
     git
     go        # Lazyvim: hyprland LSP hyprls
     eza
-    bat
     zoxide
     fastfetch
     btop
