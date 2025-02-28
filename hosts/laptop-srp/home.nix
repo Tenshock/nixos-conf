@@ -2,8 +2,14 @@ let
   hosts = import ../hosts.nix;
 in {
   imports = [
+    ../../home/features/application/firefox.nix
+
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix
+    ../../home/features/cli/zoxide.nix
+    ../../home/features/cli/zsh.nix
+
+    ../../home/features/service/srp-vpn.nix
 
     ../../home/flavors/hyprland.nix
   ];

@@ -9,7 +9,6 @@ in {
       ./networking.nix
       ./swap.nix
 
-      ./modules/cedric-user.nix
       ./modules/fonts.nix
       ./modules/hyprland.nix
       ./modules/i18n.nix
@@ -19,7 +18,7 @@ in {
       ../../nixos/login-manager.nix
       ../../nixos/media.nix
       ../../nixos/nix.nix
-      (import ../../nixos/srp-vpn.nix { user = hosts.laptop-srp.user; })
+      (import ../../nixos/user.nix { user = hosts.laptop-srp.user; })
       ../../nixos/virtualization.nix
     ];
 
