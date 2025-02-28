@@ -25,7 +25,7 @@
       cd = "z";
       ls = "eza";
       cat = "bat";
-      nix-conf = "sudo -E nvim /etc/nixos";
+      nix-conf = "nvim $XDG_CONFIG_HOME/nixos";
       hypr-conf = "nvim $XDG_CONFIG_HOME/hypr/hyprland.conf";
     };
     enableCompletion = true;
