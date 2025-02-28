@@ -4,7 +4,6 @@
     kitty
     wofi          # app launcher
     wl-clipboard  # clipboard manager
-    mako          # notifications
     waybar        # status bar
     hyprlock      # screen locking
     hyprpaper     # wallpaper

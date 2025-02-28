@@ -5,6 +5,7 @@ in
 {
   imports = [
     ../../home/features/cli/bat.nix
+    ../../home/flavors/hyprland.nix
   ];
   home.packages = [];
 
