@@ -1,8 +1,7 @@
 { pkgs, ... }:
 let
   hosts = import ../hosts.nix;
-in
-{
+in {
   imports =
     [
       ./hardware-configuration.nix

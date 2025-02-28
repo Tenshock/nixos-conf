@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-
   environment.systemPackages = with pkgs; [
     kitty
     wofi          # app launcher

@@ -1,8 +1,7 @@
 { pkgs, ... }:
 let
   hosts = import ../hosts.nix;
-in
-{
+in {
   networking.hostName = hosts.laptop-srp.hostname;
   networking.networkmanager.enable = true;
 

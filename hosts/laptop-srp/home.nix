@@ -1,7 +1,6 @@
 let
   hosts = import ../hosts.nix;
-in
-{
+in {
   imports = [
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix

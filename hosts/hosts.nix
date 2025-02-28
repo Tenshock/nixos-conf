@@ -1,8 +1,7 @@
 let
   systems = let
-    user = "cedric";
-  in
-  {
+  user = "cedric";
+in {
     laptop-srp = {
       hostname = "FRALW-724TCS3";
       arch = "x86_64-linux";

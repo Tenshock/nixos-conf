@@ -1,6 +1,5 @@
 { user }:
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   users.users.${user} = {
     packages = with pkgs; [
       openconnect_openssl
