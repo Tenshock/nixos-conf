@@ -1,6 +1,7 @@
+# TODO: move into nixos with user in parameter
 { pkgs, ... }:
 let
-  hosts = import ../../../config/hosts.nix;
+  hosts = import ../../hosts.nix;
 in
 {
   users.users.${hosts.laptop-srp.user} = {

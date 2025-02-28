@@ -1,6 +1,5 @@
-{ ... }:
 let
-  hosts = import ../../config/hosts.nix;
+  hosts = import ../hosts.nix;
 in
 {
   imports = [

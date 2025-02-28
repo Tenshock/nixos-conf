@@ -1,22 +1,33 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports =
     [
+      ./hardware-configuration.nix
+      ./hibernate.nix
+      ./networking.nix
+      ./srp-vpn.nix
+      ./swap.nix
+
       ./modules/cedric-user.nix
       ./modules/fonts.nix
-      ./hardware-configuration.nix
-      ./modules/host-networking.nix
-      ./modules/host-srp.nix
       ./modules/hyprland.nix
       ./modules/i18n.nix
-      ./modules/login-manager.nix
-      ./modules/media.nix
       ./modules/neovim.nix
-      ./modules/nix.nix
       ./modules/terminal.nix
-      ./modules/virtualization.nix
+
+      ../../nixos/login-manager.nix
+      ../../nixos/media.nix
+      ../../nixos/nix.nix
+      ../../nixos/virtualization.nix
     ];
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  environment.systemPackages = with pkgs; [
+    brightnessctl # enables hotkey brightness control
+  ];
 
   #####################
 

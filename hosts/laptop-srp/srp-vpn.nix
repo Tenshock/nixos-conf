@@ -1,13 +1,10 @@
+# TODO: to move in home/ with user in parameter
 { pkgs, ... }:
 let
-  hosts = import ../../../config/hosts.nix;
+  hosts = import ../hosts.nix;
 in
 {
-  networking.hostName = hosts.laptop-srp.hostname;
-  networking.networkmanager.enable = true;
-
-  users.users.cedric = {
-    extraGroups = [ "networkmanager" ];
+    users.users.${hosts.laptop-srp.user} = {
     packages = with pkgs; [
       openconnect_openssl
     ];
@@ -19,4 +16,5 @@ in
       vpnlogout = "sudo kill -9 $(cat $XDG_RUNTIME_DIR/openconnect-srp.pid)";
     };
   };
+
 }

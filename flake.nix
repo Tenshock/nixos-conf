@@ -22,7 +22,7 @@
     }@inputs:
 
     let
-      hosts = import ./config/hosts.nix;
+      hosts = import ./hosts/hosts.nix;
 
       mkNixOSConfiguration =
         {
