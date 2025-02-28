@@ -11,7 +11,6 @@
     zoxide
     fastfetch
     btop
-    cava      # audio flex
     cbonsai
     yazi      # fileManager
   ];
