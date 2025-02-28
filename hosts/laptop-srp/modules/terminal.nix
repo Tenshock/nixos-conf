@@ -10,7 +10,6 @@
     eza
     zoxide
     fastfetch
-    btop
     cbonsai
     yazi      # fileManager
   ];
