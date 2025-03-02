@@ -10,10 +10,12 @@
   };
 
   # audio controllers
-  services.playerctld.enable = true;
-  services.pipewire = {
-    enable = true;
-    audio.enable = true;
-    wireplumber.enable = true;
+  services = {
+    playerctld.enable = true;
+    pipewire = {
+      enable = true;
+      audio.enable = true;
+      wireplumber.enable = true;
+    };
   };
 }

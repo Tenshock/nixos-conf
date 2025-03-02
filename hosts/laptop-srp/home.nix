@@ -22,7 +22,6 @@ in {
   };
 
   ### HOME
-  # firefox
   # obsidian
   # dotnet-sdk_9
   # csharpier -> nixvim
@@ -36,27 +35,17 @@ in {
   # git
   # go
   # eza
-  # bat
-  # zoxide
   # fastfetch
-  # btop
-  # cava
   # cbonsai
   # yazi
-  # zsh
   # tmux
   # virtualization
   #   k9s
   # ~/.local/bin
   #
 
-  ### NixOS
-  # login-manager
-  # nix.nix
-
   ### hosts
   # host-networking
-  # host-srp -> swap
   # i18n -> split in hosts/keyboard and home/i18n
   # media
 
