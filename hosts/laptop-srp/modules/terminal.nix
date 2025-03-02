@@ -6,7 +6,6 @@
     eza
     fastfetch
     cbonsai
-    yazi      # fileManager
   ];
 
   programs.tmux = {
