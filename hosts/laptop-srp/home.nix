@@ -3,6 +3,7 @@ let
 in {
   imports = [
     ../../home/features/application/firefox.nix
+    ../../home/features/application/kitty.nix
     ../../home/features/application/obsidian.nix
 
     ../../home/features/cli/bat.nix
@@ -31,7 +32,6 @@ in {
   # webcord
   # appimage-run -> nix flake for Beeper beta?
   # fonts
-  # kitty
   # full hyprland
   # neovim -> nixvim
   # wget

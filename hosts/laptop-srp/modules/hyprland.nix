@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    kitty
     wofi          # app launcher
     wl-clipboard  # clipboard manager
     waybar        # status bar

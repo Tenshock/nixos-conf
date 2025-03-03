@@ -1,0 +1,27 @@
+{ pkgs, ... }: {
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      package = pkgs.nerd-fonts.jetbrains-mono;
+      size = 12;
+    };
+
+    keybindings = {
+      "ctrl+c" = "copy_or_interrupt";
+      "ctrl+v" = "paste_from_clipboard";
+      "ctrl+tab" = "send_text all \x1b[27;5;9~";
+    };
+
+    settings = {
+      confirm_os_window_close = 0;
+      cursor_trail = 50;
+      cusror_trail_strat_threshold = 2;
+    };
+
+    themeFile = "Catppuccin-Mocha";
+    extraConfig = ''
+      background #0f111a
+    '';
+  };
+}
