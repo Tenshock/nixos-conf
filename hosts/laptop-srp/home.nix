@@ -17,7 +17,6 @@ in {
 
     ../../home/flavors/hyprland.nix
   ];
-  home.packages = [];
 
   home = {
     username = hosts.laptop-srp.user;
