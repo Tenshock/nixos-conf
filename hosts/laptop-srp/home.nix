@@ -8,6 +8,7 @@ in {
 
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix
+    ../../home/features/cli/eza.nix
     ../../home/features/cli/yazi.nix
     ../../home/features/cli/zoxide.nix
     ../../home/features/cli/zsh.nix
@@ -37,7 +38,6 @@ in {
   # wget
   # git
   # go
-  # eza
   # fastfetch
   # cbonsai
   # yazi

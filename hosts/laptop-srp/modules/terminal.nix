@@ -3,7 +3,6 @@
     wget
     git
     go        # Lazyvim: hyprland LSP hyprls
-    eza
     fastfetch
     cbonsai
   ];

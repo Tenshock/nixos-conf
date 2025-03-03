@@ -6,7 +6,6 @@
       v = "nvim";
       view = "nvim -R";
       cd = "z";
-      ls = "eza";
       cat = "bat";
       nix-conf = "nvim $XDG_CONFIG_HOME/nixos";
       hypr-conf = "nvim $XDG_CONFIG_HOME/hypr/hyprland.conf";
