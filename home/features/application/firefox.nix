@@ -1,4 +1,4 @@
-# TODO: add plugins
+# TODO: add plugins dashlane, treestyletab
 {
   programs.firefox = {
     enable = true;

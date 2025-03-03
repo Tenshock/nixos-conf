@@ -10,6 +10,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    # TODO: move to home and configure to use k3s
     k9s
   ];
 

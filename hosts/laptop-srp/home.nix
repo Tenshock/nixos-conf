@@ -28,28 +28,13 @@ in {
   };
 
   ### HOME
-  # obsidian
   # dotnet-sdk_9
   # csharpier -> nixvim
-  # webcord
-  # appimage-run -> nix flake for Beeper beta?
-  # fonts
   # full hyprland
   # neovim -> nixvim
   # wget
   # go
   # fastfetch
   # cbonsai
-  # yazi
   # tmux
-  # virtualization
-  #   k9s
-  # ~/.local/bin
-  #
-
-  ### hosts
-  # host-networking
-  # i18n -> split in hosts/keyboard and home/i18n
-  # media
-
 }
