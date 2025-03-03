@@ -13,7 +13,6 @@
 
   # zsh XDG compliance
   environment.etc."zshenv".text = ''
-    export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
     export ZSH_TMUX_AUTOSTART=true
     export ZSH_TMUX_AUTOCONNECT=false
   '';
