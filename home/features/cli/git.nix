@@ -1,4 +1,4 @@
-{ ... }: {
+{
   programs.git = {
     enable = true;
     userName = "Cédric Prezelin";
@@ -6,7 +6,6 @@
 
     extraConfig = {
       pull.rebase = true;
-      core.editor = "/run/current-system/sw/bin/nvim";
 
       rebase.autosquash = true;
       fetch.prune = true;
