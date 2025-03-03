@@ -3,6 +3,7 @@ let
 in {
   imports = [
     ../../home/features/application/firefox.nix
+    ../../home/features/application/obsidian.nix
 
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix

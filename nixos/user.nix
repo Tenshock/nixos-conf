@@ -7,7 +7,6 @@
     description = user;
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
-      obsidian
       dotnet-sdk_9
       csharpier
       webcord
