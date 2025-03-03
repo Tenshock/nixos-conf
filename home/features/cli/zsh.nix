@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
@@ -8,6 +8,7 @@
       nix-conf = "nvim $XDG_CONFIG_HOME/nixos";
       hypr-conf = "nvim $XDG_CONFIG_HOME/hypr/hyprland.conf";
     };
+    history.path = "${config.xdg.dataHome}/zsh/zsh_history";
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
