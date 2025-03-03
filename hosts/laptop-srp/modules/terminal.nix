@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     wget
-    go        # Lazyvim: hyprland LSP hyprls
   ];
 
   programs.tmux = {

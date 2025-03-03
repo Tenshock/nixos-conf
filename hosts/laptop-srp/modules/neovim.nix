@@ -2,6 +2,7 @@
   environment.systemPackages = with pkgs; [
     nodejs_23 # Lazyvim
     clang     # for nil
+    go        # Lazyvim: hyprland LSP hyprls
     fzf
     ripgrep
     unzip
