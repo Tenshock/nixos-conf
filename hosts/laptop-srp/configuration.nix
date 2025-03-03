@@ -10,10 +10,10 @@ in {
       ./swap.nix
 
       ./modules/hyprland.nix
-      ./modules/i18n.nix
       ./modules/neovim.nix
       ./modules/terminal.nix
 
+      ../../nixos/i18n.nix
       ../../nixos/login-manager.nix
       ../../nixos/media.nix
       ../../nixos/nix.nix
