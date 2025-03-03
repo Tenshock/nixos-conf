@@ -15,11 +15,4 @@
     ];
     shell = pkgs.zsh;
   };
-
-  # TODO: check this thing
-  environment.variables = {
-    XDG_CONFIG_HOME = "/home/${user}/.config";
-    XDG_DATA_HOME = "/home/${user}/.local/share";
-    XDG_STATE_HOME = "/home/${user}/.local/state";
-  };
 }

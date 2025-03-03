@@ -19,6 +19,7 @@ in {
     ../../home/features/fonts/nerd.nix
 
     ../../home/features/service/srp-vpn.nix
+    ../../home/features/service/xdg.nix
 
     ../../home/flavors/hyprland.nix
   ];
