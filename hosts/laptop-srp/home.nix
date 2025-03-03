@@ -12,6 +12,7 @@ in {
     ../../home/features/cli/eza.nix
     ../../home/features/cli/fastfetch.nix
     ../../home/features/cli/git.nix
+    ../../home/features/cli/tmux.nix
     ../../home/features/cli/yazi.nix
     ../../home/features/cli/zoxide.nix
     ../../home/features/cli/zsh.nix
