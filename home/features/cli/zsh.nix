@@ -1,7 +1,7 @@
 { config, ... }: {
   programs.zsh = {
     enable = true;
-    dotDir = ".config/zsh";
+    dotDir = ".config/zsh"; # Relative path. Can't use config.xdg.configHome.
     shellAliases = {
       v = "nvim";
       view = "nvim -R";
