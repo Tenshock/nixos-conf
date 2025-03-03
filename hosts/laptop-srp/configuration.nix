@@ -20,6 +20,7 @@ in {
       ../../nixos/nix.nix
       (import ../../nixos/user.nix { user = hosts.laptop-srp.user; })
       ../../nixos/virtualization.nix
+      # TODO: add nwg-displays, check for home-manager integration
     ];
 
   boot.loader.systemd-boot.enable = true;
