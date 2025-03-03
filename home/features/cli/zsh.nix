@@ -5,8 +5,6 @@
     shellAliases = {
       v = "nvim";
       view = "nvim -R";
-      cd = "z";
-      cat = "bat";
       nix-conf = "nvim $XDG_CONFIG_HOME/nixos";
       hypr-conf = "nvim $XDG_CONFIG_HOME/hypr/hyprland.conf";
     };
