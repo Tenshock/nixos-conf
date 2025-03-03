@@ -2,7 +2,6 @@
   environment.systemPackages = with pkgs; [
     wget
     go        # Lazyvim: hyprland LSP hyprls
-    fastfetch
   ];
 
   programs.tmux = {

@@ -10,6 +10,7 @@ in {
     ../../home/features/cli/btop.nix
     ../../home/features/cli/cbonsai.nix
     ../../home/features/cli/eza.nix
+    ../../home/features/cli/fastfetch.nix
     ../../home/features/cli/git.nix
     ../../home/features/cli/yazi.nix
     ../../home/features/cli/zoxide.nix
