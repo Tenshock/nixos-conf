@@ -3,7 +3,6 @@
     wget
     go        # Lazyvim: hyprland LSP hyprls
     fastfetch
-    cbonsai
   ];
 
   programs.tmux = {

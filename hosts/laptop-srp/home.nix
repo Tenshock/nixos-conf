@@ -8,6 +8,7 @@ in {
 
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix
+    ../../home/features/cli/cbonsai.nix
     ../../home/features/cli/eza.nix
     ../../home/features/cli/git.nix
     ../../home/features/cli/yazi.nix
