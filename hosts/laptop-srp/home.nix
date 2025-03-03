@@ -11,6 +11,8 @@ in {
     ../../home/features/cli/zoxide.nix
     ../../home/features/cli/zsh.nix
 
+    ../../home/features/fonts/nerd.nix
+
     ../../home/features/service/srp-vpn.nix
 
     ../../home/flavors/hyprland.nix

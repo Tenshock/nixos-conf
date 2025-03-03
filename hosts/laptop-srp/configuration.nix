@@ -9,7 +9,6 @@ in {
       ./networking.nix
       ./swap.nix
 
-      ./modules/fonts.nix
       ./modules/hyprland.nix
       ./modules/i18n.nix
       ./modules/neovim.nix
