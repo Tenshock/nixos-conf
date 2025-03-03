@@ -9,6 +9,7 @@ in {
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix
     ../../home/features/cli/eza.nix
+    ../../home/features/cli/git.nix
     ../../home/features/cli/yazi.nix
     ../../home/features/cli/zoxide.nix
     ../../home/features/cli/zsh.nix
@@ -36,7 +37,6 @@ in {
   # full hyprland
   # neovim -> nixvim
   # wget
-  # git
   # go
   # fastfetch
   # cbonsai

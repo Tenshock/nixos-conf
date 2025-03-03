@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     wget
-    git
     go        # Lazyvim: hyprland LSP hyprls
     fastfetch
     cbonsai
