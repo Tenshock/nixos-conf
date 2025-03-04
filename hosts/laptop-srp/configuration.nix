@@ -9,9 +9,9 @@ in {
       ./networking.nix
       ./swap.nix
 
-      ./modules/hyprland.nix
       ./modules/neovim.nix
 
+      ../../nixos/hyprland.nix
       ../../nixos/i18n.nix
       ../../nixos/login-manager.nix
       ../../nixos/media.nix
