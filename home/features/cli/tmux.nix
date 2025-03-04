@@ -48,10 +48,10 @@
       bind-key -n M-w kill-pane
 
       # More intuitive pane split bind
-      bind h split-window -h # h for horizontal split
       bind-key -n M-h split-window -h # h for horizontal split
-      bind v split-window -v # v for vertical split
+      bind-key -n M-H split-window -h -p 30 # h for horizontal split
       bind-key -n M-v split-window -v # v for vertical split
+      bind-key -n M-V split-window -v -p 30 # v for vertical split
 
       # Alt+arrow pane resize
       bind-key -n M-Up              resize-pane -U 5
