@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    wofi          # app launcher
     wl-clipboard  # clipboard manager
     waybar        # status bar
     hyprlock      # screen locking
