@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   virtualisation.podman.enable = true;
 
   services.k3s = {
@@ -9,11 +9,7 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    # TODO: move to home and configure to use k3s
-    k9s
-  ];
-
+  # TODO: make k9s target k3s
   programs.zsh.shellAliases = {
     k = "k3s kubectl";
   };
