@@ -2,7 +2,7 @@
   services.mako = {
     enable  = true;
     font    = "JetBrainsMono Nerd Font";
-    format  = "<b>%a</b> - %s\n%b";
+    format  = ''<b>%a</b> - %s\n%b'';
     sort    = "-time";
 
     ### Layout
