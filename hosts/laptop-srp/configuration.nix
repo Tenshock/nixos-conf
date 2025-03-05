@@ -16,7 +16,7 @@ in {
       ../../nixos/login-manager.nix
       ../../nixos/media.nix
       ../../nixos/nix.nix
-      (import ../../nixos/user.nix { user = hosts.laptop-srp.user; })
+      (import ../../nixos/user.nix hosts.laptop-srp.user)
       ../../nixos/virtualization.nix
       # TODO: add nwg-displays, check for home-manager integration
     ];
