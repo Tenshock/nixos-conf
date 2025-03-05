@@ -10,7 +10,10 @@
     };
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
     enableCompletion = true;
-    autosuggestion.enable = true;
+    autosuggestion = {
+      enable = true;
+      highlight = "fg=#7f849c";
+    };
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
