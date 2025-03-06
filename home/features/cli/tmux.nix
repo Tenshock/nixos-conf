@@ -5,6 +5,7 @@
     focusEvents = true;
     baseIndex = 1;
     escapeTime = 10;
+    keyMode = "vi";
     newSession = true;
 
     plugins = with pkgs; [
