@@ -1,5 +1,13 @@
+user:
 {
-  virtualisation.podman.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    dockerSocket.enable = true;
+  };
+
+  users.users.${user} = {
+    extraGroups = [ "podman" ]; # Necessary for dockerSocket option.
+  };
 
   services.k3s = {
     enable = true;
