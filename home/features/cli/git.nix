@@ -5,15 +5,24 @@
     userEmail = "ext-cedric.prezelin@showroomprive.net";
 
     extraConfig = {
+      core = {
+        autocrlf = false;
+        eol = "lf";
+      };
+
       pull.rebase = true;
 
       rebase.autosquash = true;
+
       fetch.prune = true;
+
       push = {
         autoSetupRemote = true;
         default = "current";
       };
+
       init.defaultBranch = "main";
+
       advice.skippedCherryPicks = false;
     };
 
