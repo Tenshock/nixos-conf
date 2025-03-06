@@ -3,6 +3,11 @@ user:
   virtualisation.podman = {
     enable = true;
     dockerSocket.enable = true;
+
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
+    };
   };
 
   users.users.${user} = {
