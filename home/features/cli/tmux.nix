@@ -7,6 +7,7 @@
     escapeTime = 10;
     keyMode = "vi";
     newSession = true;
+    terminal = "tmux-256color";
 
     plugins = with pkgs; [
       {
@@ -32,6 +33,7 @@
     ];
 
     extraConfig = ''
+      set-option -ga terminal-overrides ",tmux-256color:Tc"
       set-option -g status-position top
 
       # AZERTY Alt+number window switch
@@ -67,6 +69,7 @@
     envExtra = ''
       export ZSH_TMUX_AUTOSTART=true
       export ZSH_TMUX_AUTOCONNECT=false
+      export TERM=tmux-256color
     '';
   };
 }
