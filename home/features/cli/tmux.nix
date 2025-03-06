@@ -4,6 +4,7 @@
     mouse = true;
     focusEvents = true;
     baseIndex = 1;
+    escapeTime = 10;
     newSession = true;
 
     plugins = with pkgs; [
