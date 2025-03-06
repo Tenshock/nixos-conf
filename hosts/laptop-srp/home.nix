@@ -14,6 +14,7 @@ in {
     ../../home/features/cli/git.nix
     ../../home/features/cli/k9s.nix
     ../../home/features/cli/tmux.nix
+    ../../home/features/cli/wget.nix
     ../../home/features/cli/yazi.nix
     ../../home/features/cli/zoxide.nix
     ../../home/features/cli/zsh.nix
