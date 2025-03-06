@@ -8,7 +8,10 @@
 
   programs.zsh = {
     shellAliases = {
-      ls = "eza";
+      l = "eza -lh";
+      lt = "eza -lhTL";
+      la = "eza -alh";
+      lta = "eza -alhTL";
     };
   };
 }
