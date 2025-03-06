@@ -5,6 +5,7 @@ in {
     ../../home/features/application/firefox.nix
     ../../home/features/application/kitty.nix
     ../../home/features/application/obsidian.nix
+    ../../home/features/application/teams.nix
 
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix
