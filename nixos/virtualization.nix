@@ -1,5 +1,5 @@
 user:
-{
+{ pkgs, ...}: {
   virtualisation.podman = {
     enable = true;
     dockerSocket.enable = true;
@@ -12,6 +12,9 @@ user:
 
   users.users.${user} = {
     extraGroups = [ "podman" ]; # Necessary for dockerSocket option.
+    packages = with pkgs; [
+      docker-compose
+    ];
   };
 
   services.k3s = {
