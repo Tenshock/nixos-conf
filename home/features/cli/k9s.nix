@@ -7,6 +7,7 @@ let
 in {
   home.file."${config.xdg.configHome}/k9s/skins/mocha.yaml".source = mochaTheme;
 
+  # TODO: fix colors scheme
   programs.k9s = {
     enable = true;
     settings = {
