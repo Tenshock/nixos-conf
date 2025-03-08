@@ -6,6 +6,7 @@
     ../features/cli/hyprshot.nix
     ../features/cli/wl-clipboard.nix
 
+    ../features/service/gtk.nix
     ../features/service/hypridle.nix
     ../features/service/hyprland/hyprland.nix# TODO: to finish, with scripts
     ../features/service/hyprlock.nix
