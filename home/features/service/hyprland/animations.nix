@@ -28,7 +28,6 @@
         "workspaces, 1, 1.94, almostLinear, fade"
         "workspacesIn, 1, 1.21, almostLinear, fade"
         "workspacesOut, 1, 1.94, almostLinear, fade"
-
       ];
     };
   };
