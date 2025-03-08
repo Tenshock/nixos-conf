@@ -7,7 +7,6 @@ user:
     description = user;
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
-      webcord
       appimage-run
     ];
     shell = pkgs.zsh;
