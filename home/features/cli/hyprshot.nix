@@ -1,11 +1,12 @@
 { pkgs, config, ... }:
 {
-  home.packages = with pkgs; [
-    hyprshot
-  ];
+  home = {
+    packages = with pkgs; [
+      hyprshot
+    ];
 
-  xdg = {
-    userDirs.extraConfig = {
+    # TODO: to fix
+    sessionVariables = {
       XDG_PICTURES_DIR = "${config.home.homeDirectory}/Pictures";
     };
   };
