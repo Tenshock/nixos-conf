@@ -66,7 +66,7 @@ in {
 
       exec-once = [
         "$statusbar & hyprpaper & hypridle"
-        "[workspace 1 silent] kitty"
+        "[workspace 1 silent] $terminal"
       ];
 
       general = {
