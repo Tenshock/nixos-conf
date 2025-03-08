@@ -7,12 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
-    #home-manager-stable = {
-    #  url = "github:nix-community/home-manager/release-24.11";
-    #  inputs.nixpkgs.follows = "nixpkgs-stable";
-    #};
   };
 
   outputs =

@@ -18,10 +18,4 @@ in {
     homeDirectory = "/home/${hosts.laptop-srp.user}";
     stateVersion = "24.11";
   };
-
-  ### HOME
-  # dotnet-sdk_9
-  # csharpier -> nixvim
-  # neovim -> nixvim
-  # go
 }
