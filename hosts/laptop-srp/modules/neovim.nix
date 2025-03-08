@@ -9,7 +9,8 @@
     lazygit
     fd
     rustup    # Lazyvim
-    go        # Lazyvim: hyprland LSP hyprls
+    dotnet-sdk_9
+    csharpier # for omnisharp lazyvim extra
   ];
 
   programs.neovim = {

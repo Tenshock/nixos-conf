@@ -7,9 +7,6 @@ user:
     description = user;
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
-      # TODO: move this
-      dotnet-sdk_9
-      csharpier
       webcord
       appimage-run
     ];
