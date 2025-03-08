@@ -39,7 +39,7 @@ in {
       "$obsidian" = "uwsm app -- obsidian";
 
       exec-once = [
-        "$statusbar & hyprpaper & hypridle"
+        "$statusbar"
         "[workspace 1 silent] $terminal"
       ];
 
