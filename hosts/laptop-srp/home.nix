@@ -7,24 +7,9 @@ in {
     ../../home/features/application/obsidian.nix
     ../../home/features/application/teams.nix
 
-    ../../home/features/cli/bat.nix
-    ../../home/features/cli/btop.nix
-    ../../home/features/cli/cbonsai.nix
-    ../../home/features/cli/eza.nix
-    ../../home/features/cli/fastfetch.nix
-    ../../home/features/cli/git.nix
-    ../../home/features/cli/k9s.nix
-    ../../home/features/cli/tmux.nix
-    ../../home/features/cli/wget.nix
-    ../../home/features/cli/yazi.nix
-    ../../home/features/cli/zoxide.nix
-    ../../home/features/cli/zsh.nix
-
-    ../../home/features/fonts/nerd.nix
-
     ../../home/features/service/srp-vpn.nix
-    ../../home/features/service/xdg.nix
 
+    ../../home/flavors/minimal.nix
     ../../home/flavors/hyprland.nix
   ];
 
@@ -37,11 +22,6 @@ in {
   ### HOME
   # dotnet-sdk_9
   # csharpier -> nixvim
-  # full hyprland
   # neovim -> nixvim
-  # wget
   # go
-  # fastfetch
-  # cbonsai
-  # tmux
 }
