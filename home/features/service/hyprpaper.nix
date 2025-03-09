@@ -17,7 +17,7 @@ in
     };
   };
 
-  home.file.".wallpapers" = {
+  home.file."wallpapers" = {
     source = wallpaperSourceDir;
     target = wallpaperDestDir;
   };
