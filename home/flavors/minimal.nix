@@ -7,6 +7,7 @@
     ../features/cli/fastfetch.nix
     ../features/cli/git.nix
     ../features/cli/k9s.nix
+    ../features/cli/nh.nix
     ../features/cli/tmux.nix
     ../features/cli/wget.nix
     ../features/cli/yazi.nix
