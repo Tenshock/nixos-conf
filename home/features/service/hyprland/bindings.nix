@@ -8,9 +8,9 @@
       "$mainMod, C, killactive,"
       ", F11, fullscreen,"
       "$mainMod, F, exec, $browser"
-      "$mainMod, M, exec, ~/.local/bin/wofi_power_menu.sh"
+      "$mainMod, M, exec, wofi-power-menu"
       "$mainMod, L, exec, $hyprlock"
-      "$shiftMod, L, exec, ~/.local/bin/lock-and-suspend.sh"
+      "$shiftMod, L, exec, lock-and-suspend"
       "$mainMod, N, exec, $networkManager"
       "$mainMod, B, exec, $bluetoothManager"
       "$mainMod, H, exec, $audioManager"
@@ -20,7 +20,7 @@
       "$mainMod, T, exec, $teams"
       "$mainMod, V, togglefloating,"
       "$mainMod, I, exec, hyprpicker -a"
-      "$mainMod, SPACE, exec, ~/.local/bin/wofi_launcher.sh"
+      "$mainMod, SPACE, exec, wofi-launcher"
       "$shiftMod, D, togglesplit," # dwindle
       "$mainMod, D, swapsplit," # dwindle
       ", F10, exec, hyprshot -m output" # Screenshot a monitor
