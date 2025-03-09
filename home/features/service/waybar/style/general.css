@@ -1,0 +1,190 @@
+/* GENERAL */
+
+#waybar {
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: 500;
+  font-size: 14px;
+  min-height: 0;
+  background: transparent;
+  color: @text;
+  margin: 0;
+  padding: 0;
+}
+
+.module {
+  background-color: @base;
+  /* margin-top: 5px; */
+}
+
+/* MODULES */
+#workspaces button,
+#custom-music,
+#clock,
+#cpu,
+#memory,
+#network,
+#bluetooth,
+#wireplumber,
+#pulseaudio,
+#backlight,
+#battery,
+#custom-lock,
+#custom-shutdown {
+  padding: 0.2rem 0.4rem 0.4rem 0.4rem;
+}
+
+/******************/
+/*  LEFT MODULES  */
+/******************/
+
+#clock {
+  color: @rosewater;
+}
+
+#clock.date {
+  border-radius: 0 0 0 1rem;
+  margin-left: 0.5rem;
+  padding-left: 1rem;
+}
+
+#clock.time {
+  border-radius: 0 0 1rem 0;
+  padding-right: 1rem;
+}
+
+/* --- */
+
+#workspaces {
+  border-radius: 0 0 1rem 1rem;
+  margin-left: 0.5rem;
+}
+
+#workspaces button {
+  font-size: 13px;
+  color: @teal;
+  min-height: 0;
+  border-radius: 0;
+  border-width: 0 1px 1px 1px;
+  border-color: @base;
+  border-style: solid;
+}
+
+#workspaces button:first-child {
+  border-radius: 0 0 0 1rem;
+}
+
+#workspaces button:last-child {
+  border-radius: 0 0 1rem 0;
+}
+
+#workspaces button:only-child {
+  border-radius: 0 0 1rem 1rem;
+}
+
+#workspaces button.active {
+  color: #e5c76b;
+  border-color: #e5c76b;
+  border-style: solid;
+}
+
+#workspaces button:hover {
+  color: @sapphire;
+  border-color: @sapphire;
+}
+
+#workspaces button.urgent {
+  color: #e5c76b;
+}
+
+#workspaces button.visible {
+  color: #e5c76b;
+}
+
+/******************/
+/* CENTER MODULES */
+/******************/
+
+#custom-music {
+  color: @teal;
+  border-radius: 0 0 1rem 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/******************/
+/*  RIGHT MODULES */
+/******************/
+
+#network {
+  color: @flamingo;
+  border-radius: 0 0 0 1rem;
+  margin-left: 0.5rem;
+  padding-left: 1rem;
+}
+
+#memory {
+  color: @pink;
+}
+
+#cpu {
+  color: @flamingo;
+  border-radius: 0 0 1rem 0;
+  padding-right: 1rem;
+}
+
+/* --- */
+
+#bluetooth {
+  color: @mauve;
+  border-radius: 0 0 0 1rem;
+  padding-left: 1rem;
+  margin-left: 0.5rem;
+}
+
+#wireplumber,
+#pulseaudio {
+  color: @peach;
+}
+
+#pulseaudio.source-muted {
+  margin-left: -0.3rem;
+  margin-right: -0.3rem;
+}
+
+#backlight {
+  color: @yellow;
+}
+
+#battery {
+  color: @green;
+  border-radius: 0 0 1rem 0;
+  padding-right: 1rem;
+  padding-left: 0.6rem;
+  margin-right: 0.5rem;
+}
+
+#battery.charging {
+  color: @green;
+}
+
+#battery.warning:not(.charging) {
+  color: @red;
+}
+
+/* --- */
+
+#custom-lock {
+  border-radius: 0 0 0 1rem;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  color: @sky;
+}
+
+#custom-shutdown {
+  border-radius: 0 0 1rem 0;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  margin-right: 0.5rem;
+  color: @green;
+}
+

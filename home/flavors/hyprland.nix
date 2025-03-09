@@ -12,6 +12,6 @@
     ../features/service/hyprlock.nix
     ../features/service/hyprpaper.nix
     ../features/service/mako.nix
-    ../features/service/waybar.nix # TODO: to finish, with scripts
+    ../features/service/waybar/waybar.nix # TODO: to finish, with scripts
   ];
 }

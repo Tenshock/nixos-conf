@@ -1,0 +1,9 @@
+window.main-bar#waybar #workspaces button:first-child  {
+  padding-right: 0.6rem;
+  font-size: 10px;
+}
+
+window.main-bar#waybar #workspaces button:only-child  {
+  margin-right: 0;
+}
+
