@@ -12,6 +12,8 @@ in {
 
     ../../home/flavors/minimal.nix
     ../../home/flavors/hyprland.nix
+
+    ../../home/scripts
   ];
 
   home = {

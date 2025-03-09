@@ -3,7 +3,7 @@
 if pgrep -lx ".wofi-wrapped"; then
   pkill "wofi"
 else
-  CHOICE=$(echo -e "  Lock\n  Logout\n  Reboot\n  Shutdown\n  Suspend\n  Hibernate" | wofi --dmenu --width 250 --height 215)
+  CHOICE=$(echo -e "  Lock\n  Logout\n  Reboot\n  Shutdown\n  Suspend\n  Hibernate" | wofi --dmenu --width 250 --height 223)
 
   lock_and_execute() {
     hyprlock &
