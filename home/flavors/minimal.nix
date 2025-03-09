@@ -5,7 +5,7 @@
     ../features/cli/cbonsai.nix
     ../features/cli/eza.nix
     ../features/cli/fastfetch.nix
-    ../features/cli/git.nix
+    ../features/cli/git
     ../features/cli/k9s.nix
     ../features/cli/nh.nix
     ../features/cli/tmux.nix

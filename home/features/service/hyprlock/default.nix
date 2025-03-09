@@ -1,4 +1,8 @@
-{
+{ pkgs, ... }: {
+  home.packages = with pkgs; [
+    (writeShellScriptBin "lock-and-suspend" (builtins.readFile ./lock-and-suspend.sh))
+  ];
+
   programs.hyprlock = {
     enable = true;
 

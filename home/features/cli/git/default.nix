@@ -1,8 +1,16 @@
-{
+{ pkgs, ... }: {
+  home.packages = with pkgs; [
+    (writeShellScriptBin "git-large-files" (builtins.readFile ./git-large-files.sh))
+  ];
+
   programs.git = {
     enable = true;
     userName = "Cédric Prezelin";
     userEmail = "ext-cedric.prezelin@showroomprive.net";
+
+    aliases = {
+      staged = "diff --staged";
+    };
 
     extraConfig = {
       core = {
