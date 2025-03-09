@@ -2,7 +2,7 @@ let
   hosts = import ../hosts.nix;
 in {
   imports = [
-    ../../home/features/application/firefox.nix
+    ../../home/features/application/browser.nix
     ../../home/features/application/kitty.nix
     ../../home/features/application/obsidian.nix
     ../../home/features/application/teams.nix
