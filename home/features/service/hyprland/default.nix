@@ -47,11 +47,6 @@ in {
         preserve_split = true;
       };
 
-      env = [
-        "XCURSOR_SIZE,24"
-        "HYPRCURSOR_SIZE,24"
-      ];
-
       gestures = {
         workspace_swipe = true;
         workspace_swipe_fingers = 4;

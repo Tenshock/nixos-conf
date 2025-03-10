@@ -7,6 +7,7 @@
     ../features/cli/wl-clipboard.nix
 
     ../features/service/gtk.nix
+    ../features/service/hyprcursor.nix
     ../features/service/hypridle.nix
     ../features/service/hyprland
     ../features/service/hyprlock
