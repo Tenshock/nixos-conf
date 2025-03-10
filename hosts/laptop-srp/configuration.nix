@@ -24,6 +24,10 @@ in {
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  services.udisks2 = {
+    enable = true;
+    mountOnMedia = true;
+  };
 
   environment.systemPackages = with pkgs; [
     brightnessctl # enables hotkey brightness control

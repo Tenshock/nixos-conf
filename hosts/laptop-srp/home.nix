@@ -8,6 +8,8 @@ in {
     ../../home/features/application/teams.nix
     ../../home/features/application/webcord.nix
 
+    ../../home/features/cli/udiskie.nix
+
     ../../home/features/service/srp-vpn.nix
 
     ../../home/flavors/minimal.nix
