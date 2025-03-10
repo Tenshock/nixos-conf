@@ -1,10 +1,10 @@
-{ pkgs, ... }:
-# TODO: add plugins dashlane, treestyletab
 {
-  programs.firefox.enable = true;
-  programs.librewolf.enable = true;
-
-  home.packages = with pkgs; [
-    ladybird
-  ];
+  programs.librewolf = {
+    enable = true;
+    settings = {
+      "browser.safebrowsing.malware.enabled" = false;
+      "browser.safebrowsing.phishing.enabled" = false;
+      "browser.safebrowsing.blockedURIs.enabled" = false;
+    };
+  };
 }

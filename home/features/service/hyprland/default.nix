@@ -28,7 +28,7 @@ in {
       # Apps
       "$audioManager" = "uwsm app -- $(kitty -e ncpamixer)";
       "$bluetoothManager" = "uwsm app -- $(kitty -e bluetui)";
-      "$browser" = "uwsm app -- firefox";
+      "$browser" = "uwsm app -- librewolf";
       "$cbonsai" = "uwsm app -- $(kitty -e cbonsai --live --time 0,2)";
       "$fileManager" = "uwsm app -- $(kitty -e yazi)";
       "$hyprlock" = "uwsm app -- hyprlock";
