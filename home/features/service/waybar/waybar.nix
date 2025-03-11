@@ -83,9 +83,9 @@
           };
         };
         "network" = {
-          "format-linked" = "󰛵 {bandwidthDownBits}";
-          "format-wifi" = "  {bandwidthDownBits}";
-          "format-ethernet" = "󰛳 {bandwidthDownBits}";
+          "format-linked" = "󰛵 {bandwidthDownOctets}";
+          "format-wifi" = "  {signalStrength}% {bandwidthDownOctets}";
+          "format-ethernet" = "󰛳 {bandwidthDownOctets}";
           "format-disconnected" = "󰲛  no network";
           "interval" = 1;
           "tooltip" = false;
