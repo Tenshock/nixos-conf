@@ -8,10 +8,6 @@
     userName = "Cédric Prezelin";
     userEmail = "ext-cedric.prezelin@showroomprive.net";
 
-    aliases = {
-      staged = "diff --staged";
-    };
-
     extraConfig = {
       core = {
         autocrlf = false;
