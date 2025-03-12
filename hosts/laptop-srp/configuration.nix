@@ -29,6 +29,11 @@ in {
     mountOnMedia = true;
   };
 
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   environment.systemPackages = with pkgs; [
     brightnessctl # enables hotkey brightness control
   ];

@@ -2,6 +2,7 @@ let
   hosts = import ../hosts.nix;
 in {
   imports = [
+    ../../home/features/application/beeper.nix
     ../../home/features/application/browser.nix
     ../../home/features/application/kitty.nix
     ../../home/features/application/obsidian.nix
@@ -19,6 +20,9 @@ in {
   home = {
     username = hosts.laptop-srp.user;
     homeDirectory = "/home/${hosts.laptop-srp.user}";
+    sessionPath = [
+      "$HOME/.local/bin"
+    ];
     stateVersion = "24.11";
   };
 }
