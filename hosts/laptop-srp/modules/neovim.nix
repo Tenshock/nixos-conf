@@ -1,4 +1,9 @@
 { pkgs, ... }: {
+  programs.zsh.shellAliases = {
+      v = "nvim";
+      view = "nvim -R";
+  };
+
   environment.systemPackages = with pkgs; [
     nodejs_23 # Lazyvim
     clang     # for nil
