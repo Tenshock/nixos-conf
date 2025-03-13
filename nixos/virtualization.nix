@@ -26,7 +26,10 @@ user:
     ];
   };
 
-  # TODO: make k9s target k3s
+  environment.variables = {
+    KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+  };
+
   programs.zsh.shellAliases = {
     k = "k3s kubectl";
   };
