@@ -33,19 +33,11 @@
     includes = [
       {
         condition = "hasconfig:remote.*.url:git@github.com:Tenshock/**";
-        contents = {
-          user = {
-            email = "cedric.prezelin@gmail.com";
-          };
-        };
+        contents.user.email = "cedric.prezelin@gmail.com";
       }
       {
         condition = "hasconfig:remote.*.url:git@github.com:seygroup/**";
-        contents = {
-          user = {
-            email = "cedric.prezelin@gmail.com";
-          };
-        };
+        contents.user.email = "cedric.prezelin@gmail.com";
       }
     ];
   };

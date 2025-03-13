@@ -1,8 +1,5 @@
 {
-  home.file.style = {
-    source = ./style;
-    target = ".config/waybar/style";
-  };
+  home.file.".config/waybar/style".source = ./style;
 
   programs.waybar = {
     enable = true;
