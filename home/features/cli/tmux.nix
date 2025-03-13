@@ -7,7 +7,7 @@
     escapeTime = 10;
     keyMode = "vi";
     newSession = true;
-    terminal = "tmux-256color";
+    terminal = "screen-256color";
 
     plugins = with pkgs; [
       {
@@ -69,7 +69,6 @@
     envExtra = ''
       export ZSH_TMUX_AUTOSTART=true
       export ZSH_TMUX_AUTOCONNECT=false
-      export TERM=tmux-256color
     '';
   };
 }
