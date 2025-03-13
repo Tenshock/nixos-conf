@@ -19,7 +19,6 @@ in {
       ../../nixos/systemd-boot.nix
       (import ../../nixos/user.nix hosts.laptop-srp.user)
       (import ../../nixos/virtualization.nix hosts.laptop-srp.user)
-      # TODO: add nwg-displays, check for home-manager integration
     ];
 
   boot.loader.systemd-boot.enable = true;
