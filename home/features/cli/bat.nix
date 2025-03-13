@@ -17,9 +17,7 @@
     };
   };
 
-  programs.zsh = {
-    shellAliases = {
-      cat = "bat";
-    };
+  programs.zsh.shellAliases = {
+    cat = "bat";
   };
 }

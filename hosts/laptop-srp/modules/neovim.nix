@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   programs.zsh.shellAliases = {
-      v = "nvim";
-      view = "nvim -R";
+    v = "nvim";
+    view = "nvim -R";
   };
 
   environment.systemPackages = with pkgs; [
