@@ -9,12 +9,11 @@ in {
       ./networking.nix
       ./swap.nix
 
-      ./modules/neovim.nix
-
       ../../nixos/hyprland.nix
       ../../nixos/i18n.nix
       ../../nixos/login-manager.nix
       ../../nixos/media.nix
+      ../../nixos/neovim.nix
       ../../nixos/nix.nix
       ../../nixos/systemd-boot.nix
       (import ../../nixos/user.nix hosts.laptop-srp.user)
