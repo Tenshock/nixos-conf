@@ -27,7 +27,10 @@
 
       init.defaultBranch = "main";
 
-      advice.skippedCherryPicks = false;
+      advice = {
+        diverging = false;
+        skippedCherryPicks = false;
+      };
     };
 
     includes = [
