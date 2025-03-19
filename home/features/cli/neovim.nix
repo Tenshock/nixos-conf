@@ -8,7 +8,6 @@
     fzf
     ripgrep
     unzip
-    lazygit
     fd
     rustup    # Lazyvim
     dotnet-sdk_9
