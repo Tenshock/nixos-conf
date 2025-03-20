@@ -9,28 +9,30 @@
     userEmail = "ext-cedric.prezelin@showroomprive.net";
 
     extraConfig = {
+      advice = {
+        diverging = false;
+        skippedCherryPicks = false;
+      };
+
       core = {
         autocrlf = false;
         eol = "lf";
       };
 
-      pull.rebase = true;
-
-      rebase.autosquash = true;
-
       fetch.prune = true;
+
+      init.defaultBranch = "main";
+
+      merge.tool = "nvimdiff";
+
+      pull.rebase = true;
 
       push = {
         autoSetupRemote = true;
         default = "current";
       };
 
-      init.defaultBranch = "main";
-
-      advice = {
-        diverging = false;
-        skippedCherryPicks = false;
-      };
+      rebase.autosquash = true;
     };
 
     includes = [
