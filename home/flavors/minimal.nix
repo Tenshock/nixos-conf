@@ -5,6 +5,7 @@
     ../features/cli/cbonsai.nix
     ../features/cli/eza.nix
     ../features/cli/fastfetch.nix
+    ../features/cli/fzf.nix
     ../features/cli/git
     ../features/cli/k9s.nix
     ../features/cli/lazygit.nix
