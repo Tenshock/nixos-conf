@@ -7,6 +7,32 @@
     enable = true;
     userName = "Cédric Prezelin";
     userEmail = "ext-cedric.prezelin@showroomprive.net";
+    delta = {
+      enable = true;
+      options = {
+        features = "decorations";
+        line-numbers = true;
+        navigate = true;
+        decorations = {
+          file-style = "omit";
+
+          grep-output-type = "ripgrep";
+
+          hunk-label = "🦆";
+          hunk-header-style = "yellow file line-number";
+          hunk-header-file-style = "bold yellow ul";
+          hunk-header-line-number-style = "bold yellow ul";
+          hunk-header-decoration-style = "bold yellow";
+
+          merge-conflict-begin-symbol = ">";
+          merge-conflict-end-symbol = "<";
+          merge-conflict-ours-diff-header-decoration-style = "omit";
+          merge-conflict-ours-diff-header-style = "yellow ul";
+          merge-conflict-theirs-diff-header-decoration-style = "omit";
+          merge-conflict-theirs-diff-header-style = "yellow ul";
+        };
+      };
+    };
 
     extraConfig = {
       advice = {
@@ -23,7 +49,10 @@
 
       init.defaultBranch = "main";
 
-      merge.tool = "nvimdiff";
+      merge = {
+        conflictstyle = "zdiff3";
+        tool = "nvimdiff";
+      };
 
       pull.rebase = true;
 

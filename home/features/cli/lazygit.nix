@@ -7,7 +7,15 @@ let
 in {
   # TODO: make it standalone and automatically imported by neovim
   # TODO: check parsers: https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
-  programs.lazygit.enable = true;
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      git.paging = {
+        colorArg = "always";
+        pager = ''delta --paging=never --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'';
+      };
+    };
+  };
 
   home = {
     file."${config.xdg.configHome}/lazygit/mocha.yml".source = mochaTheme;
