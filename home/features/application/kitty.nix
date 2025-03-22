@@ -16,7 +16,7 @@
     settings = {
       confirm_os_window_close = 0;
       cursor_trail = 50;
-      cusror_trail_strat_threshold = 2;
+      cursor_trail_start_threshold = 2;
     };
 
     themeFile = "Catppuccin-Mocha";
