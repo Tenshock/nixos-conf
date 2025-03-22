@@ -1,24 +1,27 @@
 { pkgs, ... }: {
   ## TODO: switch to nixvim?
 
-  home.packages = with pkgs; [
-    nodejs_23 # Lazyvim
-    clang     # for nil
-    go        # Lazyvim: hyprland LSP hyprls
-    fzf
-    ripgrep
-    unzip
-    fd
-    rustup    # Lazyvim
-    dotnet-sdk_9
-    csharpier # for omnisharp lazyvim extra, see nvim/lua/plugins/conform.lua
-  ];
-
   programs.neovim = {
     enable = true;
     defaultEditor = true;
     extraLuaPackages = ps: [ ps.magick ];
-    extraPackages = [ pkgs.imagemagick ];
+    extraPackages = with pkgs; [
+      clang
+      csharpier
+      nodejs_23
+      dotnet-sdk_9
+      fd
+      fzf
+      go
+      imagemagick
+      ripgrep
+      rustup
+      sqlite
+      unzip
+    ];
+    extraWrapperArgs = [
+      "--set" "LD_LIBRARY_PATH" "${pkgs.sqlite.out}/lib"
+    ];
   };
 
   programs.zsh.shellAliases = {
