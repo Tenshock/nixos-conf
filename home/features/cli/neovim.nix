@@ -12,11 +12,14 @@
       dotnet-sdk_9
       fd
       fzf
+      ghostscript
       go
       imagemagick
+      mermaid-cli
       ripgrep
       rustup
       sqlite
+      tectonic
       unzip
     ];
     extraWrapperArgs = [
