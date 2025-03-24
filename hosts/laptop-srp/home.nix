@@ -13,6 +13,8 @@ in {
 
     ../../home/features/service/srp-vpn.nix
 
+    ../../home/features/prog-lang/node.nix
+
     ../../home/flavors/minimal.nix
     ../../home/flavors/hyprland.nix
   ];
