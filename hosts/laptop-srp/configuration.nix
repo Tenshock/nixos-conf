@@ -20,9 +20,14 @@ in {
       (import ../../nixos/virtualization.nix hosts.laptop-srp.user)
     ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+    loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    };
+
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
   services.udisks2 = {
     enable = true;
