@@ -6,7 +6,6 @@ let
   };
 in {
   # TODO: make it standalone and automatically imported by neovim
-  # TODO: check parsers: https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
   programs.lazygit = {
     enable = true;
     settings = {

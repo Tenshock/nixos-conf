@@ -1,6 +1,4 @@
 { pkgs, ... }: {
-  ## TODO: switch to nixvim?
-
   programs.neovim = {
     enable = true;
     defaultEditor = true;
