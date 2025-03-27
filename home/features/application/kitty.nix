@@ -10,7 +10,6 @@
     keybindings = {
       "ctrl+c" = "copy_or_interrupt";
       "ctrl+v" = "paste_from_clipboard";
-      "ctrl+tab" = "send_text all \x1b[27;5;9~";
     };
 
     settings = {
