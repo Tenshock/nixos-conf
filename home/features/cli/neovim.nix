@@ -18,6 +18,7 @@
       rustup
       sqlite
       tectonic
+      tree-sitter
       unzip
     ];
     extraWrapperArgs = [
