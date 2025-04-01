@@ -1,5 +1,6 @@
 {
   imports = [
+    ../features/cli/atuin.nix
     ../features/cli/bat.nix
     ../features/cli/btop.nix
     ../features/cli/cbonsai.nix
