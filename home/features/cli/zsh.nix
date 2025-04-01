@@ -23,7 +23,6 @@
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
-      theme = "bira";
       plugins = [
         "tmux"
         "git"

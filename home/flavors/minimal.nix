@@ -10,6 +10,7 @@
     ../features/cli/k9s.nix
     ../features/cli/lazygit.nix
     ../features/cli/nh.nix
+    ../features/cli/starship.nix
     ../features/cli/neovim.nix
     ../features/cli/tmux.nix
     ../features/cli/wget.nix
