@@ -45,6 +45,12 @@
         eol = "lf";
       };
 
+      diff = {
+        algorithm = "histogram";
+        compactionHeuristic = true;
+        tool = "nvimdiff";
+      };
+
       fetch.prune = true;
 
       init.defaultBranch = "main";
@@ -52,6 +58,11 @@
       merge = {
         conflictstyle = "zdiff3";
         tool = "nvimdiff";
+      };
+
+      mergetool = {
+        keepBackup = false;
+        prompt = false;
       };
 
       pull.rebase = true;
