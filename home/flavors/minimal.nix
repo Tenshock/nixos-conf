@@ -13,7 +13,7 @@
     ../features/cli/nh.nix
     ../features/cli/starship.nix
     ../features/cli/neovim.nix
-    ../features/cli/tmux.nix
+    ../features/cli/tmux
     ../features/cli/wget.nix
     ../features/cli/yazi.nix
     ../features/cli/zoxide.nix

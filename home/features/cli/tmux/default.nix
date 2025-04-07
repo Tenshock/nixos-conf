@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+    home.packages = with pkgs; [
+    (writeShellScriptBin "tmux-close-unused-windows" (builtins.readFile ./tmux-close-unused-windows.sh))
+  ];
+
   programs.tmux = {
     enable = true;
     mouse = true;
@@ -39,6 +43,7 @@
       bind -T copy-mode-vi v send -X begin-selection
       bind -T copy-mode-vi y send -X copy-pipe-and-cancel "wl-copy"
 
+      set-hook -g session-window-changed 'run-shell tmux-close-unused-windows'
 
       # AZERTY Alt+number window switch
       bind-key -n M-&  run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^1$"; then tmux new-window -t 1; fi; tmux select-window -t 1'
@@ -73,6 +78,13 @@
     envExtra = ''
       export ZSH_TMUX_AUTOSTART=true
       export ZSH_TMUX_AUTOCONNECT=false
+    '';
+    initContent = ''
+    tmux set-window-option @is_window_pristine true 2>/dev/null
+
+    preexec() {
+      tmux set-window-option @is_window_pristine false 2>/dev/null
+    }
     '';
   };
 }
