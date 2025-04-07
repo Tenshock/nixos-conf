@@ -13,6 +13,7 @@
     };
 
     settings = {
+      enable_audio_bell = false;
       confirm_os_window_close = 0;
       cursor_trail = 50;
       cursor_trail_start_threshold = 2;
