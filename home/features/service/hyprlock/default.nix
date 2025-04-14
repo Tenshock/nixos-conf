@@ -5,24 +5,25 @@
 
   programs.hyprlock = {
     enable = true;
+    sourceFirst = true;
 
     settings = {
       source = "$XDG_CONFIG_HOME/hypr/mocha.conf";
 
-      "$accent" = "$teal";
-      "$accentAlpha" = "$tealAlpha";
+      "$accent" = "$yellow";
       "$font" = "JetBrainsMono Nerd Font";
 
-      # GENERAL
       general = {
+        grace = 5;
         disable_loading_bar = true;
         hide_cursor = true;
         animation = "fade, 1, 0.1, linear";
       };
 
-      # BACKGROUND
       background = {
-        path = "$HOME/.config/background.svg";
+        path = "$XDG_CONFIG_HOME/wallpapers/chill-house.png";
+        blur_passes = 1;
+        blur_size = 5;
         color = "$base";
       };
 
@@ -67,11 +68,11 @@
         dots_size = "0.2";
         dots_spacing = "0.2";
         dots_center = true;
-        outer_color = "$accent";
-        inner_color = "$surface0";
+        outer_color = "rgba(00000000)";
+        inner_color = "rgba(00000000)";
         font_color = "$text";
         fade_on_empty = false;
-        placeholder_text = ''<span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$accentAlpha">$USER</span></span>'';
+        placeholder_text = ''<span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$yellowAlpha">$USER</span></span>'';
         hide_input = true;
         check_color = "$accent";
         fail_color = "$red";
