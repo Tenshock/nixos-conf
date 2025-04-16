@@ -12,6 +12,7 @@ in {
 
       ../../nixos/hyprland.nix
       ../../nixos/i18n.nix
+      ../../nixos/lid-behavior.nix
       ../../nixos/login-manager.nix
       ../../nixos/media.nix
       ../../nixos/neovim.nix
