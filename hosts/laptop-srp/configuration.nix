@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   hosts = import ../hosts.nix;
+  user = hosts.laptop-srp.user;
 in {
   imports =
     [
@@ -16,14 +17,14 @@ in {
       ../../nixos/neovim.nix
       ../../nixos/nix.nix
       ../../nixos/systemd-boot.nix
-      (import ../../nixos/user.nix hosts.laptop-srp.user)
-      (import ../../nixos/virtualization.nix hosts.laptop-srp.user)
+      (import ../../nixos/user.nix user)
+      (import ../../nixos/virtualization.nix user)
     ];
 
   boot = {
     loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
 
     kernelPackages = pkgs.linuxPackages_latest;
