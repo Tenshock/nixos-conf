@@ -1,8 +1,4 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    (writeShellScriptBin "lock-and-suspend" (builtins.readFile ./lock-and-suspend.sh))
-  ];
-
+{
   programs.hyprlock = {
     enable = true;
     sourceFirst = true;
@@ -15,7 +11,6 @@
 
       general = {
         grace = 5;
-        disable_loading_bar = true;
         hide_cursor = true;
         animation = "fade, 1, 0.1, linear";
       };

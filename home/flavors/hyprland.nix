@@ -10,7 +10,7 @@
     ../features/service/hyprcursor.nix
     ../features/service/hypridle.nix
     ../features/service/hyprland
-    ../features/service/hyprlock
+    ../features/service/hyprlock.nix
     ../features/service/hyprpaper.nix
     ../features/service/mako.nix
     ../features/service/waybar/waybar.nix

@@ -2,6 +2,10 @@
   services.hypridle = {
     enable = true;
     settings = {
+      general = {
+        before_sleep_cmd = "hyprlock";
+      };
+
       listener = [
         {
           # 9min30 turn monitor backlight off

@@ -10,7 +10,7 @@
       "$mainMod, F, exec, $browser"
       "$mainMod, M, exec, wofi-power-menu"
       "$mainMod, L, exec, $hyprlock"
-      "$shiftMod, L, exec, lock-and-suspend"
+      "$shiftMod, L, exec, systemctl suspend-then-hibernate"
       "$mainMod, N, exec, $networkManager"
       "$mainMod, B, exec, $bluetoothManager"
       "$mainMod, H, exec, $audioManager"
