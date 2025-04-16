@@ -1,13 +1,9 @@
 { pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    greetd.tuigreet
-  ];
-
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "tuigreet --time --theme 'text=darkgray;time=darkgray;container=darkgray;border=gray;title=darkgray;greet=darkgray;prompt=white;input=white;action=lightcyan;button=cyan' --greeting 'Authenticate to the sleeper build'";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --theme 'text=darkgray;time=darkgray;container=darkgray;border=gray;title=darkgray;greet=darkgray;prompt=white;input=white;action=lightcyan;button=cyan' --greeting 'Authenticate to the sleeper build'";
         user = "greeter";
       };
     };
