@@ -13,6 +13,7 @@ in {
 
     ../../home/features/service/srp-vpn.nix
 
+    ../../home/features/prog-lang/dotnet.nix
     ../../home/features/prog-lang/go.nix
     ../../home/features/prog-lang/node.nix
     ../../home/features/prog-lang/rust.nix
