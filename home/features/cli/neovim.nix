@@ -6,7 +6,7 @@
     extraPackages = with pkgs; [
       clang
       csharpier
-      nodejs_23
+      nodejs_24
       dotnet-sdk_9
       fd
       fzf
