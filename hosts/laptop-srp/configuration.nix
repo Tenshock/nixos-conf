@@ -17,6 +17,7 @@ in {
       ../../nixos/media.nix
       ../../nixos/neovim.nix
       ../../nixos/nix.nix
+      ../../nixos/printing.nix
       ../../nixos/systemd-boot.nix
       (import ../../nixos/user.nix user)
       (import ../../nixos/virtualization.nix user)
