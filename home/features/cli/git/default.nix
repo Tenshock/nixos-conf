@@ -40,6 +40,8 @@
         skippedCherryPicks = false;
       };
 
+      column.ui = "auto";
+
       core = {
         autocrlf = false;
         eol = "lf";
@@ -51,7 +53,13 @@
         tool = "nvimdiff";
       };
 
-      fetch.prune = true;
+      fetch = {
+        all = true;
+        prune = true;
+        pruneTags = true;
+      };
+
+      help.autocorrect = true;
 
       init.defaultBranch = "main";
 
@@ -72,7 +80,12 @@
         default = "current";
       };
 
-      rebase.autosquash = true;
+      rebase = {
+        autosquash = true;
+        updaterefs = true;
+      };
+
+      tag.sort = "version:refname";
     };
 
     includes = [
