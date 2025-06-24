@@ -32,11 +32,6 @@ in {
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  services.udisks2 = {
-    enable = true;
-    mountOnMedia = true;
-  };
-
   programs.appimage = {
     enable = true;
     binfmt = true;
