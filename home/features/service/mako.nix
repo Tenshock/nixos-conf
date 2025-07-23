@@ -12,33 +12,31 @@
       height  = 110;
       margin = "5,0,0,0";
       padding = "0,5,10,10";
-      borderSize = 2;
-      borderRadius = 5;
+      border-size = 2;
+      border-radius = 5;
       icons = true;
 
       ### Behavior
-      defaultTimeout = 10000;
-      ignoreTimeout = true;
+      default-timeout = 10000;
+      ignore-timeout = true;
 
       ### Colors
-      backgroundColor = "#181825f0";
-      textColor = "#cdd6f4";
-      progressColor = "#313244";
+      background-color = "#181825f0";
+      text-color = "#cdd6f4";
+      progress-color = "#313244";
 
       outer-margin = "10,15,0,0";
-
-      "[urgency=low]" = {
-        border-color = "#8bd5ca";
-      };
-
-      "[urgency=normal]" = {
-        border-color = "#8aadf4";
-      };
-
-      "[urgency=critical]" = {
-        border-color = "#f38ba8";
-        default-timeout = 0;
-      };
     };
+    extraConfig = ''
+      [urgency=low]
+      border-color=#8bd5ca
+
+      [urgency=normal]
+      border-color=#8aadf4
+
+      [urgency=critical]
+      border-color=#f38ba8
+      default-timeout=0
+    '';
   };
 }
