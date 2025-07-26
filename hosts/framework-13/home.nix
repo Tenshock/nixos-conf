@@ -7,6 +7,7 @@ in {
     ../../home/features/application/kitty.nix
     ../../home/features/application/obsidian.nix
     ../../home/features/application/teams.nix
+    ../../home/features/application/transmission.nix
     ../../home/features/application/webcord.nix
 
     ../../home/features/cli/udiskie.nix
