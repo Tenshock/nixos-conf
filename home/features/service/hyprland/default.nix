@@ -88,6 +88,7 @@ in {
         "stayfocused,class:wofi"
         "opacity 1.15, class:^(firefox)$"
         "opacity 1.15, class:^(teams-for-linux)$"
+        "opacity 2, class:^(vlc)$"
         "opacity 1.15, class:^(librewolf)$"
       ];
     };
