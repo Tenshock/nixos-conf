@@ -6,7 +6,7 @@
   programs.git = {
     enable = true;
     userName = "Cédric Prezelin";
-    userEmail = "ext-cedric.prezelin@showroomprive.net";
+    userEmail = "cedric.prezelin@gmail.com";
     delta = {
       enable = true;
       options = {

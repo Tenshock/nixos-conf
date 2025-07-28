@@ -11,8 +11,6 @@ in {
 
     ../../home/features/cli/udiskie.nix
 
-    ../../home/features/service/srp-vpn.nix
-
     ../../home/features/prog-lang/dotnet.nix
     ../../home/features/prog-lang/go.nix
     ../../home/features/prog-lang/node.nix
@@ -23,11 +21,11 @@ in {
   ];
 
   home = {
-    username = hosts.laptop-srp.user;
-    homeDirectory = "/home/${hosts.laptop-srp.user}";
+    username = hosts.framework-13.user;
+    homeDirectory = "/home/${hosts.framework-13.user}";
     sessionPath = [
       "$HOME/.local/bin"
     ];
-    stateVersion = "24.11";
+    stateVersion = "25.05";
   };
 }

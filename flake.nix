@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,12 +23,14 @@
         {
           host,
           nixpkgs,
+      	  nixos-hardware,
           home-manager,
         }:
       nixpkgs.lib.nixosSystem {
           system = host.arch;
           modules = [
             ./hosts/${host.dir}/configuration.nix
+            nixos-hardware.nixosModules.framework-amd-ai-300-series
             home-manager.nixosModules.home-manager
             {
               home-manager = {
@@ -41,9 +44,10 @@
     in
 
     {
-      nixosConfigurations."${hosts.laptop-srp.hostname}" = mkNixOSConfiguration {
-        host = hosts.laptop-srp;
+      nixosConfigurations."${hosts.framework-13.hostname}" = mkNixOSConfiguration {
+        host = hosts.framework-13;
         nixpkgs = inputs.nixpkgs;
+	      nixos-hardware = inputs.nixos-hardware;
         home-manager = inputs.home-manager;
       };
     };

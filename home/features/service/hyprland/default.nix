@@ -69,7 +69,7 @@ in {
       };
 
       monitor = [
-        "eDP-1,1920x1080@60,auto,1"
+        "eDP-1,2880x1920@60,auto,1.6"
         ",preferred,auto,auto"
       ];
 

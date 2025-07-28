@@ -2,8 +2,8 @@ let
   systems = let
   user = "cedric";
 in {
-    laptop-srp = {
-      hostname = "FRALW-724TCS3";
+    framework-13 = {
+      hostname = "nixos";
       arch = "x86_64-linux";
       user = user;
     };
