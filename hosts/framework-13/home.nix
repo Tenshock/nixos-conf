@@ -21,6 +21,8 @@ in {
     ../../home/features/prog-lang/node.nix
     ../../home/features/prog-lang/rust.nix
 
+    ../../home/features/service/ssh.nix
+
     ../../home/flavors/minimal.nix
     ../../home/flavors/hyprland.nix
   ];
