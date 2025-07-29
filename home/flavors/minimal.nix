@@ -12,6 +12,7 @@
     ../features/cli/lazygit.nix
     ../features/cli/nh.nix
     ../features/cli/starship.nix
+    ../features/cli/unzip.nix
     ../features/cli/neovim.nix
     ../features/cli/tmux
     ../features/cli/wget.nix
