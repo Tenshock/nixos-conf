@@ -5,6 +5,7 @@ in {
     ../../home/features/application/beeper.nix
     ../../home/features/application/browser.nix
     ../../home/features/application/kitty.nix
+    ../../home/features/application/mongodb-compass.nix
     ../../home/features/application/obsidian.nix
     ../../home/features/application/slack.nix
     ../../home/features/application/teams.nix
