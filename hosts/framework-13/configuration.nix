@@ -6,9 +6,7 @@ in {
   imports =
     [
       ./hardware-configuration.nix
-      # ./hibernate.nix
       ./networking.nix
-      # ./swap.nix
 
       ../../nixos/hyprland.nix
       ../../nixos/i18n.nix
@@ -32,14 +30,9 @@ in {
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-#  programs.appimage = {
-#    enable = true;
-#    binfmt = true;
-#  };
-
   services.fprintd.enable = true;
   services.fwupd.enable = true;
-  
+
   environment.systemPackages = with pkgs; [
     brightnessctl # enables hotkey brightness control
   ];
