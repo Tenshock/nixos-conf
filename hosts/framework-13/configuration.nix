@@ -18,7 +18,7 @@ in {
       ../../nixos/printing.nix
       ../../nixos/systemd-boot.nix
       (import ../../nixos/user.nix user)
-    #  (import ../../nixos/virtualization.nix user)
+      (import ../../nixos/virtualization.nix user)
     ];
 
   boot = {
