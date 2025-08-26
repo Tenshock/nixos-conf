@@ -1,6 +1,6 @@
 {
-  services.logind = {
-    lidSwitch = "suspend-then-hibernate";
-    lidSwitchDocked = "suspend-then-hibernate";
+  services.logind.settings.Login = {
+      HandleLidSwitch = "suspend-then-hibernate";
+      HandleLidSwitchDocked = "suspend-then-hibernate";
   };
 }
