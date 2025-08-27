@@ -1,6 +1,9 @@
-{
+{ pkgs, ... }: {
   services = {
-    printing.enable = true;
+    printing = {
+      enable = true;
+      drivers = [pkgs.epson-escpr ];
+    };
   
     avahi = {
       enable = true;
