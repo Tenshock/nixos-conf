@@ -1,4 +1,8 @@
-{
+{ pkgs, ... }: {
+  home.packages = with pkgs; [
+    google-chrome
+  ];
+
   programs = {
     librewolf = {
       enable = true;
