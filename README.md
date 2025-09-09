@@ -15,7 +15,6 @@ Then, you can build the configuration as follows:
 cd ~/.config/nixos
 sudo nix flake update
 nh os switch
-
 ```
 
 ## Installation MacOS
