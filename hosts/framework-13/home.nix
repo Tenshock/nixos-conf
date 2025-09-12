@@ -9,7 +9,6 @@ in {
     ../../home/features/application/mongodb-compass.nix
     ../../home/features/application/obsidian.nix
     ../../home/features/application/slack.nix
-    ../../home/features/application/teams.nix
     ../../home/features/application/transmission.nix
     ../../home/features/application/vlc.nix
     ../../home/features/application/webcord.nix
