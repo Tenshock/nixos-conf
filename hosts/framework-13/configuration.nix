@@ -7,6 +7,7 @@ in {
     ./hardware-configuration.nix
     ./networking.nix
 
+    (import ../../nixos/1password.nix user)
     ../../nixos/fingerprint-unlock.nix
     ../../nixos/hyprland.nix
     ../../nixos/i18n.nix
