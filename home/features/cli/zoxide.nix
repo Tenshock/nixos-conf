@@ -4,7 +4,5 @@
     enableZshIntegration = true;
   };
 
-  programs.zsh.shellAliases = {
-    cd = "z";
-  };
+  programs.zsh.shellAliases = { cd = "z"; };
 }

@@ -1,5 +1,1 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    unzip
-  ];
-}
+{ pkgs, ... }: { home.packages = with pkgs; [ unzip ]; }

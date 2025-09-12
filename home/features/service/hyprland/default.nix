@@ -1,7 +1,8 @@
-{pkgs, config, ... }:
+{ pkgs, config, ... }:
 let
   mochaTheme = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/hyprland/b57375545f5da1f7790341905d1049b1873a8bb3/themes/mocha.conf";
+    url =
+      "https://raw.githubusercontent.com/catppuccin/hyprland/b57375545f5da1f7790341905d1049b1873a8bb3/themes/mocha.conf";
     sha256 = "sha256-SxVNvZZjfuPA2yB9xA0EHHEnE9eIQJAFVBIUuDiSIxQ=";
   };
 in {
@@ -10,20 +11,15 @@ in {
     file."${config.xdg.configHome}/hypr/mocha.conf".source = mochaTheme;
   };
 
-  imports = [
-    ./animations.nix
-    ./bindings.nix
-    ./ui.nix
-  ];
+  imports = [ ./animations.nix ./bindings.nix ./ui.nix ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    systemd.enable = false; # Necessary for UWSM integration. See nixos/hyprland.nix
+    systemd.enable =
+      false; # Necessary for UWSM integration. See nixos/hyprland.nix
 
     settings = {
-      source = [
-        "$XDG_CONFIG_HOME/hypr/mocha.conf"
-      ];
+      source = [ "$XDG_CONFIG_HOME/hypr/mocha.conf" ];
 
       # Apps
       "$audioManager" = "uwsm app -- $(kitty -e ncpamixer)";
@@ -38,9 +34,7 @@ in {
       "$terminal" = "uwsm app -- kitty";
       "$obsidian" = "uwsm app -- obsidian";
 
-      exec-once = [
-        "[workspace 1 silent] $terminal"
-      ];
+      exec-once = [ "[workspace 1 silent] $terminal" ];
 
       dwindle = {
         pseudotile = true;
@@ -68,14 +62,9 @@ in {
         disable_hyprland_logo = false;
       };
 
-      monitor = [
-        "eDP-1,2880x1920@60,auto,1.6"
-        ",preferred,auto,auto"
-      ];
+      monitor = [ "eDP-1,2880x1920@60,auto,1.6" ",preferred,auto,auto" ];
 
-      workspace = [
-        "1, monitor:eDP-1"
-      ];
+      workspace = [ "1, monitor:eDP-1" ];
 
       windowrulev2 = [
         # Ignore maximize requests from apps. You'll probably like this.

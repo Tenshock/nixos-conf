@@ -1,7 +1,9 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [
-    (writeShellScriptBin "git-large-files" (builtins.readFile ./git-large-files.sh))
-  ];
+  home.packages = with pkgs;
+    [
+      (writeShellScriptBin "git-large-files"
+        (builtins.readFile ./git-large-files.sh))
+    ];
 
   programs.git = {
     enable = true;

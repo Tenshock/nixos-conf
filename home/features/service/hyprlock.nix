@@ -51,14 +51,14 @@
         path = "$HOME/.face";
         size = 100;
         border_color = "$accent";
-        position = ''0, 75'';
+        position = "0, 75";
         halign = "center";
         valign = "center";
       };
 
       # INPUT FIELD
       input-field = {
-        size = ''300, 60'';
+        size = "300, 60";
         outline_thickness = 2;
         dots_size = "0.2";
         dots_spacing = "0.2";
@@ -67,11 +67,12 @@
         inner_color = "rgba(00000000)";
         font_color = "$text";
         fade_on_empty = false;
-        placeholder_text = ''<span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$yellowAlpha">$USER</span></span>'';
+        placeholder_text = ''
+          <span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$yellowAlpha">$USER</span></span>'';
         hide_input = true;
         check_color = "$accent";
         fail_color = "$red";
-        fail_text = ''<i>$FAIL <b>($ATTEMPTS)</b></i>'';
+        fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
         capslock_color = "$yellow";
         position = "0, -47";
         halign = "center";

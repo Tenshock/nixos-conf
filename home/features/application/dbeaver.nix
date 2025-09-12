@@ -1,5 +1,1 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    dbeaver-bin
-  ];
-}
+{ pkgs, ... }: { home.packages = with pkgs; [ dbeaver-bin ]; }

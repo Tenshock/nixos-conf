@@ -1,7 +1,9 @@
 { pkgs, ... }: {
-    home.packages = with pkgs; [
-    (writeShellScriptBin "tmux-close-unused-windows" (builtins.readFile ./tmux-close-unused-windows.sh))
-  ];
+  home.packages = with pkgs;
+    [
+      (writeShellScriptBin "tmux-close-unused-windows"
+        (builtins.readFile ./tmux-close-unused-windows.sh))
+    ];
 
   programs.tmux = {
     enable = true;
@@ -31,9 +33,7 @@
           set -ag status-right "#{E:@catppuccin_status_user}"
         '';
       }
-      {
-        plugin = tmuxPlugins.vim-tmux-navigator;
-      }
+      { plugin = tmuxPlugins.vim-tmux-navigator; }
     ];
 
     extraConfig = ''
@@ -80,11 +80,11 @@
       export ZSH_TMUX_AUTOCONNECT=false
     '';
     initContent = ''
-    tmux set-window-option @is_window_pristine true 2>/dev/null
+      tmux set-window-option @is_window_pristine true 2>/dev/null
 
-    preexec() {
-      tmux set-window-option @is_window_pristine false 2>/dev/null
-    }
+      preexec() {
+        tmux set-window-option @is_window_pristine false 2>/dev/null
+      }
     '';
   };
 }

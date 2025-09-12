@@ -1,7 +1,6 @@
 let
-  systems = let
-  user = "cedric";
-in {
+  systems = let user = "cedric";
+  in {
     framework-13 = {
       hostname = "nixos";
       arch = "x86_64-linux";
@@ -14,10 +13,7 @@ in {
     };
   };
 
-  formattedSystems = builtins.mapAttrs (
-    name: value:
-      value // { dir = name; }
-  ) systems;
-in
-formattedSystems
+  formattedSystems =
+    builtins.mapAttrs (name: value: value // { dir = name; }) systems;
+in formattedSystems
 

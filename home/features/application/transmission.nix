@@ -1,5 +1,1 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    transmission_4-qt
-  ];
-}
+{ pkgs, ... }: { home.packages = with pkgs; [ transmission_4-qt ]; }

@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    bluetui   # bluetooth controller TUI
+    bluetui # bluetooth controller TUI
     ncpamixer # sound mixer TUI
   ];
 

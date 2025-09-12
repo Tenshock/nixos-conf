@@ -1,9 +1,6 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [
-  ]
-  ++ lib.optionals (!pkgs.stdenv.isDarwin) [
-      google-chrome
-    ];
+  home.packages = with pkgs;
+    [ ] ++ lib.optionals (!pkgs.stdenv.isDarwin) [ google-chrome ];
 
   programs = {
     librewolf = {

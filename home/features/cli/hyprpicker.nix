@@ -1,5 +1,1 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    hyprpicker
-  ];
-}
+{ pkgs, ... }: { home.packages = with pkgs; [ hyprpicker ]; }

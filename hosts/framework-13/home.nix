@@ -1,5 +1,4 @@
-let
-  hosts = import ../hosts.nix;
+let hosts = import ../hosts.nix;
 in {
   imports = [
     ../../home/features/application/beeper.nix
@@ -29,9 +28,7 @@ in {
   home = {
     username = hosts.framework-13.user;
     homeDirectory = "/home/${hosts.framework-13.user}";
-    sessionPath = [
-      "$HOME/.local/bin"
-    ];
+    sessionPath = [ "$HOME/.local/bin" ];
     stateVersion = "25.05";
   };
 }

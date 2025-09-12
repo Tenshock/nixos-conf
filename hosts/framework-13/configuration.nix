@@ -3,23 +3,22 @@ let
   hosts = import ../hosts.nix;
   user = hosts.framework-13.user;
 in {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./networking.nix
+  imports = [
+    ./hardware-configuration.nix
+    ./networking.nix
 
-      ../../nixos/hyprland.nix
-      ../../nixos/i18n.nix
-      ../../nixos/lid-behavior.nix
-      ../../nixos/login-manager.nix
-      ../../nixos/media.nix
-      ../../nixos/neovim.nix
-      ../../nixos/nix.nix
-      ../../nixos/printing.nix
-      ../../nixos/systemd-boot.nix
-      (import ../../nixos/user.nix user)
-      (import ../../nixos/virtualization.nix user)
-    ];
+    ../../nixos/hyprland.nix
+    ../../nixos/i18n.nix
+    ../../nixos/lid-behavior.nix
+    ../../nixos/login-manager.nix
+    ../../nixos/media.nix
+    ../../nixos/neovim.nix
+    ../../nixos/nix.nix
+    ../../nixos/printing.nix
+    ../../nixos/systemd-boot.nix
+    (import ../../nixos/user.nix user)
+    (import ../../nixos/virtualization.nix user)
+  ];
 
   boot = {
     loader = {
@@ -33,9 +32,10 @@ in {
   services.fprintd.enable = true;
   services.fwupd.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    brightnessctl # enables hotkey brightness control
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      brightnessctl # enables hotkey brightness control
+    ];
 
   #####################
 

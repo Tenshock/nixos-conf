@@ -1,5 +1,1 @@
-{ pkgs, ...}: {
-  home.packages = with pkgs; [
-    wget
-  ];
-}
+{ pkgs, ... }: { home.packages = with pkgs; [ wget ]; }

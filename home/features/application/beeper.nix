@@ -1,5 +1,1 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    beeper
-  ];
-}
+{ pkgs, ... }: { home.packages = with pkgs; [ beeper ]; }

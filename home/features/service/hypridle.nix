@@ -2,9 +2,7 @@
   services.hypridle = {
     enable = true;
     settings = {
-      general = {
-        before_sleep_cmd = "hyprlock";
-      };
+      general = { before_sleep_cmd = "hyprlock"; };
 
       listener = [
         {

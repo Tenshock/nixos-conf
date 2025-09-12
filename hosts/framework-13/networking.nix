@@ -1,5 +1,4 @@
-let
-  hosts = import ../hosts.nix;
+let hosts = import ../hosts.nix;
 in {
   networking = {
     hostName = hosts.framework-13.hostname;

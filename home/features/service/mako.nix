@@ -1,15 +1,15 @@
 {
   services.mako = {
-    enable  = true;
+    enable = true;
     settings = {
-      font    = "JetBrainsMono Nerd Font";
-      format  = ''<b>%a</b> - %s\n%b'';
-      sort    = "-time";
+      font = "JetBrainsMono Nerd Font";
+      format = "<b>%a</b> - %s\\n%b";
+      sort = "-time";
 
       ### Layout
-      layer   = "overlay";
-      width   = 300;
-      height  = 110;
+      layer = "overlay";
+      width = 300;
+      height = 110;
       margin = "5,0,0,0";
       padding = "0,5,10,10";
       border-size = 2;

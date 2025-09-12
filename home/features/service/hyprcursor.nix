@@ -1,8 +1,6 @@
 { pkgs, ... }: {
   home = {
-    packages = with pkgs; [
-      catppuccin-cursors.mochaPeach
-    ];
+    packages = with pkgs; [ catppuccin-cursors.mochaPeach ];
     sessionVariables = {
       HYPRCURSOR_THEME = "MochaPeach";
       HYPRCURSOR_SIZE = 24;
@@ -23,8 +21,6 @@
   };
 
   dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      cursor-theme = "'MochaPeach'";
-    };
+    "org/gnome/desktop/interface" = { cursor-theme = "'MochaPeach'"; };
   };
 }

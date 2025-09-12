@@ -1,5 +1,4 @@
-let
-  hosts = import ../hosts.nix;
+let hosts = import ../hosts.nix;
 in {
   imports = [
     # ../../home/features/application/beeper.nix

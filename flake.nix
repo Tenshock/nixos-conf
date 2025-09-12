@@ -14,23 +14,13 @@
     };
   };
 
-  outputs =
-    {
-      self,
-      ...
-    }@inputs:
+  outputs = { self, ... }@inputs:
 
     let
       hosts = import ./hosts/hosts.nix;
 
-      mkNixOSConfiguration =
-        {
-          host,
-          nixpkgs,
-      	  nixos-hardware,
-          home-manager,
-        }:
-      nixpkgs.lib.nixosSystem {
+      mkNixOSConfiguration = { host, nixpkgs, nixos-hardware, home-manager, }:
+        nixpkgs.lib.nixosSystem {
           system = host.arch;
           modules = [
             ./hosts/${host.dir}/configuration.nix
@@ -45,13 +35,7 @@
             }
           ];
         };
-      mkDarwinConfigurations =
-        {
-          host,
-          nixpkgs,
-          nix-darwin,
-          home-manager,
-        }:
+      mkDarwinConfigurations = { host, nixpkgs, nix-darwin, home-manager, }:
         nix-darwin.lib.darwinSystem {
           system = host.arch;
           modules = [
@@ -67,20 +51,21 @@
             }
           ];
         };
-    in
 
-    {
-      nixosConfigurations."${hosts.framework-13.hostname}" = mkNixOSConfiguration {
-        host = hosts.framework-13;
-        nixpkgs = inputs.nixpkgs;
-	      nixos-hardware = inputs.nixos-hardware;
-        home-manager = inputs.home-manager;
-      };
-      darwinConfigurations."${hosts.hw-macbook.hostname}" = mkDarwinConfigurations {
-        host = hosts.hw-macbook;
-        nixpkgs = inputs.nixpkgs;
-        nix-darwin = inputs.nix-darwin;
-        home-manager = inputs.home-manager;
-      };
+    in {
+      nixosConfigurations."${hosts.framework-13.hostname}" =
+        mkNixOSConfiguration {
+          host = hosts.framework-13;
+          nixpkgs = inputs.nixpkgs;
+          nixos-hardware = inputs.nixos-hardware;
+          home-manager = inputs.home-manager;
+        };
+      darwinConfigurations."${hosts.hw-macbook.hostname}" =
+        mkDarwinConfigurations {
+          host = hosts.hw-macbook;
+          nixpkgs = inputs.nixpkgs;
+          nix-darwin = inputs.nix-darwin;
+          home-manager = inputs.home-manager;
+        };
     };
 }

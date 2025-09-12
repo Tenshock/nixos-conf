@@ -3,17 +3,12 @@ let
   wallpaperSourceDir = ../../../wallpapers;
   wallpaperDestDir = "${config.xdg.configHome}/wallpapers";
   wallpaper = "chill-house.png";
-in
-{
+in {
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = [
-        "${wallpaperDestDir}/${wallpaper}"
-      ];
-      wallpaper = [
-        ",${wallpaperDestDir}/${wallpaper}"
-      ];
+      preload = [ "${wallpaperDestDir}/${wallpaper}" ];
+      wallpaper = [ ",${wallpaperDestDir}/${wallpaper}" ];
     };
   };
 

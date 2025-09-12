@@ -1,5 +1,1 @@
-{ pkgs, ...}: {
-  home.packages = with pkgs; [
-    cbonsai
-  ];
-}
+{ pkgs, ... }: { home.packages = with pkgs; [ cbonsai ]; }
