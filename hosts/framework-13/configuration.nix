@@ -7,6 +7,7 @@ in {
     ./hardware-configuration.nix
     ./networking.nix
 
+    ../../nixos/fingerprint-unlock.nix
     ../../nixos/hyprland.nix
     ../../nixos/i18n.nix
     ../../nixos/lid-behavior.nix
