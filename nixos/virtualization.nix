@@ -17,7 +17,8 @@ user:
   };
 
   services.k3s = {
-    enable = true;
+    # enable = true;
+    enable = false;
     extraFlags =
       [ "--write-kubeconfig-mode 640" "--write-kubeconfig-group wheel" ];
   };
