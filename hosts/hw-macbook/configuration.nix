@@ -15,7 +15,6 @@ user: {
     enable = true;
 
     brews = [
-      "awscli"
       "cli53"
     ];
   };

@@ -20,6 +20,7 @@ user: {
     ../../home/features/service/ssh.nix
 
     ../../home/features/cli/atuin.nix
+    ../../home/features/cli/awscli.nix
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix
     ../../home/features/cli/cbonsai.nix
