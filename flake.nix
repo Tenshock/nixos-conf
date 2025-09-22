@@ -50,7 +50,7 @@
         nix-darwin.lib.darwinSystem {
           system = host.arch;
           modules = [
-            ./hosts/${host.dir}/configuration.nix
+            (import ./hosts/${host.dir}/configuration.nix host.user)
             home-manager.darwinModules.home-manager
             {
               home-manager = {
