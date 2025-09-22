@@ -58,7 +58,7 @@
                 useUserPackages = true;
                 users."${host.user}" = import ./hosts/${host.dir}/home.nix;
               };
-              users.users.cprezelin.home = "/Users/${hosts.hw-macbook.user}";
+              users.users.${host.user}.home = "/Users/${host.user}";
             }
             nix-homebrew.darwinModules.nix-homebrew
             {
