@@ -16,6 +16,7 @@ user: {
 
     brews = [
       "awscli"
+      "cli53"
     ];
   };
 
