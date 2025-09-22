@@ -1,8 +1,4 @@
-{ pkgs, ... }:
-let
-  hosts = import ../hosts.nix;
-  user = hosts.framework-13.user;
-in {
+user: { pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./networking.nix

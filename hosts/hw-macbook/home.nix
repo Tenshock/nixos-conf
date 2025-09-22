@@ -1,5 +1,4 @@
-let hosts = import ../hosts.nix;
-in {
+user: {
   imports = [
     # ../../home/features/application/beeper.nix
     ../../home/features/application/browser.nix
@@ -44,8 +43,8 @@ in {
   ];
 
   home = {
-    username = hosts.hw-macbook.user;
-    homeDirectory = "/Users/${hosts.hw-macbook.user}";
+    username = user;
+    homeDirectory = "/Users/${user}";
     stateVersion = "25.11";
   };
 }

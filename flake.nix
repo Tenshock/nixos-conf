@@ -34,7 +34,7 @@
         nixpkgs.lib.nixosSystem {
           system = host.arch;
           modules = [
-            ./hosts/${host.dir}/configuration.nix
+            (import ./hosts/${host.dir}/configuration.nix host.user)
             nixos-hardware.nixosModules.framework-amd-ai-300-series
             home-manager.nixosModules.home-manager
             {
@@ -56,7 +56,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users."${host.user}" = import ./hosts/${host.dir}/home.nix;
+                users."${host.user}" = (import ./hosts/${host.dir}/home.nix host.user);
               };
               users.users.${host.user}.home = "/Users/${host.user}";
             }
