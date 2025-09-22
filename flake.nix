@@ -12,6 +12,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
   };
 
   outputs = { self, ... }@inputs:
@@ -35,7 +46,7 @@
             }
           ];
         };
-      mkDarwinConfigurations = { host, nixpkgs, nix-darwin, home-manager, }:
+      mkDarwinConfigurations = { host, nixpkgs, nix-darwin, home-manager, nix-homebrew, homebrew-core, homebrew-cask, }:
         nix-darwin.lib.darwinSystem {
           system = host.arch;
           modules = [
@@ -49,6 +60,24 @@
               };
               users.users.cprezelin.home = "/Users/${hosts.hw-macbook.user}";
             }
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                enable = true;
+                enableRosetta = true;
+                user = host.user;
+
+                taps = {
+                  "homebrew/homebrew-core" = homebrew-core;
+                  "homebrew/homebrew-cask" = homebrew-cask;
+                };
+
+                mutableTaps = false;
+              };
+            }
+            ({config, ...}: {
+              homebrew.taps = builtins.attrNames config.nix-homebrew.taps;
+            })
           ];
         };
 
@@ -66,6 +95,9 @@
           nixpkgs = inputs.nixpkgs;
           nix-darwin = inputs.nix-darwin;
           home-manager = inputs.home-manager;
+          nix-homebrew = inputs.nix-homebrew;
+          homebrew-core = inputs.homebrew-core;
+          homebrew-cask = inputs.homebrew-cask;
         };
     };
 }
