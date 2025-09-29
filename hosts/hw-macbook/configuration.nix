@@ -16,6 +16,7 @@ user: {
 
     brews = [
       "cli53"
+      "1password-cli"
     ];
   };
 
