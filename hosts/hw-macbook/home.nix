@@ -18,6 +18,7 @@ user: {
     ../../home/features/prog-lang/rust.nix
 
     ../../home/features/service/ssh.nix
+    ../../home/features/service/xdg.nix
 
     ../../home/features/cli/atuin.nix
     ../../home/features/cli/awscli.nix

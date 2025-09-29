@@ -1,7 +1,13 @@
-{
+{lib, pkgs, config, ...}: {
   xdg = {
     enable = true;
-    mimeApps = {
+
+    cacheHome = "${config.home.homeDirectory}/.cache";
+    configHome = "${config.home.homeDirectory}/.config";
+    dataHome = "${config.home.homeDirectory}/.local/share";
+    stateHome = "${config.home.homeDirectory}/.local/state";
+
+    mimeApps = lib.mkIf (!pkgs.stdenv.isDarwin) {
       enable = true;
       defaultApplications = {
         # URLs
