@@ -1,25 +1,20 @@
 user: {
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  environment.systemPackages = [ ];
-
-  # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
 
   system = {
     primaryUser = user;
     stateVersion = 6;
+    activationScripts.extraActivation.text = ''
+      softwareupdate --install-rosetta --agree-to-license
+    '';
+
   };
 
   homebrew = {
     enable = true;
 
-    brews = [
-      "cli53"
-      "1password-cli"
-    ];
+    brews = [];
   };
 
-  # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
 }
