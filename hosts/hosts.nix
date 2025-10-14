@@ -6,7 +6,7 @@ let
       arch = "x86_64-linux";
       user = user;
     };
-    hw-macbook = {
+    macbook-seekube = {
       hostname = "mbp";
       arch = "aarch64-darwin";
       user = "cedric";

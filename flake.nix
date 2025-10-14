@@ -89,9 +89,9 @@
           nixos-hardware = inputs.nixos-hardware;
           home-manager = inputs.home-manager;
         };
-      darwinConfigurations."${hosts.hw-macbook.hostname}" =
+      darwinConfigurations."${hosts.macbook-seekube.hostname}" =
         mkDarwinConfigurations {
-          host = hosts.hw-macbook;
+          host = hosts.macbook-seekube;
           nix-darwin = inputs.nix-darwin;
           home-manager = inputs.home-manager;
           nix-homebrew = inputs.nix-homebrew;
