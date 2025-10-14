@@ -46,7 +46,7 @@
             }
           ];
         };
-      mkDarwinConfigurations = { host, nixpkgs, nix-darwin, home-manager, nix-homebrew, homebrew-core, homebrew-cask, }:
+      mkDarwinConfigurations = { host, nix-darwin, home-manager, nix-homebrew, homebrew-core, homebrew-cask, }:
         nix-darwin.lib.darwinSystem {
           system = host.arch;
           modules = [
@@ -92,7 +92,6 @@
       darwinConfigurations."${hosts.hw-macbook.hostname}" =
         mkDarwinConfigurations {
           host = hosts.hw-macbook;
-          nixpkgs = inputs.nixpkgs;
           nix-darwin = inputs.nix-darwin;
           home-manager = inputs.home-manager;
           nix-homebrew = inputs.nix-homebrew;
