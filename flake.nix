@@ -23,6 +23,11 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, ... }@inputs:
@@ -46,7 +51,7 @@
             }
           ];
         };
-      mkDarwinConfigurations = { host, nix-darwin, home-manager, nix-homebrew, homebrew-core, homebrew-cask, }:
+      mkDarwinConfigurations = { host, nix-darwin, home-manager, nix-homebrew, homebrew-core, homebrew-cask, zen-browser, }:
         nix-darwin.lib.darwinSystem {
           system = host.arch;
           modules = [
@@ -56,6 +61,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
+                extraSpecialArgs = { inherit zen-browser; };
                 users."${host.user}" = (import ./hosts/${host.dir}/home.nix host.user);
               };
               users.users.${host.user}.home = "/Users/${host.user}";
@@ -97,6 +103,7 @@
           nix-homebrew = inputs.nix-homebrew;
           homebrew-core = inputs.homebrew-core;
           homebrew-cask = inputs.homebrew-cask;
+          zen-browser = inputs.zen-browser;
         };
     };
 }
