@@ -19,6 +19,10 @@ user: {pkgs, ...}: {
       "mas"
     ];
 
+    casks = [
+      "zen"
+    ];
+
     masApps = {
       "Slack" = 803453959;
     };
