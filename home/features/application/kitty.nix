@@ -4,7 +4,7 @@
     font = {
       name = "JetBrainsMono Nerd Font";
       package = pkgs.nerd-fonts.jetbrains-mono;
-      size = 12;
+      size = 14;
     };
 
     keybindings = {
@@ -13,6 +13,7 @@
     };
 
     settings = {
+      macos_option_as_alt = "left";
       enable_audio_bell = false;
       confirm_os_window_close = 0;
       cursor_trail = 50;

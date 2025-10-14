@@ -1,5 +1,18 @@
 user: {pkgs, ...}: {
 
+  imports = [
+    ./networking.nix
+
+    ../../darwin/1password.nix
+    ../../darwin/aerospace.nix
+    (import ../../darwin/dock.nix user)
+    ../../darwin/homebrew.nix
+    ../../darwin/hot-corners.nix
+    ../../darwin/nix.nix
+    ../../darwin/security.nix
+    ../../darwin/trackpad.nix
+  ];
+
   nix.settings.experimental-features = "nix-command flakes";
 
   system = {
@@ -12,23 +25,6 @@ user: {pkgs, ...}: {
     };
   };
 
-  homebrew = {
-    enable = true;
-
-    brews = [
-      "mas"
-    ];
-
-    casks = [
-      "zen"
-      "notion"
-      "obsidian"
-    ];
-
-    masApps = {
-      "Slack" = 803453959;
-    };
-  };
 
 
   nixpkgs.hostPlatform = "aarch64-darwin";

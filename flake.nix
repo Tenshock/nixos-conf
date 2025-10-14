@@ -46,7 +46,7 @@
             }
           ];
         };
-      mkDarwinConfigurations = { host, nix-darwin, home-manager, nix-homebrew, homebrew-core, homebrew-cask, }:
+      mkDarwinConfigurations = { host, nix-darwin, home-manager, nix-homebrew, homebrew-core, homebrew-cask }:
         nix-darwin.lib.darwinSystem {
           system = host.arch;
           modules = [

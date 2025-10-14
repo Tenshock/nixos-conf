@@ -7,7 +7,6 @@ user: {lib, ...}: {
     ../../home/features/application/dbeaver.nix
     ../../home/features/application/kitty.nix
     # ../../home/features/application/mongodb-compass.nix
-    # ../../home/features/application/obsidian.nix
     ../../home/features/application/transmission.nix
     # ../../home/features/application/vlc.nix
     # ../../home/features/application/webcord.nix
