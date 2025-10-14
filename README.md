@@ -24,7 +24,10 @@ First, install Nix package manager: https://nixos.org/download/
 Then, clone this repository as following:
 ```bash
 cd ~/.config
-git clone git@github.com:Tenshock/nixos-conf.git home-manager
+git clone git@github.com:Tenshock/nixos-conf.git nixos
+mkdir  ~/.config/home-manager
+cd nixos
+sudo ln -sfn $(pwd)/*  ~/.config/home-manager
 ```
 
 Then, for the first time, run
