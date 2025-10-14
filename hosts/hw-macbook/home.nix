@@ -1,13 +1,13 @@
-user: {
+user: {lib, ...}: {
   imports = [
+    ./macos-app-fix.nix
+
     # ../../home/features/application/beeper.nix
     #../../home/features/application/browser.nix
     ../../home/features/application/dbeaver.nix
     ../../home/features/application/kitty.nix
     # ../../home/features/application/mongodb-compass.nix
     # ../../home/features/application/obsidian.nix
-    # ../../home/features/application/slack.nix
-    # ../../home/features/application/teams.nix
     ../../home/features/application/transmission.nix
     # ../../home/features/application/vlc.nix
     # ../../home/features/application/webcord.nix

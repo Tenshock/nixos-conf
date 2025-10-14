@@ -1,20 +1,29 @@
-user: {
+user: {pkgs, ...}: {
+
   nix.settings.experimental-features = "nix-command flakes";
 
   system = {
     primaryUser = user;
     stateVersion = 6;
-    activationScripts.extraActivation.text = ''
-      softwareupdate --install-rosetta --agree-to-license
-    '';
-
+    activationScripts = {
+      rosettaInstall.text = ''
+        softwareupdate --install-rosetta --agree-to-license
+      '';
+    };
   };
 
   homebrew = {
     enable = true;
 
-    brews = [];
+    brews = [
+      "mas"
+    ];
+
+    masApps = {
+      "Slack" = 803453959;
+    };
   };
+
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 }
