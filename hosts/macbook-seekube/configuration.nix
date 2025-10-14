@@ -22,6 +22,7 @@ user: {pkgs, ...}: {
     casks = [
       "zen"
       "notion"
+      "obsidian"
     ];
 
     masApps = {
