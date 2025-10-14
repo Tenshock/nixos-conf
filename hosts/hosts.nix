@@ -7,9 +7,9 @@ let
       user = user;
     };
     hw-macbook = {
-      hostname = "M25-HQTH7V320V";
+      hostname = "mbp";
       arch = "aarch64-darwin";
-      user = "cprezelin";
+      user = "cedric";
     };
   };
 
