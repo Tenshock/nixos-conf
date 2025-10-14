@@ -1,7 +1,6 @@
-user: {lib, zen-browser, ...}: {
+user: {lib, ...}: {
   imports = [
     ./macos-app-fix.nix
-    zen-browser.homeModules.twilight
 
     # ../../home/features/application/beeper.nix
     #../../home/features/application/browser.nix
@@ -44,7 +43,6 @@ user: {lib, zen-browser, ...}: {
     ../../home/features/fonts/nerd.nix
 
   ];
-  programs.zen-browser.enable = true;
 
   home = {
     username = user;
