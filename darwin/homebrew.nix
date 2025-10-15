@@ -7,6 +7,7 @@
     ];
 
     casks = [
+      "displaylink"
       "mongodb-compass"
       "notion"
       "obsidian"
