@@ -41,10 +41,7 @@ in {
         preserve_split = true;
       };
 
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_fingers = 4;
-      };
+      gesture = [ "3, horizontal, workspace" "4, horizontal, workspace" ];
 
       input = {
         kb_layout = "fr";
