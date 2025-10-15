@@ -41,12 +41,14 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users."${host.user}" = import ./hosts/${host.dir}/home.nix;
+                users."${host.user}" =
+                  (import ./hosts/${host.dir}/home.nix host.user);
               };
             }
           ];
         };
-      mkDarwinConfigurations = { host, nix-darwin, home-manager, nix-homebrew, homebrew-core, homebrew-cask }:
+      mkDarwinConfigurations = { host, nix-darwin, home-manager, nix-homebrew
+        , homebrew-core, homebrew-cask }:
         nix-darwin.lib.darwinSystem {
           system = host.arch;
           modules = [
@@ -56,7 +58,8 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users."${host.user}" = (import ./hosts/${host.dir}/home.nix host.user);
+                users."${host.user}" =
+                  (import ./hosts/${host.dir}/home.nix host.user);
               };
               users.users.${host.user}.home = "/Users/${host.user}";
             }
@@ -75,7 +78,7 @@
                 mutableTaps = false;
               };
             }
-            ({config, ...}: {
+            ({ config, ... }: {
               homebrew.taps = builtins.attrNames config.nix-homebrew.taps;
             })
           ];
