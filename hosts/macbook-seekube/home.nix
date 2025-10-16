@@ -1,6 +1,6 @@
 user: {lib, ...}: {
   imports = [
-    ./macos-app-fix.nix
+    ./macos-app-link-fix.nix
 
     ../../home/features/application/dbeaver.nix
     ../../home/features/application/kitty.nix
