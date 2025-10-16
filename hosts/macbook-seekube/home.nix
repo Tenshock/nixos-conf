@@ -2,14 +2,9 @@ user: {lib, ...}: {
   imports = [
     ./macos-app-fix.nix
 
-    # ../../home/features/application/beeper.nix
-    #../../home/features/application/browser.nix
     ../../home/features/application/dbeaver.nix
     ../../home/features/application/kitty.nix
-    # ../../home/features/application/mongodb-compass.nix
     ../../home/features/application/transmission.nix
-    # ../../home/features/application/vlc.nix
-    # ../../home/features/application/webcord.nix
 
     ../../home/features/prog-lang/dotnet.nix
     ../../home/features/prog-lang/go.nix
