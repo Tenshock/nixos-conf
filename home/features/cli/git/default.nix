@@ -8,7 +8,7 @@
   programs.git = {
     enable = true;
     userName = "Cédric Prezelin";
-    userEmail = "cedric.prezelin@gmail.com";
+    userEmail = "cedric.prezelin@seekube.com";
     delta = {
       enable = true;
       options = {
