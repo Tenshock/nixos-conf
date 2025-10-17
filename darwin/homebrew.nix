@@ -4,6 +4,8 @@
 
     brews = [
       "mas"
+      "podman"
+      "podman-compose"
     ];
 
     casks = [
