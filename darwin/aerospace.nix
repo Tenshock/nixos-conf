@@ -94,16 +94,6 @@
         # end tell'
         # '''
 
-        # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-        cmd-slash = "layout tiles horizontal vertical";
-        cmd-comma = "layout accordion horizontal vertical";
-
-        # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-        cmd-h = "focus left";
-        cmd-j = "focus down";
-        cmd-k = "focus up";
-        cmd-l = "focus right";
-
         # See: https://nikitabobko.github.io/AeroSpace/commands#move
         cmd-shift-h = "move left";
         cmd-shift-j = "move down";
@@ -135,29 +125,6 @@
         cmd-shift-7 = "move-node-to-workspace 7";
         cmd-shift-8 = "move-node-to-workspace 8";
         cmd-shift-9 = "move-node-to-workspace 9";
-
-        cmd-shift-semicolon = "mode service";
-      };
-
-      # 'service' binding mode declaration.
-      # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
-      mode.service.binding = {
-        esc = ["reload-config" "mode main"];
-        r = ["flatten-workspace-tree" "mode main"]; # reset layout
-        f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
-        backspace = ["close-all-windows-but-current" "mode main"];
-
-        # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
-        #s = ['layout sticky tiling', 'mode main']
-
-        cmd-shift-h = ["join-with left" "mode main"];
-        cmd-shift-j = ["join-with down" "mode main"];
-        cmd-shift-k = ["join-with up" "mode main"];
-        cmd-shift-l = ["join-with right" "mode main"];
-
-        down = "volume down";
-        up = "volume up";
-        shift-down = ["volume set 0" "mode main"];
       };
     };
   };
