@@ -7,7 +7,6 @@
       clang
       csharpier
       nodejs_24
-      dotnet-sdk_9
       fd
       fzf
       ghostscript
