@@ -10,6 +10,7 @@
 
     casks = [
       "displaylink"
+      "linear-linear"
       "mongodb-compass"
       "notion"
       "obsidian"
