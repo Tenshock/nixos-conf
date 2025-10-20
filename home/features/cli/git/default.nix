@@ -5,12 +5,85 @@
         (builtins.readFile ./git-large-files.sh))
     ];
 
-  programs.git = {
-    enable = true;
-    userName = "Cédric Prezelin";
-    userEmail = "cedric.prezelin@seekube.com";
+  programs = {
+    git = {
+      enable = true;
+
+      settings = {
+        user = {
+          name = "Cédric Prezelin";
+          email = "cedric.prezelin@seekube.com";
+        };
+
+        advice = {
+          diverging = false;
+          skippedCherryPicks = false;
+        };
+
+        column.ui = "auto";
+
+        core = {
+          autocrlf = false;
+          eol = "lf";
+        };
+
+        diff = {
+          algorithm = "histogram";
+          compactionHeuristic = true;
+          tool = "nvimdiff";
+        };
+
+        fetch = {
+          all = true;
+          prune = true;
+          pruneTags = true;
+        };
+
+        help.autocorrect = true;
+
+        init.defaultBranch = "main";
+
+        merge = {
+          conflictstyle = "zdiff3";
+          tool = "nvimdiff";
+        };
+
+        mergetool = {
+          keepBackup = false;
+          prompt = false;
+        };
+
+        pull.rebase = true;
+
+        push = {
+          autoSetupRemote = true;
+          default = "current";
+        };
+
+        rebase = {
+          autosquash = true;
+          updaterefs = true;
+        };
+
+        tag.sort = "version:refname";
+      };
+
+      includes = [
+        {
+          condition = "hasconfig:remote.*.url:git@github.com:Tenshock/**";
+          contents.user.email = "cedric.prezelin@gmail.com";
+        }
+        {
+          condition = "hasconfig:remote.*.url:git@github.com:seygroup/**";
+          contents.user.email = "cedric.prezelin@gmail.com";
+        }
+      ];
+    };
+
     delta = {
       enable = true;
+      enableGitIntegration = true;
+
       options = {
         features = "decorations";
         line-numbers = true;
@@ -34,71 +107,6 @@
           merge-conflict-theirs-diff-header-style = "yellow ul";
         };
       };
-    };
-
-    extraConfig = {
-      advice = {
-        diverging = false;
-        skippedCherryPicks = false;
-      };
-
-      column.ui = "auto";
-
-      core = {
-        autocrlf = false;
-        eol = "lf";
-      };
-
-      diff = {
-        algorithm = "histogram";
-        compactionHeuristic = true;
-        tool = "nvimdiff";
-      };
-
-      fetch = {
-        all = true;
-        prune = true;
-        pruneTags = true;
-      };
-
-      help.autocorrect = true;
-
-      init.defaultBranch = "main";
-
-      merge = {
-        conflictstyle = "zdiff3";
-        tool = "nvimdiff";
-      };
-
-      mergetool = {
-        keepBackup = false;
-        prompt = false;
-      };
-
-      pull.rebase = true;
-
-      push = {
-        autoSetupRemote = true;
-        default = "current";
-      };
-
-      rebase = {
-        autosquash = true;
-        updaterefs = true;
-      };
-
-      tag.sort = "version:refname";
-    };
-
-    includes = [
-      {
-        condition = "hasconfig:remote.*.url:git@github.com:Tenshock/**";
-        contents.user.email = "cedric.prezelin@gmail.com";
-      }
-      {
-        condition = "hasconfig:remote.*.url:git@github.com:seygroup/**";
-        contents.user.email = "cedric.prezelin@gmail.com";
-      }
-    ];
+  };
   };
 }
