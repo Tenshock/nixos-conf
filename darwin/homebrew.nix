@@ -20,6 +20,7 @@
     masApps = {
       "Slack" = 803453959;
       "WhatsApp" = 310633997;
+      "Keynote" = 409183694;
     };
   };
 }
