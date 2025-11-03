@@ -1,6 +1,10 @@
 {
   homebrew = {
     enable = true;
+    onActivation = {
+      upgrade = true;
+      autoUpdate = false;
+    };
 
     brews = [
       "mas"
