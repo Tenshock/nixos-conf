@@ -14,6 +14,11 @@
         hostname = "ssh.github.com";
         port = 443;
       };
+
+      "gitlab.com" = {
+        hostname = "altssh.gitlab.com";
+        port = 443;
+      };
     };
   };
 }
