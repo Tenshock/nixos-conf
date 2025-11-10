@@ -11,6 +11,7 @@ user: {pkgs, ...}: {
     ../../darwin/nix.nix
     ../../darwin/security.nix
     ../../darwin/trackpad.nix
+    ../../darwin/wallpaper.nix
   ];
 
   nix.settings.experimental-features = "nix-command flakes";
