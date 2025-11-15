@@ -32,14 +32,14 @@ sudo ln -sfn $(pwd)/*  ~/.config/home-manager
 
 Then, for the first time, run
 ```bash
-cd ~/.config/home-manager
+cd ~/.config/nixos
 nix flake update --extra-experimental-features nix-command --extra-experimental-features flakes
 sudo nix run nix-darwin --extra-experimental-features nix-command --extra-experimental-features flakes -- switch --flake ~/.config/home-manager
 ```
 
 Finally, you can build the configuration as follows:
 ```bash
-cd ~/.config/home-manager
+cd ~/.config/nixos
 nix flake update
 nh darwin switch
 ```
