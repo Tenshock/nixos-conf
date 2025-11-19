@@ -94,17 +94,9 @@
         # end tell'
         # '''
 
-        # See: https://nikitabobko.github.io/AeroSpace/commands#move
-        cmd-shift-h = "move left";
-        cmd-shift-j = "move down";
-        cmd-shift-k = "move up";
-        cmd-shift-l = "move right";
+        cmd-shift-h = "move-workspace-to-monitor left";
+        cmd-shift-l = "move-workspace-to-monitor right";
 
-        # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-        cmd-minus = "resize smart -50";
-        cmd-equal = "resize smart +50";
-
-        # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
         cmd-1 = "workspace 1";
         cmd-2 = "workspace 2";
         cmd-3 = "workspace 3";
@@ -115,7 +107,6 @@
         cmd-8 = "workspace 8";
         cmd-9 = "workspace 9";
 
-        # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
         cmd-shift-1 = "move-node-to-workspace 1";
         cmd-shift-2 = "move-node-to-workspace 2";
         cmd-shift-3 = "move-node-to-workspace 3";
