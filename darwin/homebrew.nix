@@ -8,6 +8,7 @@
 
     brews = [
       "mas"
+      "mongosh"
       "podman"
       "podman-compose"
     ];
