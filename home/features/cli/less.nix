@@ -1,0 +1,5 @@
+{
+  home.sessionVariables = {
+    LESS = "-RX";
+  };
+}

@@ -24,6 +24,7 @@ user: {lib, ...}: {
     ../../home/features/cli/git
     ../../home/features/cli/k9s.nix
     ../../home/features/cli/lazygit.nix
+    ../../home/features/cli/less.nix
     ../../home/features/cli/nh.nix
     ../../home/features/cli/starship.nix
     ../../home/features/cli/unzip.nix
