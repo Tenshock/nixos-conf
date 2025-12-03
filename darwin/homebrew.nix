@@ -20,6 +20,7 @@
       "mongodb-compass"
       "notion"
       "obsidian"
+      "postman"
       "zen"
     ];
 
