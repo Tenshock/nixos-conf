@@ -1,5 +1,7 @@
-user: {
+user:
+{ inputs, ... }: {
   imports = [
+    inputs.zen-browser.homeModules.twilight
     ../../home/features/application/beeper.nix
     ../../home/features/application/browser.nix
     ../../home/features/application/dbeaver.nix
@@ -10,6 +12,7 @@ user: {
     ../../home/features/application/transmission.nix
     ../../home/features/application/vlc.nix
     ../../home/features/application/webcord.nix
+    ../../home/features/application/zen.nix
 
     ../../home/features/cli/udiskie.nix
 

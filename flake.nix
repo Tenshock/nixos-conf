@@ -23,6 +23,14 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
   };
 
   outputs = { self, ... }@inputs:
@@ -41,6 +49,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
                 users."${host.user}" =
                   (import ./hosts/${host.dir}/home.nix host.user);
               };
@@ -58,6 +67,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
                 users."${host.user}" =
                   (import ./hosts/${host.dir}/home.nix host.user);
               };
