@@ -1,4 +1,5 @@
-user: { pkgs, ... }: {
+user:
+{ pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
