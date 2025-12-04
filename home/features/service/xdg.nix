@@ -11,13 +11,13 @@
       enable = true;
       defaultApplications = {
         # URLs
-        "x-scheme-handler/http" = [ "librewolf.desktop" ];
-        "x-scheme-handler/https" = [ "librewolf.desktop" ];
-        "text/html" = [ "librewolf.desktop" ];
-        "application/xhtml+xml" = [ "librewolf.desktop" ];
+        "x-scheme-handler/http" = [ "zen.desktop" ];
+        "x-scheme-handler/https" = [ "zen.desktop" ];
+        "text/html" = [ "zen.desktop" ];
+        "application/xhtml+xml" = [ "zen.desktop" ];
 
         # PDF
-        "application/pdf" = [ "librewolf.desktop" ];
+        "application/pdf" = [ "zen.desktop" ];
 
         # Videos
         "video/*" = [ "vlc.desktop" ];

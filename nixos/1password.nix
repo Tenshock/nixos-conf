@@ -11,7 +11,7 @@ user: {
   environment.etc = {
     "1password/custom_allowed_browsers" = {
       text = ''
-        librewolf
+        zen
         google-chrome
       '';
       mode = "0755";
