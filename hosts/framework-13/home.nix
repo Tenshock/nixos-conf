@@ -3,8 +3,8 @@ user:
   imports = [
     inputs.zen-browser.homeModules.twilight
     ../../home/features/application/beeper.nix
-    ../../home/features/application/browser.nix
     ../../home/features/application/dbeaver.nix
+    ../../home/features/application/firefox.nix
     ../../home/features/application/kitty.nix
     ../../home/features/application/mongodb-compass.nix
     ../../home/features/application/obsidian.nix
