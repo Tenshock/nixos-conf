@@ -72,12 +72,6 @@ in {
 
         # wofi stayfocus
         "stayfocused,class:wofi"
-        "opacity 1.15, class:^(firefox)$"
-        "opacity 1.15, class:^(librewolf)$"
-        "opacity 1.15, class:^(google-chrome)$"
-        "opacity 1.15, class:^(teams-for-linux)$"
-        "opacity 1.15, class:^(Slack)$"
-        "opacity 2, class:^(vlc)$"
       ];
     };
   };

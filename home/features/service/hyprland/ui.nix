@@ -11,9 +11,6 @@
     };
 
     decoration = {
-      active_opacity = 0.85;
-      inactive_opacity = 0.85;
-
       rounding = 12;
 
       blur = {
