@@ -13,6 +13,7 @@
     };
 
     settings = {
+      hide_window_decorations = true;
       macos_option_as_alt = "left";
       enable_audio_bell = false;
       confirm_os_window_close = 0;
