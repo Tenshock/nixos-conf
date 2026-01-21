@@ -15,7 +15,6 @@
 
     casks = [
       "displaylink"
-      "kdenlive"
       "linear-linear"
       "mongodb-compass"
       "notion"
