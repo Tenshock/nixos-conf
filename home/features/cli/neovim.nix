@@ -3,6 +3,9 @@
     enable = true;
     defaultEditor = true;
     extraLuaPackages = ps: [ ps.magick ];
+    extraLuaConfig = ''
+      require("config.lazy")
+    '';
     extraPackages = with pkgs; [
       clang
       csharpier
