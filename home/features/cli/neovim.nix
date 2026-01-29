@@ -8,7 +8,7 @@
     extraLuaPackages = ps: [ ps.magick ];
     extraPackages = with pkgs; [
       clang
-      csharpier
+      # csharpier
       nodejs_24
       fd
       fzf
