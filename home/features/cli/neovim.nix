@@ -2,10 +2,10 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraLuaPackages = ps: [ ps.magick ];
-    extraLuaConfig = ''
+    initLua = ''
       require("config.lazy")
     '';
+    extraLuaPackages = ps: [ ps.magick ];
     extraPackages = with pkgs; [
       clang
       csharpier
