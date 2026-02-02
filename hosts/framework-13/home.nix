@@ -22,6 +22,7 @@ user:
     ../../home/features/cli/eza.nix
     ../../home/features/cli/fastfetch.nix
     ../../home/features/cli/fzf.nix
+    ../../home/features/cli/jq.nix
     ../../home/features/cli/git
     ../../home/features/cli/k9s.nix
     ../../home/features/cli/kubectl.nix
