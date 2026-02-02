@@ -4,6 +4,7 @@ user:
     inputs.zen-browser.homeModules.twilight
     ../../home/features/application/beeper.nix
     ../../home/features/application/dbeaver.nix
+    ../../home/features/application/discord.nix
     ../../home/features/application/firefox.nix
     ../../home/features/application/kitty.nix
     ../../home/features/application/mongodb-compass.nix
@@ -11,10 +12,10 @@ user:
     ../../home/features/application/slack.nix
     ../../home/features/application/transmission.nix
     ../../home/features/application/vlc.nix
-    ../../home/features/application/webcord.nix
     ../../home/features/application/zen.nix
 
     ../../home/features/cli/udiskie.nix
+    ../../home/features/cli/codex.nix
 
     ../../home/features/prog-lang/dotnet.nix
     ../../home/features/prog-lang/go.nix
