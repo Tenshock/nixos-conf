@@ -8,7 +8,11 @@ in {
     enable = true;
     settings = {
       preload = [ "${wallpaperDestDir}/${wallpaper}" ];
-      wallpaper = [ ",${wallpaperDestDir}/${wallpaper}" ];
+      wallpaper = [{
+        monitor = "";
+        path = "${wallpaperDestDir}/${wallpaper}";
+        fit_mode = "cover";
+      }];
     };
   };
 
