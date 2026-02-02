@@ -18,6 +18,7 @@
       mermaid-cli
       ripgrep
       rustup
+      statix
       sqlite
       tectonic
       tree-sitter
