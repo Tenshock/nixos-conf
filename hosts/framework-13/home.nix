@@ -14,8 +14,29 @@ user:
     ../../home/features/application/vlc.nix
     ../../home/features/application/zen.nix
 
-    ../../home/features/cli/udiskie.nix
+    ../../home/features/cli/atuin.nix
+    ../../home/features/cli/bat.nix
+    ../../home/features/cli/btop.nix
+    ../../home/features/cli/cbonsai.nix
     ../../home/features/cli/codex.nix
+    ../../home/features/cli/eza.nix
+    ../../home/features/cli/fastfetch.nix
+    ../../home/features/cli/fzf.nix
+    ../../home/features/cli/git
+    ../../home/features/cli/k9s.nix
+    ../../home/features/cli/lazygit.nix
+    ../../home/features/cli/nh.nix
+    ../../home/features/cli/starship.nix
+    ../../home/features/cli/unzip.nix
+    ../../home/features/cli/neovim.nix
+    ../../home/features/cli/tmux
+    ../../home/features/cli/udiskie.nix
+    ../../home/features/cli/wget.nix
+    ../../home/features/cli/yazi.nix
+    ../../home/features/cli/zoxide.nix
+    ../../home/features/cli/zsh.nix
+
+    ../../home/features/fonts/nerd.nix
 
     ../../home/features/prog-lang/go.nix
     ../../home/features/prog-lang/node.nix
@@ -23,8 +44,8 @@ user:
     ../../home/features/prog-lang/rust.nix
 
     ../../home/features/service/ssh.nix
+    ../../home/features/service/xdg.nix
 
-    ../../home/flavors/minimal.nix
     ../../home/flavors/hyprland.nix
   ];
 
