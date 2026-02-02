@@ -20,17 +20,15 @@ let
     "${config.home.homeDirectory}/.config/nvim"
   ];
 
-  projects =
-    lib.genAttrs trustedProjects (_: { trust_level = "trusted"; });
-in
-{
+  projects = lib.genAttrs trustedProjects (_: { trust_level = "trusted"; });
+in {
   programs.codex = {
     enable = true;
     settings = {
       model = "gpt-5.2-codex";
       review_model = "gpt-5.2-codex";
       model_provider = "openai";
-      projects = projects;
+      inherit projects;
     };
   };
 }
