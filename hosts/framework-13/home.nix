@@ -24,7 +24,9 @@ user:
     ../../home/features/cli/fzf.nix
     ../../home/features/cli/git
     ../../home/features/cli/k9s.nix
+    ../../home/features/cli/kubectl.nix
     ../../home/features/cli/lazygit.nix
+    ../../home/features/cli/mkcert.nix
     ../../home/features/cli/nh.nix
     ../../home/features/cli/starship.nix
     ../../home/features/cli/unzip.nix
@@ -43,7 +45,10 @@ user:
     ../../home/features/prog-lang/python3.nix
     ../../home/features/prog-lang/rust.nix
 
+    ../../home/features/service/kind.nix
+    ../../home/features/service/skaffold.nix
     ../../home/features/service/ssh.nix
+    ../../home/features/service/terraform.nix
     ../../home/features/service/xdg.nix
 
     ../../home/flavors/hyprland.nix
