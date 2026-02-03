@@ -49,6 +49,7 @@ user:
     ../../home/features/service/kind.nix
     ../../home/features/service/skaffold.nix
     ../../home/features/service/ssh.nix
+    ../../home/features/service/openssl.nix
     ../../home/features/service/terraform.nix
     ../../home/features/service/xdg.nix
 
