@@ -83,7 +83,9 @@
       tmux set-window-option @is_window_pristine true 2>/dev/null
 
       preexec() {
-        tmux set-window-option @is_window_pristine false 2>/dev/null
+        if [[ -n "''${1//[[:space:]]/}" ]]; then
+          tmux set-window-option @is_window_pristine false 2>/dev/null
+        fi
       }
     '';
   };

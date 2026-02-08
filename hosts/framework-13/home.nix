@@ -22,6 +22,7 @@ user:
     ../../home/features/cli/eza.nix
     ../../home/features/cli/fastfetch.nix
     ../../home/features/cli/fzf.nix
+    ../../home/features/cli/helm.nix
     ../../home/features/cli/jq.nix
     ../../home/features/cli/git
     ../../home/features/cli/k9s.nix
@@ -29,6 +30,7 @@ user:
     ../../home/features/cli/lazygit.nix
     ../../home/features/cli/mkcert.nix
     ../../home/features/cli/nh.nix
+    ../../home/features/cli/nss.nix
     ../../home/features/cli/starship.nix
     ../../home/features/cli/unzip.nix
     ../../home/features/cli/neovim.nix
@@ -49,7 +51,6 @@ user:
     ../../home/features/service/kind.nix
     ../../home/features/service/skaffold.nix
     ../../home/features/service/ssh.nix
-    ../../home/features/service/openssl.nix
     ../../home/features/service/terraform.nix
     ../../home/features/service/xdg.nix
 

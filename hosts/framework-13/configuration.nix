@@ -13,6 +13,7 @@ user:
     ../../nixos/media.nix
     ../../nixos/neovim.nix
     ../../nixos/nix.nix
+    (import ../../nixos/pkg-config.nix user)
     ../../nixos/printing.nix
     ../../nixos/systemd-boot.nix
     (import ../../nixos/user.nix user)
