@@ -4,6 +4,7 @@ user:
     inputs.zen-browser.homeModules.twilight
     ../../home/features/application/beeper.nix
     ../../home/features/application/dbeaver.nix
+    ../../home/features/application/dbvisualizer.nix
     ../../home/features/application/discord.nix
     ../../home/features/application/firefox.nix
     ../../home/features/application/kitty.nix
