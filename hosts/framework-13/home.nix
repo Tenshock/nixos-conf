@@ -6,7 +6,6 @@ user:
     ../../home/features/application/dbeaver.nix
     ../../home/features/application/dbvisualizer.nix
     ../../home/features/application/discord.nix
-    ../../home/features/application/firefox.nix
     ../../home/features/application/kitty.nix
     ../../home/features/application/mongodb-compass.nix
     ../../home/features/application/obsidian.nix
