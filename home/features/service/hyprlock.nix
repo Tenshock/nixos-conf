@@ -10,10 +10,11 @@
       "$font" = "JetBrainsMono Nerd Font";
 
       general = {
-        grace = 5;
         hide_cursor = true;
         animation = "fade, 1, 0.1, linear";
       };
+
+      authentication = { fingerprint = { enabled = true; }; };
 
       background = {
         path = "$XDG_CONFIG_HOME/wallpapers/chill-house.png";
