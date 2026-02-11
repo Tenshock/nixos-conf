@@ -9,12 +9,14 @@
     brews = [
       "mas"
       "mongosh"
+      "nvm"
       "podman"
       "podman-compose"
     ];
 
     casks = [
       "displaylink"
+      "google-chrome"
       "linear-linear"
       "mongodb-compass"
       "notion"

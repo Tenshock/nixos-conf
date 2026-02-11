@@ -9,7 +9,7 @@
     extraPackages = with pkgs; [
       clang
       # csharpier
-      nodejs_24
+      nodejs_22
       fd
       fzf
       ghostscript

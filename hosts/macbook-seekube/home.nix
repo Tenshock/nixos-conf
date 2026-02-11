@@ -4,7 +4,7 @@ user: {lib, ...}: {
 
     ../../home/features/application/dbeaver.nix
     ../../home/features/application/kitty.nix
-    ../../home/features/application/transmission.nix
+    # ../../home/features/application/transmission.nix
 
     ../../home/features/prog-lang/go.nix
     ../../home/features/prog-lang/node.nix
@@ -18,10 +18,12 @@ user: {lib, ...}: {
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix
     ../../home/features/cli/cbonsai.nix
+    ../../home/features/cli/cocogitto.nix
     ../../home/features/cli/codex.nix
     ../../home/features/cli/eza.nix
     ../../home/features/cli/fastfetch.nix
     ../../home/features/cli/fzf.nix
+    ../../home/features/cli/jq-yq.nix
     ../../home/features/cli/git
     ../../home/features/cli/k9s.nix
     ../../home/features/cli/lazygit.nix
