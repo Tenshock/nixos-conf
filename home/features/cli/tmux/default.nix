@@ -1,9 +1,9 @@
 { pkgs, ... }: {
-  home.packages = with pkgs;
-    [
-      (writeShellScriptBin "tmux-close-unused-windows"
-        (builtins.readFile ./tmux-close-unused-windows.sh))
-    ];
+  home.packages = with pkgs; [
+    (writeShellScriptBin "tmux-close-unused-windows"
+      (builtins.readFile ./tmux-close-unused-windows.sh))
+    (writeShellScriptBin "us" (builtins.readFile ./unyka-session.sh))
+  ];
 
   programs.tmux = {
     enable = true;
@@ -12,7 +12,6 @@
     baseIndex = 1;
     escapeTime = 10;
     keyMode = "vi";
-    newSession = true;
     terminal = "screen-256color";
 
     plugins = with pkgs; [
