@@ -1,1 +1,6 @@
-{ pkgs, ... }: { home.packages = with pkgs; [ discord ]; }
+{
+  programs.vesktop = {
+    enable = true;
+    vencord.settings = { plugins = { FakeNitro.enabled = true; }; };
+  };
+}
