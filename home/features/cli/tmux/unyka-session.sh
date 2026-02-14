@@ -53,6 +53,12 @@ tmux send-keys -t $session:2.2 'cd ~/repo/unyka/webui-client' C-m
 tmux send-keys -t $session:2.2 'docker compose up' C-m
 sleep 0.5
 
+echo "Launching DNS.."
+tmux new-window -t $session:10
+tmux send-keys -t $session:10 'cd ~/repo/unyka/infra/terraform-kind' C-m
+tmux send-keys -t $session:10 './dns.sh dev' C-m
+sleep 0.5
+
 echo "Initializing dev env.."
 tmux new-window -t $session:3
 tmux send-keys -t $session:3.1 'k9s' C-m
