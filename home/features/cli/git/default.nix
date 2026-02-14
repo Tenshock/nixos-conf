@@ -107,6 +107,6 @@
           merge-conflict-theirs-diff-header-style = "yellow ul";
         };
       };
-  };
+    };
   };
 }

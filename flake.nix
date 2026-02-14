@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    catppuccin.url = "github:catppuccin/nix";
 
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -38,20 +39,26 @@
     let
       hosts = import ./hosts/hosts.nix;
 
-      mkNixOSConfiguration = { host, nixpkgs, nixos-hardware, home-manager, }:
+      mkNixOSConfiguration =
+        { host, nixpkgs, nixos-hardware, home-manager, catppuccin }:
         nixpkgs.lib.nixosSystem {
           system = host.arch;
           modules = [
             (import ./hosts/${host.dir}/configuration.nix host.user)
             nixos-hardware.nixosModules.framework-amd-ai-300-series
             home-manager.nixosModules.home-manager
+            catppuccin.nixosModules.catppuccin
             {
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
-                users."${host.user}" =
-                  (import ./hosts/${host.dir}/home.nix host.user);
+                users."${host.user}" = {
+                  imports = [
+                    (import ./hosts/${host.dir}/home.nix host.user)
+                    catppuccin.homeModules.catppuccin
+                  ];
+                };
               };
             }
           ];
@@ -69,7 +76,7 @@
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
                 users."${host.user}" =
-                  (import ./hosts/${host.dir}/home.nix host.user);
+                  import ./hosts/${host.dir}/home.nix host.user;
               };
               users.users.${host.user}.home = "/Users/${host.user}";
             }
@@ -78,7 +85,7 @@
               nix-homebrew = {
                 enable = true;
                 enableRosetta = true;
-                user = host.user;
+                inherit (host) user;
 
                 taps = {
                   "homebrew/homebrew-core" = homebrew-core;
@@ -98,18 +105,19 @@
       nixosConfigurations."${hosts.framework-13.hostname}" =
         mkNixOSConfiguration {
           host = hosts.framework-13;
-          nixpkgs = inputs.nixpkgs;
-          nixos-hardware = inputs.nixos-hardware;
-          home-manager = inputs.home-manager;
+          inherit (inputs) nixpkgs;
+          inherit (inputs) nixos-hardware;
+          inherit (inputs) home-manager;
+          inherit (inputs) catppuccin;
         };
       darwinConfigurations."${hosts.macbook-seekube.hostname}" =
         mkDarwinConfigurations {
           host = hosts.macbook-seekube;
-          nix-darwin = inputs.nix-darwin;
-          home-manager = inputs.home-manager;
-          nix-homebrew = inputs.nix-homebrew;
-          homebrew-core = inputs.homebrew-core;
-          homebrew-cask = inputs.homebrew-cask;
+          inherit (inputs) nix-darwin;
+          inherit (inputs) home-manager;
+          inherit (inputs) nix-homebrew;
+          inherit (inputs) homebrew-core;
+          inherit (inputs) homebrew-cask;
         };
     };
 }
