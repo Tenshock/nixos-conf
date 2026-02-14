@@ -16,7 +16,11 @@ let
     "${config.home.homeDirectory}/repo/seekube/ui"
     "${config.home.homeDirectory}/repo/seekube/ui-kit"
 
-    # nvim
+    # Personal
+    "${config.home.homeDirectory}/repo/unyka"
+    #
+    # Personal
+    "${config.home.homeDirectory}/.config/nixos"
     "${config.home.homeDirectory}/.config/nvim"
   ];
 
