@@ -43,7 +43,6 @@ tmux send-keys -t $session:1.8 'cd ~/repo/unyka/notification' C-m
 tmux send-keys -t $session:1.8 'skaffold dev' C-m
 tmux send-keys -t $session:1.9 'cd ~/repo/unyka/profile' C-m
 tmux send-keys -t $session:1.9 'skaffold dev' C-m
-sleep 0.5
 
 echo "Launching web apps.."
 tmux new-window -t $session:2
@@ -51,18 +50,25 @@ tmux split-window -h -t $session:2
 tmux send-keys -t $session:2.1 'cd ~/repo/unyka/webui-bo && docker compose up' C-m
 tmux send-keys -t $session:2.2 'cd ~/repo/unyka/webui-client' C-m
 tmux send-keys -t $session:2.2 'docker compose up' C-m
-sleep 0.5
 
-echo "Launching DNS.."
+echo "Launching port-forwarding.."
 tmux new-window -t $session:10
-tmux send-keys -t $session:10 'cd ~/repo/unyka/infra/terraform-kind' C-m
-tmux send-keys -t $session:10 './dns.sh dev' C-m
-sleep 0.5
+tmux split-window -h -t $session:10
+
+tmux select-pane -t $session:10.2
+tmux split-window -v -t $session:10.2
+tmux split-window -v -t $session:10.2
+
+tmux send-keys -t $session:10.1 'cd ~/repo/unyka/infra/terraform-kind' C-m
+tmux send-keys -t $session:10.1 './dns.sh dev' C-m
+
+tmux send-keys -t $session:10.2 'kubectl -n unyka-mailhog port-forward svc/mailhog 8025' C-m
+tmux send-keys -t $session:10.3 'kubectl -n unyka-identity port-forward svc/keycloak 8080' C-m
+tmux send-keys -t $session:10.4 'kubectl -n unyka-s3 port-forward svc/rustfs-svc 9000' C-m
 
 echo "Initializing dev env.."
 tmux new-window -t $session:3
 tmux send-keys -t $session:3.1 'k9s' C-m
-sleep 0.5
 
 tmux new-window -t $session:4
 tmux send-keys -t $session:4.1 'cd ~/repo/unyka' C-m
