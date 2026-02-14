@@ -1,7 +1,9 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    (writeShellScriptBin "tmux-close-unused-windows"
-      (builtins.readFile ./tmux-close-unused-windows.sh))
+    (writeShellScriptBin "tmux-goto-window"
+      (builtins.readFile ./tmux-goto-window.sh))
+    (writeShellScriptBin "tmux-track-and-clean"
+      (builtins.readFile ./tmux-track-and-clean.sh))
     (writeShellScriptBin "us" (builtins.readFile ./unyka-session.sh))
   ];
 
@@ -42,19 +44,20 @@
       bind -T copy-mode-vi v send -X begin-selection
       bind -T copy-mode-vi y send -X copy-pipe-and-cancel "wl-copy"
 
-      # set-hook -g session-window-changed 'run-shell tmux-close-unused-windows'
+      set-hook -g client-session-changed 'run-shell "tmux-track-and-clean"'
+      set-hook -g session-window-changed 'run-shell "tmux-track-and-clean"'
 
       # AZERTY Alt+number window switch
-      bind-key -n M-&  run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^1$"; then tmux new-window -t 1; fi; tmux select-window -t 1'
-      bind-key -n M-2  run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^2$"; then tmux new-window -t 2; fi; tmux select-window -t 2'
-      bind-key -n M-\" run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^3$"; then tmux new-window -t 3; fi; tmux select-window -t 3'
-      bind-key -n M-\' run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^4$"; then tmux new-window -t 4; fi; tmux select-window -t 4'
-      bind-key -n M-\( run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^5$"; then tmux new-window -t 5; fi; tmux select-window -t 5'
-      bind-key -n M--  run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^6$"; then tmux new-window -t 6; fi; tmux select-window -t 6'
-      bind-key -n M-7  run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^7$"; then tmux new-window -t 7; fi; tmux select-window -t 7'
-      bind-key -n M-_  run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^8$"; then tmux new-window -t 8; fi; tmux select-window -t 8'
-      bind-key -n M-9  run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^9$"; then tmux new-window -t 9; fi; tmux select-window -t 9'
-      bind-key -n M-0  run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^10$"; then tmux new-window -t 10; fi; tmux select-window -t 10'
+      bind-key -n M-&  run-shell 'tmux-goto-window 1'
+      bind-key -n M-2  run-shell 'tmux-goto-window 2'
+      bind-key -n M-\" run-shell 'tmux-goto-window 3'
+      bind-key -n M-\' run-shell 'tmux-goto-window 4'
+      bind-key -n M-\( run-shell 'tmux-goto-window 5'
+      bind-key -n M--  run-shell 'tmux-goto-window 6'
+      bind-key -n M-7  run-shell 'tmux-goto-window 7'
+      bind-key -n M-_  run-shell 'tmux-goto-window 8'
+      bind-key -n M-9  run-shell 'tmux-goto-window 9'
+      bind-key -n M-0  run-shell 'tmux-goto-window 10'
 
       # Alt pane kill
       bind-key -n M-w kill-pane

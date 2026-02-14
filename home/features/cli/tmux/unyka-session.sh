@@ -1,6 +1,11 @@
 #!/bin/sh
 set -euo pipefail
 
+mark_real_window() {
+  tmux set-window-option -t "$1" @autocreated false
+  tmux set-window-option -t "$1" @is_window_pristine false
+}
+
 session=unyka
 
 if tmux has-session -t $session 2>/dev/null; then
@@ -10,6 +15,7 @@ fi
 
 echo "Launching micro-services.."
 tmux new-session -d -s $session
+mark_real_window $session:1
 tmux split-window -h -t $session:1
 tmux split-window -h -t $session:1
 
@@ -46,6 +52,7 @@ tmux send-keys -t $session:1.9 'skaffold dev' C-m
 
 echo "Launching web apps.."
 tmux new-window -t $session:2
+mark_real_window $session:2
 tmux split-window -h -t $session:2
 tmux send-keys -t $session:2.1 'cd ~/repo/unyka/webui-bo && docker compose up' C-m
 tmux send-keys -t $session:2.2 'cd ~/repo/unyka/webui-client' C-m
@@ -53,6 +60,7 @@ tmux send-keys -t $session:2.2 'docker compose up' C-m
 
 echo "Launching port-forwarding.."
 tmux new-window -t $session:10
+mark_real_window $session:10
 tmux split-window -h -t $session:10
 
 tmux select-pane -t $session:10.2
@@ -68,9 +76,11 @@ tmux send-keys -t $session:10.4 'kubectl -n unyka-s3 port-forward svc/rustfs-svc
 
 echo "Initializing dev env.."
 tmux new-window -t $session:3
+mark_real_window $session:3
 tmux send-keys -t $session:3.1 'k9s' C-m
 
 tmux new-window -t $session:4
+mark_real_window $session:4
 tmux send-keys -t $session:4.1 'cd ~/repo/unyka' C-m
 tmux send-keys -t $session:4.1 'v' C-m
 tmux send-keys -t $session:4.1 Space 'e'
