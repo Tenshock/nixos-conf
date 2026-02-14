@@ -46,7 +46,7 @@ in {
       input = {
         kb_layout = "fr";
         follow_mouse = 1;
-        sensitivity = 0;
+        sensitivity = 0.2;
 
         touchpad = {
           natural_scroll = true;
@@ -59,7 +59,7 @@ in {
         disable_hyprland_logo = false;
       };
 
-      monitor = [ "eDP-1,2880x1920@60,auto,1.6" ",preferred,auto,auto" ];
+      monitor = [ "eDP-1,2880x1920@120,auto,1.6" ",preferred,auto,auto" ];
 
       workspace = [ "1, monitor:eDP-1" ];
 
