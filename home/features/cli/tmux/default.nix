@@ -42,7 +42,7 @@
       bind -T copy-mode-vi v send -X begin-selection
       bind -T copy-mode-vi y send -X copy-pipe-and-cancel "wl-copy"
 
-      set-hook -g session-window-changed 'run-shell tmux-close-unused-windows'
+      # set-hook -g session-window-changed 'run-shell tmux-close-unused-windows'
 
       # AZERTY Alt+number window switch
       bind-key -n M-&  run-shell 'if ! tmux list-windows | cut -d: -f1 | grep -q "^1$"; then tmux new-window -t 1; fi; tmux select-window -t 1'
