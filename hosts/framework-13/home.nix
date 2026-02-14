@@ -37,7 +37,6 @@ user:
     ../../home/features/cli/tmux
     ../../home/features/cli/udiskie.nix
     ../../home/features/cli/wget.nix
-    ../../home/features/cli/yazi.nix
     ../../home/features/cli/zoxide.nix
     ../../home/features/cli/zsh.nix
 

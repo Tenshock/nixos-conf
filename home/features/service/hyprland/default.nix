@@ -26,7 +26,7 @@ in {
       "$bluetoothManager" = "uwsm app -- $(kitty -e bluetui)";
       "$browser" = "uwsm app -- zen";
       "$cbonsai" = "uwsm app -- $(kitty -e cbonsai --live --time 0,2)";
-      "$fileManager" = "uwsm app -- $(kitty -e yazi)";
+      "$fileManager" = "uwsm app -- dolphin";
       "$hyprlock" = "uwsm app -- hyprlock";
       "$networkManager" = "uwsm app -- $(kitty -e nmtui)";
       "$statusbar" = "uwsm app -- waybar";
