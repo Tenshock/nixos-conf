@@ -9,7 +9,7 @@ let
     macbook-seekube = {
       hostname = "mbp";
       arch = "aarch64-darwin";
-      user = "cedric";
+      inherit user;
     };
   };
 

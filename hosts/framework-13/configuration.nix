@@ -1,9 +1,6 @@
 user:
 { pkgs, ... }: {
   imports = [
-    ./hardware-configuration.nix
-    ./networking.nix
-
     (import ../../nixos/1password.nix user)
     (import ../../nixos/dolphin.nix user)
     ../../nixos/fingerprint-unlock.nix

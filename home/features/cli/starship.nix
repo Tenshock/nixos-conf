@@ -74,4 +74,6 @@
       };
     };
   };
+
+  catppuccin.starship.enable = true;
 }

@@ -1,8 +1,6 @@
 user: {pkgs, ...}: {
 
   imports = [
-    ./networking.nix
-
     ../../darwin/1password.nix
     ../../darwin/aerospace.nix
     (import ../../darwin/dock.nix user)

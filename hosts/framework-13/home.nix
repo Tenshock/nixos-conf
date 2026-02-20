@@ -55,7 +55,6 @@ user:
 
     ../../home/flavors/hyprland.nix
 
-    ../../home/features/catppuccin.nix
   ];
 
   home = {

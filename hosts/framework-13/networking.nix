@@ -1,8 +1,6 @@
-# TODO: currying hostname and user
-let hosts = import ../hosts.nix;
-in {
+{ hostName, user }: {
   networking = {
-    hostName = hosts.framework-13.hostname;
+    inherit hostName;
     networkmanager.enable = true;
     extraHosts = ''
       127.0.0.1 unyka.local
@@ -11,7 +9,7 @@ in {
     firewall.enable = false;
   };
 
-  users.users.${hosts.framework-13.user} = {
+  users.users.${user} = {
     extraGroups = [ "networkmanager" ];
   };
 }

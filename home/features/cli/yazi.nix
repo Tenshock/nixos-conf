@@ -18,4 +18,6 @@
       };
     };
   };
+
+  catppuccin.yazi.enable = true;
 }

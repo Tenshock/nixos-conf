@@ -1,1 +1,4 @@
-{ programs.k9s.enable = true; }
+{
+  programs.k9s.enable = true;
+  catppuccin.k9s.enable = true;
+}

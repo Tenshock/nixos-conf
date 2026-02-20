@@ -12,4 +12,5 @@
   };
 
   programs.zsh.shellAliases.lg = "lazygit";
+  catppuccin.lazygit.enable = true;
 }

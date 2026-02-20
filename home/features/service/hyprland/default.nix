@@ -6,6 +6,8 @@ let
     sha256 = "sha256-SxVNvZZjfuPA2yB9xA0EHHEnE9eIQJAFVBIUuDiSIxQ=";
   };
 in {
+  catppuccin.hyprland.enable = true;
+
   home = {
     sessionVariables.NIXOS_OZONE_WL = "1";
     file."${config.xdg.configHome}/hypr/mocha.conf".source = mochaTheme;

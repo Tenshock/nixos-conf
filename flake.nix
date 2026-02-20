@@ -45,6 +45,11 @@
           system = host.arch;
           modules = [
             (import ./hosts/${host.dir}/configuration.nix host.user)
+            ./hosts/${host.dir}/hardware-configuration.nix
+            (import ./hosts/${host.dir}/networking.nix {
+              hostName = host.hostname;
+              inherit (host) user;
+            })
             nixos-hardware.nixosModules.framework-amd-ai-300-series
             home-manager.nixosModules.home-manager
             catppuccin.nixosModules.catppuccin
@@ -69,6 +74,7 @@
           system = host.arch;
           modules = [
             (import ./hosts/${host.dir}/configuration.nix host.user)
+            (import ./hosts/${host.dir}/networking.nix host.hostname)
             home-manager.darwinModules.home-manager
             {
               home-manager = {
