@@ -22,7 +22,7 @@
         extraConfig = ''
           set -g @catppuccin_flavor "mocha"
           set -g @catppuccin_window_status_style "rounded"
-          set -q @catppuccin_status_background "#0f111a"
+          set -g @catppuccin_status_background "#0f111a"
           set -g @catppuccin_window_current_number_color "#{@thm_teal}"
           set -q @catppuccin_pane_color "#{@thm_teal}"
 
