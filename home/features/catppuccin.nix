@@ -8,5 +8,6 @@
     lazygit.enable = true;
     starship.enable = true;
     vesktop.enable = true;
+    yazi.enable = true;
   };
 }

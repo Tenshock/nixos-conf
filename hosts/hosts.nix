@@ -4,7 +4,7 @@ let
     framework-13 = {
       hostname = "nixos";
       arch = "x86_64-linux";
-      user = user;
+      inherit user;
     };
     macbook-seekube = {
       hostname = "mbp";

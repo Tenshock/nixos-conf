@@ -17,11 +17,9 @@
       audio.enable = true;
       wireplumber.enable = true;
     };
+    udisks2 = {
+      enable = true;
+      mountOnMedia = true;
+    };
   };
-
-  services.udisks2 = {
-    enable = true;
-    mountOnMedia = true;
-  };
-
 }

@@ -1,5 +1,6 @@
 {
-  programs.bat = { enable = true; };
-
-  programs.zsh.shellAliases = { cat = "bat"; };
+  programs = {
+    bat = { enable = true; };
+    zsh.shellAliases = { cat = "bat"; };
+  };
 }

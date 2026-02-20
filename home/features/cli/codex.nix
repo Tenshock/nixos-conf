@@ -3,7 +3,7 @@ let
   trustedProjects = [
     # Seekube
     "${config.home.homeDirectory}/repo/seekube/amibuilder"
-    "${config.home.homeDirectory}/repo/seekube/api"
+    "${config.home.homeDirectory}/repo/seekube/backend"
     "${config.home.homeDirectory}/repo/seekube/chore"
     "${config.home.homeDirectory}/repo/seekube/cookie-consent"
     "${config.home.homeDirectory}/repo/seekube/data-aggregator"

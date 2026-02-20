@@ -1,40 +1,42 @@
 { pkgs, ... }: {
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    initLua = ''
-      require("config.lazy")
+  programs = {
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      initLua = ''
+        require("config.lazy")
+      '';
+      extraLuaPackages = ps: [ ps.magick ];
+      extraPackages = with pkgs; [
+        clang
+        # csharpier
+        nodejs_22
+        fd
+        fzf
+        ghostscript
+        go
+        imagemagick
+        mermaid-cli
+        ripgrep
+        rustup
+        statix
+        sqlite
+        tectonic
+        tree-sitter
+        unzip
+      ];
+      extraWrapperArgs = [ "--set" "LD_LIBRARY_PATH" "${pkgs.sqlite.out}/lib" ];
+    };
+
+    zsh.shellAliases = {
+      v = "nvim";
+      view = "nvim -R";
+    };
+
+    tmux.extraConfig = ''
+      # For 3rd-image Neovim setup
+      set -gq allow-passthrough on
+      set -g visual-activity off
     '';
-    extraLuaPackages = ps: [ ps.magick ];
-    extraPackages = with pkgs; [
-      clang
-      # csharpier
-      nodejs_22
-      fd
-      fzf
-      ghostscript
-      go
-      imagemagick
-      mermaid-cli
-      ripgrep
-      rustup
-      statix
-      sqlite
-      tectonic
-      tree-sitter
-      unzip
-    ];
-    extraWrapperArgs = [ "--set" "LD_LIBRARY_PATH" "${pkgs.sqlite.out}/lib" ];
   };
-
-  programs.zsh.shellAliases = {
-    v = "nvim";
-    view = "nvim -R";
-  };
-
-  programs.tmux.extraConfig = ''
-    # For 3rd-image Neovim setup
-    set -gq allow-passthrough on
-    set -g visual-activity off
-  '';
 }

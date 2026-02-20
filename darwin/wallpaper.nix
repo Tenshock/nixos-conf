@@ -1,5 +1,3 @@
-{ pkgs, lib, ... }:
-
 let
   img = toString ../wallpapers/chill-house.png;
 in {

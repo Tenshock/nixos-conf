@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   # enable auto-generated scripts for neovim
-  programs.nix-ld.enable = true;
-
-  programs.nix-ld.libraries = with pkgs; [ icu ];
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [ icu ];
+  };
 }
