@@ -69,7 +69,7 @@
           ];
         };
       mkDarwinConfigurations = { host, nix-darwin, home-manager, nix-homebrew
-        , homebrew-core, homebrew-cask }:
+        , homebrew-core, homebrew-cask, catppuccin }:
         nix-darwin.lib.darwinSystem {
           system = host.arch;
           modules = [
@@ -81,8 +81,12 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
-                users."${host.user}" =
-                  import ./hosts/${host.dir}/home.nix host.user;
+                users."${host.user}" = {
+                  imports = [
+                    (import ./hosts/${host.dir}/home.nix host.user)
+                    catppuccin.homeModules.catppuccin
+                  ];
+                };
               };
               users.users.${host.user}.home = "/Users/${host.user}";
             }
@@ -124,6 +128,7 @@
           inherit (inputs) nix-homebrew;
           inherit (inputs) homebrew-core;
           inherit (inputs) homebrew-cask;
+          inherit (inputs) catppuccin;
         };
     };
 }
