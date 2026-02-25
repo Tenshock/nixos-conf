@@ -16,7 +16,7 @@ let
     "${config.home.homeDirectory}/repo/seekube/ui"
     "${config.home.homeDirectory}/repo/seekube/ui-kit"
 
-    # Personal
+    # Unyka
     "${config.home.homeDirectory}/repo/unyka"
     #
     # Personal
