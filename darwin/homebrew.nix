@@ -7,6 +7,8 @@
     };
 
     brews = [
+      "docker"
+      "docker-compose"
       "mas"
       "mongosh"
       "nvm"
@@ -16,6 +18,7 @@
 
     casks = [
       "displaylink"
+      "docker-desktop"
       "google-chrome"
       "linear-linear"
       "mongodb-compass"
