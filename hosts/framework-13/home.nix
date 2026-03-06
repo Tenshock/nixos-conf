@@ -1,8 +1,10 @@
 user:
-{ inputs, ... }: {
+{ inputs, ... }:
+{
   imports = [
     inputs.zen-browser.homeModules.twilight
     ../../home/features/application/beeper.nix
+    ../../home/features/application/datagrip.nix
     ../../home/features/application/dbeaver.nix
     ../../home/features/application/dbvisualizer.nix
     ../../home/features/application/discord.nix
