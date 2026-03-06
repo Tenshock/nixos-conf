@@ -29,7 +29,7 @@ in
       # Apps
       "$audioManager" = "uwsm app -- $(kitty -e ncpamixer)";
       "$bluetoothManager" = "uwsm app -- $(kitty -e bluetui)";
-      "$browser" = "uwsm app -- zen";
+      "$browser" = "uwsm app -- zen-twilight";
       "$cbonsai" = "uwsm app -- $(kitty -e cbonsai --live --time 0,2)";
       "$fileManager" = "uwsm app -- dolphin";
       "$hyprlock" = "uwsm app -- hyprlock";
