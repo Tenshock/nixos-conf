@@ -3,6 +3,7 @@
     [
       (writeShellScriptBin "git-large-files"
         (builtins.readFile ./git-large-files.sh))
+      git-sizer
     ];
 
   programs = {

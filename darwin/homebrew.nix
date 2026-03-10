@@ -17,6 +17,7 @@
     ];
 
     casks = [
+      "codex-app"
       "displaylink"
       "docker-desktop"
       "google-chrome"
