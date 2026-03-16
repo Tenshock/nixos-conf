@@ -29,8 +29,8 @@ in {
   programs.codex = {
     enable = true;
     settings = {
-      model = "gpt-5.2-codex";
-      review_model = "gpt-5.2-codex";
+      model = "gpt-5.4";
+      review_model = "gpt-5.4";
       model_provider = "openai";
       inherit projects;
     };
