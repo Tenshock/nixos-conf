@@ -54,25 +54,29 @@ echo "Launching web apps.."
 tmux new-window -t $session:2
 mark_real_window $session:2
 tmux split-window -h -t $session:2
-tmux send-keys -t $session:2.1 'cd ~/repo/unyka/webui-bo && docker compose up' C-m
+tmux send-keys -t $session:2.1 'cd ~/repo/unyka/webui-bo && docker compose build --no-cache && docker compose up' C-m
 tmux send-keys -t $session:2.2 'cd ~/repo/unyka/webui-client' C-m
-tmux send-keys -t $session:2.2 'docker compose up' C-m
+tmux send-keys -t $session:2.2 'docker compose build --no-cache && docker compose up' C-m
 
 echo "Launching port-forwarding.."
 tmux new-window -t $session:10
 mark_real_window $session:10
 tmux split-window -h -t $session:10
 
-tmux select-pane -t $session:10.2
-tmux split-window -v -t $session:10.2
-tmux split-window -v -t $session:10.2
+tmux select-pane -t $session:10.1
+tmux split-window -v -t $session:10.1
+
+tmux select-pane -t $session:10.3
+tmux split-window -v -t $session:10.3
+tmux split-window -v -t $session:10.3
 
 tmux send-keys -t $session:10.1 'cd ~/repo/unyka/infra/terraform-kind' C-m
 tmux send-keys -t $session:10.1 './dns.sh dev' C-m
+tmux send-keys -t $session:10.2 'cd && kubectl -n unyka-db port-forward svc/postgres-rw 5432' C-m
 
-tmux send-keys -t $session:10.2 'kubectl -n unyka-mailhog port-forward svc/mailhog 8025' C-m
-tmux send-keys -t $session:10.3 'kubectl -n unyka-identity port-forward svc/keycloak 8080' C-m
-tmux send-keys -t $session:10.4 'kubectl -n unyka-s3 port-forward svc/rustfs-svc 9000' C-m
+tmux send-keys -t $session:10.3 'cd && kubectl -n unyka-mailhog port-forward svc/mailhog 8025' C-m
+tmux send-keys -t $session:10.4 'cd && kubectl -n unyka-identity port-forward svc/keycloak 8080' C-m
+tmux send-keys -t $session:10.5 'cd && kubectl -n unyka-s3 port-forward svc/rustfs-svc 9000' C-m
 
 echo "Initializing dev env.."
 tmux new-window -t $session:3
