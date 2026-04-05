@@ -1,5 +1,6 @@
 user:
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     (import ../../nixos/1password.nix user)
     (import ../../nixos/dolphin.nix user)
@@ -9,6 +10,7 @@ user:
     ../../nixos/lid-behavior.nix
     ../../nixos/login-manager.nix
     ../../nixos/media.nix
+    (import ../../nixos/minecraft.nix user)
     ../../nixos/neovim.nix
     ../../nixos/nix.nix
     (import ../../nixos/pkg-config.nix user)
@@ -30,10 +32,9 @@ user:
   services.fprintd.enable = true;
   services.fwupd.enable = true;
 
-  environment.systemPackages = with pkgs;
-    [
-      brightnessctl # enables hotkey brightness control
-    ];
+  environment.systemPackages = with pkgs; [
+    brightnessctl # enables hotkey brightness control
+  ];
 
   #####################
 
