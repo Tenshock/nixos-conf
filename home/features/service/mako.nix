@@ -1,4 +1,4 @@
-{
+{ lib, ... }: {
   services.mako = {
     enable = true;
     settings = {
@@ -39,4 +39,8 @@
       default-timeout=0
     '';
   };
+
+  # Home Manager already exposes the package in the per-user profile on this host.
+  # Avoid installing a second activation-time D-Bus service symlink in ~/.local/share.
+  dbus.packages = lib.mkForce [ ];
 }
