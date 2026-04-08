@@ -11,10 +11,8 @@
 
       general = {
         hide_cursor = true;
-        animation = "fade, 1, 0.1, linear";
+        animation = "fade, 1, 1.8, linear";
       };
-
-      authentication = { fingerprint = { enabled = true; }; };
 
       background = {
         path = "$XDG_CONFIG_HOME/wallpapers/chill-house.png";
@@ -68,8 +66,7 @@
         inner_color = "rgba(00000000)";
         font_color = "$text";
         fade_on_empty = false;
-        placeholder_text = ''
-          <span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$yellowAlpha">$USER</span></span>'';
+        placeholder_text = ''<span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$yellowAlpha">$USER</span></span>'';
         hide_input = true;
         check_color = "$accent";
         fail_color = "$red";
