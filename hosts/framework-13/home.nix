@@ -63,6 +63,6 @@ user:
     username = user;
     homeDirectory = "/home/${user}";
     sessionPath = [ "$HOME/.local/bin" ];
-    stateVersion = "25.05";
+    stateVersion = "26.05";
   };
 }

@@ -29,7 +29,6 @@ user:
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  services.fprintd.enable = true;
   services.fwupd.enable = true;
 
   environment.systemPackages = with pkgs; [
