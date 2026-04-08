@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
+  security.rtkit.enable = true;
+
   environment.systemPackages = with pkgs; [
     bluetui # bluetooth controller TUI
     ncpamixer # sound mixer TUI

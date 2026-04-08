@@ -1,9 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.seahorse.enable = true;
 
   security = {
     polkit.enable = true;
-    soteria.enable = true;
 
     pam.services = {
       login.fprintAuth = true;
