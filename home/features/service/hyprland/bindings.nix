@@ -21,8 +21,8 @@
       "$mainMod, V, togglefloating,"
       "$mainMod, I, exec, hyprpicker -a"
       "$mainMod, SPACE, exec, wofi-launcher"
-      "$shiftMod, D, togglesplit," # dwindle
-      "$mainMod, D, swapsplit," # dwindle
+      "$shiftMod, D, layoutmsg, togglesplit" # dwindle
+      "$mainMod, D, layoutmsg, swapsplit" # dwindle
       ", F10, exec, hyprshot -m output" # Screenshot a monitor
       ", PRINT, exec, hyprshot -m output" # Screenshot a monitor
       "$mainMod, S, exec, hyprshot -m output" # Screenshot a monitor
