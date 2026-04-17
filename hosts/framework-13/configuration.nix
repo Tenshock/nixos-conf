@@ -15,6 +15,7 @@ user:
     ../../nixos/nix.nix
     (import ../../nixos/pkg-config.nix user)
     ../../nixos/printing.nix
+    ../../nixos/steam.nix
     ../../nixos/systemd-boot.nix
     (import ../../nixos/user.nix user)
     (import ../../nixos/virtualization.nix user)
