@@ -24,6 +24,10 @@
           "tooltip" = false;
           "interval" = 1;
         };
+        "custom/left-spacer" = {
+          "tooltip" = false;
+          "format" = " ";
+        };
         "custom/music" = {
           "format" = "  {}";
           "escape" = true;
@@ -146,6 +150,7 @@
         "modules-left" = [ "clock#date" "clock#time" "hyprland/workspaces" ];
         "modules-center" = [ "custom/music" ];
         "modules-right" = [
+          "custom/left-spacer"
           "network"
           "memory"
           "cpu"

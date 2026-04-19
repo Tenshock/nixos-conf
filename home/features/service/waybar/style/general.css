@@ -114,11 +114,14 @@
 /*  RIGHT MODULES */
 /******************/
 
+#custom-left-spacer {
+  border-radius: 0 0 0 1rem;
+  margin-right: -0.1rem;
+  color: @sky;
+}
+
 #network {
   color: @flamingo;
-  border-radius: 0 0 0 1rem;
-  margin-left: 0.5rem;
-  padding-left: 1rem;
 }
 
 #memory {
@@ -167,6 +170,10 @@
 }
 
 #battery.warning:not(.charging) {
+  color: @orange;
+}
+
+#battery.critical:not(.charging) {
   color: @red;
 }
 
@@ -186,4 +193,3 @@
   margin-right: 0.5rem;
   color: @green;
 }
-
