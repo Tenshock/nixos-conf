@@ -54,9 +54,10 @@ echo "Launching web apps.."
 tmux new-window -t $session:2
 mark_real_window $session:2
 tmux split-window -h -t $session:2
-tmux send-keys -t $session:2.1 'cd ~/repo/unyka/webui-bo && docker compose build --no-cache && docker compose up' C-m
+tmux send-keys -t $session:2.1 'cd ~/repo/unyka/webui-bo' C-m
+tmux send-keys -t $session:2.1 'skaffold dev' C-m
 tmux send-keys -t $session:2.2 'cd ~/repo/unyka/webui-client' C-m
-tmux send-keys -t $session:2.2 'docker compose build --no-cache && docker compose up' C-m
+tmux send-keys -t $session:2.2 'skaffold dev' C-m
 
 echo "Launching port-forwarding.."
 tmux new-window -t $session:10
