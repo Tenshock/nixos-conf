@@ -5,8 +5,6 @@ user:
     inputs.zen-browser.homeModules.twilight
     ../../home/features/application/beeper.nix
     ../../home/features/application/datagrip.nix
-    ../../home/features/application/dbeaver.nix
-    ../../home/features/application/dbvisualizer.nix
     ../../home/features/application/discord.nix
     ../../home/features/application/kitty.nix
     ../../home/features/application/mongodb-compass.nix
@@ -33,6 +31,7 @@ user:
     ../../home/features/cli/mkcert.nix
     ../../home/features/cli/nh.nix
     ../../home/features/cli/nss.nix
+    ../../home/features/cli/qlty.nix
     ../../home/features/cli/starship.nix
     ../../home/features/cli/unzip.nix
     ../../home/features/cli/neovim.nix
