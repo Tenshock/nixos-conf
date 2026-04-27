@@ -25,7 +25,14 @@
         tree-sitter
         unzip
       ];
-      extraWrapperArgs = [ "--set" "LD_LIBRARY_PATH" "${pkgs.sqlite.out}/lib" ];
+      extraWrapperArgs = [
+        "--set"
+        "LD_LIBRARY_PATH"
+        "${pkgs.sqlite.out}/lib"
+        "--set"
+        "CC"
+        "${pkgs.clang}/bin/clang"
+      ];
     };
 
     zsh.shellAliases = {
