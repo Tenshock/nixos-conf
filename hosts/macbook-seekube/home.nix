@@ -22,6 +22,7 @@ user: {lib, ...}: {
     ../../home/features/cli/eza.nix
     ../../home/features/cli/fastfetch.nix
     ../../home/features/cli/fzf.nix
+    ../../home/features/cli/gcloud.nix
     ../../home/features/cli/jq-yq.nix
     ../../home/features/cli/git
     ../../home/features/cli/k9s.nix
