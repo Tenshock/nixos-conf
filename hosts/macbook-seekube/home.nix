@@ -2,7 +2,6 @@ user: {lib, ...}: {
   imports = [
     ../../darwin/macos-app-link-fix.nix
 
-    ../../home/features/application/dbeaver.nix
     ../../home/features/application/kitty.nix
     # ../../home/features/application/transmission.nix
 
