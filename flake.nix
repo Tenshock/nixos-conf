@@ -2,7 +2,8 @@
   description = "Nix Dotsfiles with flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     catppuccin.url = "github:catppuccin/nix";
 
@@ -115,7 +116,7 @@
       nixosConfigurations."${hosts.framework-13.hostname}" =
         mkNixOSConfiguration {
           host = hosts.framework-13;
-          inherit (inputs) nixpkgs;
+          inherit (inputs) nixos;
           inherit (inputs) nixos-hardware;
           inherit (inputs) home-manager;
           inherit (inputs) catppuccin;
