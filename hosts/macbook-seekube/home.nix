@@ -31,6 +31,7 @@ user: {lib, ...}: {
     ../../home/features/cli/starship.nix
     ../../home/features/cli/unzip.nix
     ../../home/features/cli/neovim.nix
+    ../../home/features/cli/qlty.nix
     ../../home/features/cli/tmux
     ../../home/features/cli/wget.nix
     ../../home/features/cli/zoxide.nix
