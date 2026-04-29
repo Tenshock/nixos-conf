@@ -61,6 +61,7 @@ user:
   home = {
     username = user;
     homeDirectory = "/home/${user}";
+    preferXdgDirectories = true;
     sessionPath = [ "$HOME/.local/bin" ];
     stateVersion = "26.05";
   };

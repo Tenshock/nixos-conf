@@ -45,6 +45,7 @@ user: {lib, ...}: {
   home = {
     username = user;
     homeDirectory = "/Users/${user}";
+    preferXdgDirectories = true;
     stateVersion = "26.05";
   };
 }
