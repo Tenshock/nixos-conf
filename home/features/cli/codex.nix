@@ -29,9 +29,15 @@ in {
   programs.codex = {
     enable = true;
     settings = {
-      model = "gpt-5.4";
-      review_model = "gpt-5.4";
+      model = "gpt-5.5";
+      review_model = "gpt-5.5";
       model_provider = "openai";
+
+      features = {
+        memories = true;
+        js_repl = true;
+      };
+
       inherit projects;
     };
   };
