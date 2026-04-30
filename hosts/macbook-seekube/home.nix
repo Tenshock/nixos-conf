@@ -10,7 +10,6 @@ user: {inputs, lib, ...}: {
     ../../home/features/application/obsidian.nix
     ../../home/features/application/postman.nix
     ../../home/features/application/slack.nix
-    ../../home/features/application/zen.nix
 
     ../../home/features/prog-lang/go.nix
     ../../home/features/prog-lang/node.nix

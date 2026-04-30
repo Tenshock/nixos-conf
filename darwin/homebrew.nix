@@ -20,6 +20,7 @@
       "displaylink"
       "docker-desktop"
       "linear-linear"
+      "zen"
     ];
 
     masApps = {
