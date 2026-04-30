@@ -1,9 +1,16 @@
-user: {lib, ...}: {
+user: {inputs, lib, ...}: {
   imports = [
+    inputs.zen-browser.homeModules.twilight
     ../../darwin/macos-app-link-fix.nix
 
+    ../../home/features/application/google-chrome.nix
     ../../home/features/application/kitty.nix
-    # ../../home/features/application/transmission.nix
+    ../../home/features/application/mongodb-compass.nix
+    ../../home/features/application/notion.nix
+    ../../home/features/application/obsidian.nix
+    ../../home/features/application/postman.nix
+    ../../home/features/application/slack.nix
+    ../../home/features/application/zen.nix
 
     ../../home/features/prog-lang/go.nix
     ../../home/features/prog-lang/node.nix
@@ -28,6 +35,7 @@ user: {lib, ...}: {
     ../../home/features/cli/k9s.nix
     ../../home/features/cli/lazygit.nix
     ../../home/features/cli/less.nix
+    ../../home/features/cli/mongosh.nix
     ../../home/features/cli/nh.nix
     ../../home/features/cli/starship.nix
     ../../home/features/cli/unzip.nix
