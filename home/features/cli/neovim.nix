@@ -1,11 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs = {
     neovim = {
       enable = true;
       defaultEditor = true;
-      initLua = ''
-        require("config.lazy")
-      '';
       extraLuaPackages = ps: [ ps.magick ];
       extraPackages = with pkgs; [
         clang
