@@ -4,6 +4,7 @@
     neovim = {
       enable = true;
       defaultEditor = true;
+      sideloadInitLua = true;
       extraLuaPackages = ps: [ ps.magick ];
       extraPackages = with pkgs; [
         clang
