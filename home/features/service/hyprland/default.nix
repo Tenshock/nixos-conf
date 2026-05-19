@@ -42,7 +42,6 @@ in
       exec-once = [ "[workspace 1 silent] $terminal" ];
 
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
       };
 
