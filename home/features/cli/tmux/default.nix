@@ -47,14 +47,14 @@
       # set-hook -g session-window-changed 'run-shell "tmux-track-and-clean"'
 
       # AZERTY Alt+number window switch
-      bind-key -n M-1  run-shell 'tmux-goto-window 1'
+      bind-key -n M-&  run-shell 'tmux-goto-window 1'
       bind-key -n M-2  run-shell 'tmux-goto-window 2'
-      bind-key -n M-3 run-shell 'tmux-goto-window 3'
-      bind-key -n M-4 run-shell 'tmux-goto-window 4'
-      bind-key -n M-5 run-shell 'tmux-goto-window 5'
-      bind-key -n M-6  run-shell 'tmux-goto-window 6'
+      bind-key -n M-\" run-shell 'tmux-goto-window 3'
+      bind-key -n M-\' run-shell 'tmux-goto-window 4'
+      bind-key -n M-\( run-shell 'tmux-goto-window 5'
+      bind-key -n M--  run-shell 'tmux-goto-window 6'
       bind-key -n M-7  run-shell 'tmux-goto-window 7'
-      bind-key -n M-8  run-shell 'tmux-goto-window 8'
+      bind-key -n M-_  run-shell 'tmux-goto-window 8'
       bind-key -n M-9  run-shell 'tmux-goto-window 9'
       bind-key -n M-0  run-shell 'tmux-goto-window 10'
 
