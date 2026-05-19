@@ -7,7 +7,7 @@ else
 
   case "$CHOICE" in
   "  Lock") hyprlock ;;
-  "  Logout") hyprctl dispatch exit ;;
+  "  Logout") hyprctl dispatch 'hl.dsp.exit()' ;;
   "  Reboot") systemctl reboot ;;
   "  Shutdown") systemctl poweroff ;;
   "  Suspend") systemctl suspend-then-hibernate ;;

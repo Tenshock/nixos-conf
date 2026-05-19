@@ -23,15 +23,10 @@
           on-timeout = "hyprlock";
         }
         {
-          # 10min30s: turn screen off
+          # 10min30s: turn screen off and suspend, then hibernate after HibernateDelaySec.
           timeout = 630;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
-        }
-        {
-          # 30 minutes: suspend then hibernate. See "HibernateDelaySec" in logind conf in configuration.nix.
-          timeout = 1800;
-          on-timeout = "systemctl suspend-then-hibernate";
+          on-timeout = "hyprctl dispatch 'hl.dsp.dpms(\"off\")'; systemctl suspend-then-hibernate";
+          on-resume = "hyprctl dispatch 'hl.dsp.dpms(\"on\")'";
         }
       ];
     };

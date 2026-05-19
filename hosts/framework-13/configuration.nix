@@ -5,9 +5,9 @@ user:
     (import ../../nixos/1password.nix user)
     (import ../../nixos/dolphin.nix user)
     ../../nixos/fingerprint-unlock.nix
+    ../../nixos/hibernation.nix
     ../../nixos/hyprland.nix
     ../../nixos/i18n.nix
-    ../../nixos/lid-behavior.nix
     ../../nixos/login-manager.nix
     ../../nixos/media.nix
     (import ../../nixos/minecraft.nix user)
