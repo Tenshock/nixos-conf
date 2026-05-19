@@ -40,14 +40,21 @@
     };
   };
 
-  outputs = { self, ... }@inputs:
+  outputs =
+    { self, ... }@inputs:
 
     let
       hosts = import ./hosts/hosts.nix;
 
       mkNixOSConfiguration =
-        { host, nixpkgs, nixos-hardware, home-manager, catppuccin }:
-        nixpkgs.lib.nixosSystem {
+        {
+          host,
+          nixos,
+          nixos-hardware,
+          home-manager,
+          catppuccin,
+        }:
+        nixos.lib.nixosSystem {
           system = host.arch;
           modules = [
             (import ./hosts/${host.dir}/configuration.nix host.user)
@@ -74,8 +81,16 @@
             }
           ];
         };
-      mkDarwinConfigurations = { host, nix-darwin, home-manager, nix-homebrew
-        , homebrew-core, homebrew-cask, catppuccin }:
+      mkDarwinConfigurations =
+        {
+          host,
+          nix-darwin,
+          home-manager,
+          nix-homebrew,
+          homebrew-core,
+          homebrew-cask,
+          catppuccin,
+        }:
         nix-darwin.lib.darwinSystem {
           system = host.arch;
           modules = [
@@ -111,30 +126,32 @@
                 mutableTaps = false;
               };
             }
-            ({ config, ... }: {
-              homebrew.taps = builtins.attrNames config.nix-homebrew.taps;
-            })
+            (
+              { config, ... }:
+              {
+                homebrew.taps = builtins.attrNames config.nix-homebrew.taps;
+              }
+            )
           ];
         };
 
-    in {
-      nixosConfigurations."${hosts.framework-13.hostname}" =
-        mkNixOSConfiguration {
-          host = hosts.framework-13;
-          inherit (inputs) nixos;
-          inherit (inputs) nixos-hardware;
-          inherit (inputs) home-manager;
-          inherit (inputs) catppuccin;
-        };
-      darwinConfigurations."${hosts.macbook-seekube.hostname}" =
-        mkDarwinConfigurations {
-          host = hosts.macbook-seekube;
-          inherit (inputs) nix-darwin;
-          inherit (inputs) home-manager;
-          inherit (inputs) nix-homebrew;
-          inherit (inputs) homebrew-core;
-          inherit (inputs) homebrew-cask;
-          inherit (inputs) catppuccin;
-        };
+    in
+    {
+      nixosConfigurations."${hosts.framework-13.hostname}" = mkNixOSConfiguration {
+        host = hosts.framework-13;
+        inherit (inputs) nixos;
+        inherit (inputs) nixos-hardware;
+        inherit (inputs) home-manager;
+        inherit (inputs) catppuccin;
+      };
+      darwinConfigurations."${hosts.macbook-seekube.hostname}" = mkDarwinConfigurations {
+        host = hosts.macbook-seekube;
+        inherit (inputs) nix-darwin;
+        inherit (inputs) home-manager;
+        inherit (inputs) nix-homebrew;
+        inherit (inputs) homebrew-core;
+        inherit (inputs) homebrew-cask;
+        inherit (inputs) catppuccin;
+      };
     };
 }
