@@ -1,85 +1,125 @@
-{ pkgs, config, ... }:
-let
-  mochaTheme = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/hyprland/b57375545f5da1f7790341905d1049b1873a8bb3/themes/mocha.conf";
-    sha256 = "sha256-SxVNvZZjfuPA2yB9xA0EHHEnE9eIQJAFVBIUuDiSIxQ=";
-  };
-in
+{ lib, ... }:
 {
-  catppuccin.hyprland.enable = true;
+  catppuccin.hyprland.enable = false;
 
   home = {
     sessionVariables.NIXOS_OZONE_WL = "1";
-    file."${config.xdg.configHome}/hypr/mocha.conf".source = mochaTheme;
   };
 
   imports = [
-    ./animations.nix
     ./bindings.nix
     ./ui.nix
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "lua";
     systemd.enable = false; # Necessary for UWSM integration. See nixos/hyprland.nix
 
     settings = {
-      source = [ "~/.config/hypr/mocha.conf" ];
-
       # Apps
-      "$audioManager" = "uwsm app -- $(kitty -e ncpamixer)";
-      "$bluetoothManager" = "uwsm app -- $(kitty -e bluetui)";
-      "$browser" = "uwsm app -- zen-twilight";
-      "$cbonsai" = "uwsm app -- $(kitty -e cbonsai --live --time 0,2)";
-      "$fileManager" = "uwsm app -- dolphin";
-      "$hyprlock" = "uwsm app -- hyprlock";
-      "$networkManager" = "uwsm app -- $(kitty -e nmtui)";
-      "$statusbar" = "uwsm app -- waybar";
-      "$teams" = "uwsm app -- teams-for-linux";
-      "$terminal" = "uwsm app -- kitty";
-      "$obsidian" = "uwsm app -- obsidian";
-
-      exec-once = [ "[workspace 1 silent] $terminal" ];
-
-      dwindle = {
-        preserve_split = true;
-      };
+      audioManager._var = "uwsm app -- $(kitty -e ncpamixer)";
+      bluetoothManager._var = "uwsm app -- $(kitty -e bluetui)";
+      browser._var = "uwsm app -- zen-twilight";
+      cbonsai._var = "uwsm app -- $(kitty -e cbonsai --live --time 0,2)";
+      fileManager._var = "uwsm app -- dolphin";
+      hyprlock._var = "uwsm app -- hyprlock";
+      networkManager._var = "uwsm app -- $(kitty -e nmtui)";
+      obsidian._var = "uwsm app -- obsidian";
+      statusbar._var = "uwsm app -- waybar";
+      teams._var = "uwsm app -- teams-for-linux";
+      terminal._var = "uwsm app -- kitty";
 
       gesture = [
-        "3, horizontal, workspace"
-        "4, horizontal, workspace"
+        {
+          fingers = 3;
+          direction = "horizontal";
+          action = "workspace";
+        }
+        {
+          fingers = 4;
+          direction = "horizontal";
+          action = "workspace";
+        }
       ];
-
-      input = {
-        kb_layout = "fr";
-        follow_mouse = 1;
-        sensitivity = 0.2;
-
-        touchpad = {
-          natural_scroll = true;
-          scroll_factor = 0.35;
-        };
-      };
-
-      misc = {
-        force_default_wallpaper = -1;
-        disable_hyprland_logo = false;
-      };
 
       monitor = [
-        "eDP-1,2880x1920@120,auto,1.6"
-        ",preferred,auto,auto"
+        {
+          output = "eDP-1";
+          mode = "2880x1920@120";
+          position = "auto";
+          scale = 1.6;
+        }
+        {
+          output = "";
+          mode = "preferred";
+          position = "auto";
+          scale = "auto";
+        }
       ];
 
-      workspace = [ "1, monitor:eDP-1" ];
-
-      windowrule = [
-        "suppress_event maximize, match:class .*"
-
-        "no_initial_focus on, focus_on_activate off, match:class ^$, match:title ^$, match:xwayland 1, match:float 1, match:fullscreen 0, match:pin 0"
-
-        "stay_focused on, match:class wofi"
+      workspace_rule = [
+        {
+          workspace = "1";
+          monitor = "eDP-1";
+        }
       ];
+
+      window_rule = [
+        {
+          match.class = ".*";
+          suppress_event = "maximize";
+        }
+        {
+          match = {
+            class = "^$";
+            title = "^$";
+            xwayland = true;
+            float = true;
+            fullscreen = false;
+            pin = false;
+          };
+          no_initial_focus = true;
+          focus_on_activate = false;
+        }
+        {
+          match.class = "wofi";
+          stay_focused = true;
+        }
+      ];
+
+      on._args = [
+        "hyprland.start"
+        (lib.generators.mkLuaInline ''
+          function()
+            hl.exec_cmd("[workspace 1 silent] " .. terminal)
+          end
+        '')
+      ];
+
+      config = {
+        animations.enabled = false;
+
+        dwindle = {
+          preserve_split = true;
+        };
+
+        input = {
+          kb_layout = "fr";
+          follow_mouse = 1;
+          sensitivity = 0.2;
+
+          touchpad = {
+            natural_scroll = true;
+            scroll_factor = 0.35;
+          };
+        };
+
+        misc = {
+          force_default_wallpaper = -1;
+          disable_hyprland_logo = false;
+        };
+      };
     };
   };
 }
