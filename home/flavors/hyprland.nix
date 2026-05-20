@@ -13,6 +13,7 @@
     ../features/service/hyprlock.nix
     ../features/service/hyprpaper.nix
     ../features/service/mako.nix
+    ../features/service/waycorner.nix
     ../features/service/waybar/waybar.nix
   ];
 }
