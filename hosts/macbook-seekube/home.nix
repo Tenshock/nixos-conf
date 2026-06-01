@@ -47,6 +47,7 @@ user: {inputs, lib, ...}: {
 
     ../../home/features/fonts/nerd.nix
 
+    ../../catppuccin.nix
   ];
 
   home = {
