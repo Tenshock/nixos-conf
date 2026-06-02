@@ -6,7 +6,7 @@
       127.0.0.1 unyka.local
       127.0.0.1 unyka-bo.local
     '';
-    firewall.enable = false;
+    firewall.enable = true;
   };
 
   users.users.${user} = {

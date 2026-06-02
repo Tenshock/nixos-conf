@@ -14,7 +14,7 @@ user:
 
     docker = {
       enable = true;
-      enableOnBoot = true;
+      enableOnBoot = false;
 
       autoPrune = {
         enable = true;
