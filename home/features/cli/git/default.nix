@@ -10,6 +10,11 @@
     git = {
       enable = true;
 
+      ignores = [
+        ".playwright-cli/"
+        ".serena/"
+      ];
+
       settings = {
         user = {
           name = "Cédric Prezelin";
