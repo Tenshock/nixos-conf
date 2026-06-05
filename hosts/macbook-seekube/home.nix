@@ -24,7 +24,7 @@ user: {inputs, lib, ...}: {
     ../../home/features/cli/btop.nix
     ../../home/features/cli/cbonsai.nix
     ../../home/features/cli/cocogitto.nix
-    ../../home/features/cli/codex.nix
+    ../../home/features/cli/codex
     ../../home/features/cli/eza.nix
     ../../home/features/cli/fastfetch.nix
     ../../home/features/cli/fzf.nix
