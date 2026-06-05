@@ -11,15 +11,13 @@
       "docker-compose"
       "mas"
       "nvm"
-      "podman"
-      "podman-compose"
     ];
 
     casks = [
       "codex-app"
       "displaylink"
       "docker-desktop"
-      "linear-linear"
+      "linear"
       "zen"
     ];
 
