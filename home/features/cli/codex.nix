@@ -54,7 +54,10 @@ let
 
   projects = lib.genAttrs trustedProjects (_: { trust_level = "trusted"; });
 in {
-  home.packages = [ gitnexus ];
+  home.packages = [
+    gitnexus
+    pkgs.uv
+  ];
 
   programs.codex = {
     enable = true;
@@ -72,6 +75,19 @@ in {
         gitnexus = {
           command = "${gitnexus}/bin/gitnexus";
           args = [ "mcp" ];
+        };
+
+        serena = {
+          startup_timeout_sec = 15;
+          command = "${pkgs.uv}/bin/uvx";
+          args = [
+            "--from"
+            "git+https://github.com/oraios/serena"
+            "serena"
+            "start-mcp-server"
+            "--project-from-cwd"
+            "--context=codex"
+          ];
         };
       };
 
