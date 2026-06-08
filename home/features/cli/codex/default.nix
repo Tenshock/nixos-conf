@@ -58,7 +58,7 @@ in {
 
   programs.codex = {
     enable = true;
-    skills = skills;
+    inherit skills;
     settings = {
       model = "gpt-5.5";
       review_model = "gpt-5.5";
