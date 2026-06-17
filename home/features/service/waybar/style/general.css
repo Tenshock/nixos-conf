@@ -170,7 +170,7 @@
 }
 
 #battery.warning:not(.charging) {
-  color: @orange;
+  color: @peach;
 }
 
 #battery.critical:not(.charging) {
