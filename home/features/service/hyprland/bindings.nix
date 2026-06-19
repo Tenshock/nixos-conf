@@ -152,6 +152,7 @@ in
         (bind (main "V") (lua "hl.dsp.window.float()"))
         (bind (main "I") (lua "hl.dsp.exec_cmd(\"hyprpicker -a\")"))
         (bind (main "SPACE") (lua "hl.dsp.exec_cmd(\"wofi-launcher\")"))
+        (bind "CTRL + ALT + SPACE" (exec "smile"))
         (bind (shift "D") (lua "hl.dsp.layout(\"togglesplit\")")) # dwindle
         (bind (main "D") (lua "hl.dsp.layout(\"swapsplit\")")) # dwindle
         (bind "F10" (lua "hl.dsp.exec_cmd(\"hyprshot -m output\")")) # Screenshot a monitor

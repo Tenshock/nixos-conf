@@ -26,6 +26,7 @@
       hyprlock._var = "uwsm app -- hyprlock";
       networkManager._var = "uwsm app -- $(kitty -e nmtui)";
       obsidian._var = "uwsm app -- obsidian";
+      smile._var = "uwsm app -- smile";
       statusbar._var = "uwsm app -- waybar";
       teams._var = "uwsm app -- teams-for-linux";
       terminal._var = "uwsm app -- kitty";
@@ -85,6 +86,12 @@
         {
           match.class = "wofi";
           stay_focused = true;
+        }
+        {
+          match.class = "it.mijorus.smile";
+          float = true;
+          size = "520 620";
+          center = true;
         }
       ];
 
