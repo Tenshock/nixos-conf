@@ -1,11 +1,13 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
 }:
 let
   integrations = [
+    ./caveman.nix
     ./context7.nix
     ./gitnexus.nix
     ./playwright.nix
@@ -17,7 +19,17 @@ let
     let
       imported = import integration;
     in
-    if lib.isFunction imported then imported { inherit config lib pkgs; } else imported;
+    if lib.isFunction imported then
+      imported {
+        inherit
+          config
+          inputs
+          lib
+          pkgs
+          ;
+      }
+    else
+      imported;
 
   integrationConfigs = map importIntegration integrations;
 
@@ -53,6 +65,11 @@ in
   programs.codex = {
     enable = true;
     inherit skills;
+    context = ''
+      Use caveman mode by default in every session.
+      Keep all technical details exact.
+      Stop only if user says "stop caveman" or "normal mode".
+    '';
     settings = {
       model = "gpt-5.5";
       review_model = "gpt-5.5";
