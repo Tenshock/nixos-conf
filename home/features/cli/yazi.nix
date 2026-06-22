@@ -4,17 +4,21 @@
     enableZshIntegration = true;
     settings = {
       opener = {
-        open = [{
-          run = ''xdg-open "$@"'';
-          desc = "Open";
-        }];
+        open = [
+          {
+            run = ''xdg-open "$@"'';
+            desc = "Open";
+          }
+        ];
       };
 
       open = {
-        rules = [{
-          mime = "video/*";
-          use = "open";
-        }];
+        rules = [
+          {
+            mime = "video/*";
+            use = "open";
+          }
+        ];
       };
     };
   };

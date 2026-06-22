@@ -2,7 +2,7 @@
 { lib, ... }:
 {
   home.activation = {
-    copyNixApps = lib.hm.dag.entryAfter ["linkGeneration"] ''
+    copyNixApps = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
       # Create directory for the applications
       mkdir -p "$HOME/Applications/Nix-Apps"
 

@@ -1,1 +1,5 @@
-{ pkgs, ... }: { home = { packages = with pkgs; [ kubernetes-helm ]; }; }
+{ pkgs, ... }: {
+  home = {
+    packages = with pkgs; [ kubernetes-helm ];
+  };
+}

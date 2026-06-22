@@ -2,9 +2,11 @@
   inputs,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (inputs.firefox-addons.overlays.default pkgs pkgs) firefox-addons;
-in {
+in
+{
   programs.zen-browser = {
     enable = true;
     setAsDefaultBrowser = true;

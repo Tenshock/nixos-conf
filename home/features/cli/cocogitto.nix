@@ -1,1 +1,5 @@
-{ pkgs, ... }: { home = { packages = with pkgs; [ cocogitto ]; }; }
+{ pkgs, ... }: {
+  home = {
+    packages = with pkgs; [ cocogitto ];
+  };
+}

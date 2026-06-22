@@ -1,7 +1,10 @@
 { hostName, user }: {
   networking = {
     inherit hostName;
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.powersave = false;
+    };
     extraHosts = ''
       127.0.0.1 unyka.local
       127.0.0.1 unyka-bo.local

@@ -1,4 +1,10 @@
-{lib, pkgs, config, ...}: {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
   xdg = {
     enable = true;
 
@@ -26,4 +32,3 @@
     };
   };
 }
-

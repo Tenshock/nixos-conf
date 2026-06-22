@@ -1,4 +1,4 @@
-user: {inputs, lib, ...}: {
+user: { inputs, lib, ... }: {
   imports = [
     inputs.zen-browser.homeModules.twilight
     ../../darwin/macos-app-link-fix.nix

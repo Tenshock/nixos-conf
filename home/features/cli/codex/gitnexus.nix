@@ -29,12 +29,14 @@ let
     dontNpmBuild = true;
   };
 
-  gitnexusSkill = name:
+  gitnexusSkill =
+    name:
     pkgs.runCommand "codex-skill-${name}-${gitnexus.version}" { } ''
       mkdir -p $out
       cp ${gitnexusSource}/gitnexus/skills/${name}.md $out/SKILL.md
     '';
-in {
+in
+{
   packages = [ gitnexus ];
 
   mcp_servers.gitnexus = {

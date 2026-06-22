@@ -5,7 +5,7 @@
     enable = true;
 
     settings = {
-      after-startup-command = [];
+      after-startup-command = [ ];
 
       start-at-login = false;
 
@@ -18,7 +18,7 @@
 
       default-root-container-orientation = "auto";
 
-      on-focused-monitor-changed = ["move-mouse monitor-lazy-center"];
+      on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
 
       # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
       # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
@@ -32,13 +32,13 @@
       gaps = {
         inner = {
           horizontal = 5;
-          vertical =   5;
+          vertical = 5;
         };
         outer = {
-          left =       5;
-          bottom =     5;
-          top =        5;
-          right =      5;
+          left = 5;
+          bottom = 5;
+          top = 5;
+          right = 5;
         };
       };
 

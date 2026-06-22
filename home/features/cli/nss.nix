@@ -1,1 +1,5 @@
-{ pkgs, ... }: { home = { packages = with pkgs; [ nssTools ]; }; }
+{ pkgs, ... }: {
+  home = {
+    packages = with pkgs; [ nssTools ];
+  };
+}

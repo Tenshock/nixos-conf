@@ -1,1 +1,5 @@
-{ pkgs, ... }: { home = { packages = with pkgs; [ kind ]; }; }
+{ pkgs, ... }: {
+  home = {
+    packages = with pkgs; [ kind ];
+  };
+}

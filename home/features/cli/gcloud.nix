@@ -1,2 +1,5 @@
-
-{ pkgs, ... }: { home = { packages = with pkgs; [ google-cloud-sdk ]; }; }
+{ pkgs, ... }: {
+  home = {
+    packages = with pkgs; [ google-cloud-sdk ];
+  };
+}

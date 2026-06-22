@@ -1,1 +1,5 @@
-{ pkgs, ... }: { home = { packages = with pkgs; [ kubectl ]; }; }
+{ pkgs, ... }: {
+  home = {
+    packages = with pkgs; [ kubectl ];
+  };
+}

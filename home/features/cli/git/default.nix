@@ -1,10 +1,8 @@
 { pkgs, ... }: {
-  home.packages = with pkgs;
-    [
-      (writeShellScriptBin "git-large-files"
-        (builtins.readFile ./git-large-files.sh))
-      git-sizer
-    ];
+  home.packages = with pkgs; [
+    (writeShellScriptBin "git-large-files" (builtins.readFile ./git-large-files.sh))
+    git-sizer
+  ];
 
   programs = {
     git = {
@@ -18,7 +16,7 @@
       settings = {
         user = {
           name = "Cédric Prezelin";
-          email = "cedric.prezelin@seekube.com";
+          email = "cedric.prezelin@gmail.com";
         };
 
         advice = {

@@ -1,1 +1,5 @@
-{ pkgs, ... }: { home = { packages = with pkgs; [ skaffold ]; }; }
+{ pkgs, ... }: {
+  home = {
+    packages = with pkgs; [ skaffold ];
+  };
+}

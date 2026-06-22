@@ -1,1 +1,5 @@
-{ pkgs, ... }: { home = { packages = with pkgs; [ mkcert ]; }; }
+{ pkgs, ... }: {
+  home = {
+    packages = with pkgs; [ mkcert ];
+  };
+}

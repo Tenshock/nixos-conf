@@ -21,6 +21,8 @@
   };
 
   dconf.settings = {
-    "org/gnome/desktop/interface" = { cursor-theme = "'MochaPeach'"; };
+    "org/gnome/desktop/interface" = {
+      cursor-theme = "'MochaPeach'";
+    };
   };
 }

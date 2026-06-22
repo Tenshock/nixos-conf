@@ -28,8 +28,7 @@
       };
       directory = {
         format = " [$path]($style)[$read_only]($read_only_style) ";
-        repo_root_format =
-          " [$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) ";
+        repo_root_format = " [$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) ";
         truncation_length = 10;
         truncate_to_repo = false;
         style = "bold blue";

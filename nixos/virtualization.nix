@@ -1,5 +1,4 @@
-user:
-{ pkgs, ... }: {
+user: { pkgs, ... }: {
   virtualisation = {
     podman = {
       enable = false;
@@ -24,18 +23,27 @@ user:
   };
 
   users.users.${user} = {
-    extraGroups = [ "podman" "docker" ]; # Necessary for dockerSocket option.
+    extraGroups = [
+      "podman"
+      "docker"
+    ]; # Necessary for dockerSocket option.
     packages = with pkgs; [ docker-compose ];
   };
 
   services.k3s = {
     enable = false;
-    extraFlags =
-      [ "--write-kubeconfig-mode 640" "--write-kubeconfig-group wheel" ];
+    extraFlags = [
+      "--write-kubeconfig-mode 640"
+      "--write-kubeconfig-group wheel"
+    ];
   };
 
   # environment.variables = { KUBECONFIG = "/etc/rancher/k3s/k3s.yaml"; };
-  environment.variables = { KUBECONFIG = "/home/${user}/.kube/config"; };
+  environment.variables = {
+    KUBECONFIG = "/home/${user}/.kube/config";
+  };
 
-  programs.zsh.shellAliases = { k = "k3s kubectl"; };
+  programs.zsh.shellAliases = {
+    k = "k3s kubectl";
+  };
 }

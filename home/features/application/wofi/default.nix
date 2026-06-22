@@ -1,8 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     (writeShellScriptBin "wofi-launcher" (builtins.readFile ./wofi-launcher.sh))
-    (writeShellScriptBin "wofi-power-menu"
-      (builtins.readFile ./wofi-power-menu.sh))
+    (writeShellScriptBin "wofi-power-menu" (builtins.readFile ./wofi-power-menu.sh))
   ];
 
   programs.wofi = {

@@ -3,17 +3,20 @@ let
   wallpaperSourceDir = ../../../wallpapers;
   wallpaperDestDir = "${config.xdg.configHome}/wallpapers";
   wallpaper = "chill-house.png";
-in {
+in
+{
   services.hyprpaper = {
     enable = true;
     settings = {
       splash = false;
       preload = [ "${wallpaperDestDir}/${wallpaper}" ];
-      wallpaper = [{
-        monitor = "";
-        path = "${wallpaperDestDir}/${wallpaper}";
-        fit_mode = "cover";
-      }];
+      wallpaper = [
+        {
+          monitor = "";
+          path = "${wallpaperDestDir}/${wallpaper}";
+          fit_mode = "cover";
+        }
+      ];
     };
   };
 

@@ -3,11 +3,12 @@
   programs.lazygit = {
     enable = true;
     settings = {
-      git.pagers = [{
-        pager = ''
-          delta --paging=never --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'';
-        colorArg = "always";
-      }];
+      git.pagers = [
+        {
+          pager = ''delta --paging=never --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'';
+          colorArg = "always";
+        }
+      ];
     };
   };
 

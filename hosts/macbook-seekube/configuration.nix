@@ -1,4 +1,4 @@
-user: {pkgs, ...}: {
+user: { pkgs, ... }: {
 
   imports = [
     ../../darwin/1password.nix
@@ -23,8 +23,6 @@ user: {pkgs, ...}: {
       '';
     };
   };
-
-
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 }

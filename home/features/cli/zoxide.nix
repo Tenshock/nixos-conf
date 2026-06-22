@@ -5,6 +5,8 @@
       enableZshIntegration = true;
     };
 
-    zsh.shellAliases = { cd = "z"; };
+    zsh.shellAliases = {
+      cd = "z";
+    };
   };
 }

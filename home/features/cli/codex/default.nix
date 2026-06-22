@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   integrations = [
     ./context7.nix
@@ -7,43 +12,29 @@ let
     ./serena.nix
   ];
 
-  importIntegration = integration:
+  importIntegration =
+    integration:
     let
       imported = import integration;
     in
-      if lib.isFunction imported then
-        imported { inherit config lib pkgs; }
-      else
-        imported;
+    if lib.isFunction imported then imported { inherit config lib pkgs; } else imported;
 
-  integrationConfigs =
-    map importIntegration integrations;
+  integrationConfigs = map importIntegration integrations;
 
-  integrationPackages =
-    lib.concatMap (integration: integration.packages or [ ]) integrationConfigs;
+  integrationPackages = lib.concatMap (integration: integration.packages or [ ]) integrationConfigs;
 
-  mcpServers =
-    lib.foldl' (servers: integration: servers // (integration.mcp_servers or { })) { } integrationConfigs;
+  mcpServers = lib.foldl' (
+    servers: integration: servers // (integration.mcp_servers or { })
+  ) { } integrationConfigs;
 
-  skills =
-    lib.foldl' (codexSkills: integration: codexSkills // (integration.skills or { })) { } integrationConfigs;
+  skills = lib.foldl' (
+    codexSkills: integration: codexSkills // (integration.skills or { })
+  ) { } integrationConfigs;
 
   trustedProjects = [
-    # Seekube
-    "${config.home.homeDirectory}/repo/seekube/amibuilder"
-    "${config.home.homeDirectory}/repo/seekube/backend"
-    "${config.home.homeDirectory}/repo/seekube/chore"
-    "${config.home.homeDirectory}/repo/seekube/cookie-consent"
-    "${config.home.homeDirectory}/repo/seekube/data-aggregator"
-    "${config.home.homeDirectory}/repo/seekube/front"
-    "${config.home.homeDirectory}/repo/seekube/go-api"
-    "${config.home.homeDirectory}/repo/seekube/infra"
-    "${config.home.homeDirectory}/repo/seekube/jack"
-    "${config.home.homeDirectory}/repo/seekube/redash-related-scripts"
-    "${config.home.homeDirectory}/repo/seekube/staging"
-    "${config.home.homeDirectory}/repo/seekube/ui"
-    "${config.home.homeDirectory}/repo/seekube/ui-kit"
-
+    # Misc
+    "${config.home.homeDirectory}/repo/anssi-lab-entretien-technique"
+    #
     # Unyka
     "${config.home.homeDirectory}/repo/unyka"
 
@@ -52,8 +43,11 @@ let
     "${config.home.homeDirectory}/.config/nvim"
   ];
 
-  projects = lib.genAttrs trustedProjects (_: { trust_level = "trusted"; });
-in {
+  projects = lib.genAttrs trustedProjects (_: {
+    trust_level = "trusted";
+  });
+in
+{
   home.packages = integrationPackages;
 
   programs.codex = {

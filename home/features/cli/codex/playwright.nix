@@ -16,7 +16,8 @@ let
     npmDepsHash = "sha256-Ulp6IttsZcOOA7LaYDpVKkBYbe2j4RFG8lJARWifOSk=";
     dontNpmBuild = true;
   };
-in {
+in
+{
   packages = [ playwrightCli ];
 
   skills.playwright-cli = "${playwrightCliSource}/skills/playwright-cli";
