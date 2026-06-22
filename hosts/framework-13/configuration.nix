@@ -10,6 +10,7 @@ user:
     ../../nixos/hyprland.nix
     ../../nixos/i18n.nix
     ../../nixos/login-manager.nix
+    ../../nixos/mattermost.nix
     ../../nixos/media.nix
     (import ../../nixos/minecraft.nix user)
     ../../nixos/neovim.nix
