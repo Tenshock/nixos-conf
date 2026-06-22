@@ -114,6 +114,17 @@
               "{device_alias}	{device_address}	{device_battery_percentage}%";
             "on-click" = "uwsm app -- kitty -e bluetui";
           };
+          "power-profiles-daemon" = {
+            "format" = "{icon}";
+            "tooltip" = true;
+            "tooltip-format" = "Power profile: {profile}\nDriver: {driver}";
+            "format-icons" = {
+              "default" = "";
+              "performance" = "";
+              "balanced" = " ";
+              "power-saver" = " ";
+            };
+          };
           "pulseaudio" = {
             "format-source" = "";
             "format-source-muted" = " ";
@@ -189,6 +200,7 @@
               "memory"
               "cpu"
               "bluetooth"
+              "power-profiles-daemon"
               "pulseaudio"
               "wireplumber"
               "backlight"
@@ -208,6 +220,7 @@
               "memory"
               "cpu"
               "bluetooth"
+              "power-profiles-daemon"
               "pulseaudio"
               "wireplumber"
               "backlight"

@@ -23,6 +23,7 @@
 #memory,
 #network,
 #bluetooth,
+#power-profiles-daemon,
 #wireplumber,
 #pulseaudio,
 #backlight,
@@ -141,6 +142,10 @@
   border-radius: 0 0 0 1rem;
   padding-left: 1rem;
   margin-left: 0.5rem;
+}
+
+#power-profiles-daemon {
+  color: @mauve;
 }
 
 #wireplumber,
