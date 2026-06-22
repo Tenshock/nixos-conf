@@ -6,6 +6,7 @@
     ../features/cli/hyprshot.nix
     ../features/cli/wl-clipboard.nix
 
+    ../features/service/awww.nix
     ../features/service/gtk.nix
     ../features/service/hyprcursor.nix
     ../features/service/hypridle.nix

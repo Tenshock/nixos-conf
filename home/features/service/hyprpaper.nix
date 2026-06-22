@@ -6,7 +6,7 @@ let
 in
 {
   services.hyprpaper = {
-    enable = true;
+    enable = false;
     settings = {
       splash = false;
       preload = [ "${wallpaperDestDir}/${wallpaper}" ];

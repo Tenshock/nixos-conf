@@ -151,7 +151,7 @@ in
         (bind (main "T") (exec "teams"))
         (bind (main "V") (lua "hl.dsp.window.float()"))
         (bind (main "I") (lua "hl.dsp.exec_cmd(\"hyprpicker -a\")"))
-        (bind (main "SPACE") (lua "hl.dsp.exec_cmd(\"wofi-launcher\")"))
+        (bind (main "SPACE") (exec "walker"))
         (bind "CTRL + ALT + SPACE" (exec "smile"))
         (bind (shift "D") (lua "hl.dsp.layout(\"togglesplit\")")) # dwindle
         (bind (main "D") (lua "hl.dsp.layout(\"swapsplit\")")) # dwindle

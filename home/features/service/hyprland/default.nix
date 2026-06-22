@@ -30,6 +30,7 @@
       statusbar._var = "uwsm app -- waybar";
       teams._var = "uwsm app -- teams-for-linux";
       terminal._var = "uwsm app -- kitty";
+      walker._var = "uwsm app -- walker";
 
       gesture = [
         {
