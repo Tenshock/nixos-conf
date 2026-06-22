@@ -1,8 +1,15 @@
 { pkgs, ... }:
+let
+  tomlFormat = pkgs.formats.toml { };
+in
 {
   home.packages = [ pkgs.qalculate-gtk ];
   xdg = {
     configFile = {
+      "elephant/elephant.toml".source = tomlFormat.generate "elephant.toml" {
+        auto_detect_launch_prefix = false;
+        launch_prefix = "${pkgs.uwsm}/bin/uwsm-app --";
+      };
 
       "elephant/calc.toml".text = ''
         command = "${pkgs.qalculate-gtk}/bin/qalculate-gtk '%VALUE%'"
@@ -44,7 +51,18 @@
   };
 
   systemd.user.services.walker = {
-    Unit.PartOf = [ "graphical-session.target" ];
+    Unit = {
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service.RestartSec = 10;
+  };
+
+  systemd.user.services.elephant = {
+    Unit = {
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
     Service.RestartSec = 10;
   };
 }

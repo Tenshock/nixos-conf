@@ -1,5 +1,6 @@
 {
   imports = [
+    ../features/application/walker
     ../features/application/wofi
 
     ../features/cli/hyprpicker.nix

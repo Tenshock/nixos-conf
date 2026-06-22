@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   home.sessionVariables.GTK_THEME = "Adwaita:dark";
 
@@ -9,6 +10,10 @@
 
   gtk = {
     enable = true;
+    iconTheme = {
+      name = "Papirus";
+      package = pkgs.papirus-icon-theme;
+    };
     theme = {
       name = "Adwaita:dark";
     };
