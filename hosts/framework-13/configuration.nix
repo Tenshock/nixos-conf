@@ -3,6 +3,7 @@ user:
 {
   imports = [
     (import ../../nixos/1password.nix user)
+    ../../catppuccin.nix
     (import ../../nixos/dolphin.nix user)
     ../../nixos/fingerprint-unlock.nix
     ../../nixos/hibernation.nix
