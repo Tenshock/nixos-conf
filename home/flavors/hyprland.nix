@@ -8,6 +8,7 @@
     ../features/cli/wl-clipboard.nix
 
     ../features/service/awww.nix
+    ../features/service/easyeffects
     ../features/service/gtk.nix
     ../features/service/hyprcursor.nix
     ../features/service/hypridle.nix
