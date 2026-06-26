@@ -1,6 +1,12 @@
 { pkgs, ... }:
+let
+  catppuccinGtk = pkgs.catppuccin-gtk.override {
+    variant = "mocha";
+    accents = [ "peach" ];
+  };
+in
 {
-  home.sessionVariables.GTK_THEME = "Adwaita:dark";
+  home.sessionVariables.GTK_THEME = "catppuccin-mocha-peach-standard";
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
@@ -15,7 +21,8 @@
       package = pkgs.papirus-icon-theme;
     };
     theme = {
-      name = "Adwaita:dark";
+      name = "catppuccin-mocha-peach-standard";
+      package = catppuccinGtk;
     };
   };
 
