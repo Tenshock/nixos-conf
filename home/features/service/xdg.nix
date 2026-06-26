@@ -6,6 +6,8 @@
 }:
 let
   browser = "zen.desktop";
+  documentViewer = "org.gnome.Papers.desktop";
+  fileManager = "thunar.desktop";
   imageViewer = "org.gnome.Loupe.desktop";
   videoPlayer = "vlc.desktop";
 
@@ -20,6 +22,14 @@ let
 
   pdfMimeTypes = [
     "application/pdf"
+    "application/x-bzpdf"
+    "application/x-ext-pdf"
+    "application/x-gzpdf"
+    "application/x-xzpdf"
+  ];
+
+  directoryMimeTypes = [
+    "inode/directory"
   ];
 
   videoMimeTypes = [
@@ -70,11 +80,14 @@ let
 
   defaultApplications =
     defaultsFor browser webMimeTypes
-    // defaultsFor browser pdfMimeTypes
+    // defaultsFor documentViewer pdfMimeTypes
+    // defaultsFor fileManager directoryMimeTypes
     // defaultsFor videoPlayer videoMimeTypes
     // defaultsFor imageViewer imageMimeTypes;
 in
 {
+  home.packages = [ pkgs.papers ];
+
   xdg = {
     enable = true;
 

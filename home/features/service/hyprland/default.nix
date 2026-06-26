@@ -22,7 +22,7 @@
       bluetoothManager._var = "uwsm app -- kitty -e bluetui";
       browser._var = "uwsm app -- zen-twilight";
       cbonsai._var = "uwsm app -- $(kitty -e cbonsai --live --time 0,2)";
-      fileManager._var = "uwsm app -- dolphin";
+      fileManager._var = "uwsm app -- thunar";
       hyprlock._var = "uwsm app -- hyprlock";
       networkManager._var = "uwsm app -- $(kitty -e nmtui)";
       obsidian._var = "uwsm app -- obsidian";
