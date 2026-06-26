@@ -80,6 +80,7 @@
             "states" = {
               "critical" = 90;
             };
+            "on-click" = "uwsm app -- kitty -e btop";
           };
           "memory" = {
             "format" = "  {percentage}%";
@@ -87,6 +88,7 @@
             "states" = {
               "critical" = 80;
             };
+            "on-click" = "uwsm app -- kitty -e btop";
           };
           "network" = {
             "format-linked" = "󰛵 {bandwidthDownOctets}";
@@ -96,6 +98,10 @@
             "interval" = 1;
             "tooltip" = false;
             "on-click" = "uwsm app -- kitty -e nmtui";
+          };
+          "tray" = {
+            "icon-size" = 16;
+            "spacing" = 8;
           };
           "bluetooth" = {
             "format" = " {status}";
@@ -123,8 +129,8 @@
             "tooltip" = true;
             "tooltip-format" = "Power profile: {profile}\nDriver: {driver}";
             "format-icons" = {
-              "default" = "";
-              "performance" = "";
+              "default" = " ";
+              "performance" = " ";
               "balanced" = " ";
               "power-saver" = " ";
             };
@@ -200,6 +206,7 @@
             "modules-center" = [ "custom/music" ];
             "modules-right" = [
               "custom/left-spacer"
+              "tray"
               "network"
               "memory"
               "cpu"
@@ -220,6 +227,7 @@
             "layer" = "top";
             "modules-center" = [ "hyprland/workspaces" ];
             "modules-right" = [
+              "tray"
               "network"
               "memory"
               "cpu"
