@@ -7,12 +7,16 @@ let
   inherit (inputs.firefox-addons.overlays.default pkgs pkgs) firefox-addons;
 in
 {
-  home.file.".zen/e3dki2qs.Default Profile/chrome/userChrome.css".source =
-    ./zen/catppuccin-mocha-peach/userChrome.css;
-  home.file.".zen/e3dki2qs.Default Profile/chrome/userContent.css".source =
-    ./zen/catppuccin-mocha-peach/userContent.css;
-  home.file.".zen/e3dki2qs.Default Profile/chrome/zen-logo-mocha.svg".source =
-    ./zen/catppuccin-mocha-peach/zen-logo-mocha.svg;
+  home = {
+    file = {
+      ".zen/e3dki2qs.Default Profile/chrome/userChrome.css".source =
+        ./zen/catppuccin-mocha-peach/userChrome.css;
+      ".zen/e3dki2qs.Default Profile/chrome/userContent.css".source =
+        ./zen/catppuccin-mocha-peach/userContent.css;
+      ".zen/e3dki2qs.Default Profile/chrome/zen-logo-mocha.svg".source =
+        ./zen/catppuccin-mocha-peach/zen-logo-mocha.svg;
+    };
+  };
 
   xdg.configFile."zen/default/chrome/zen-logo-mocha.svg".source =
     ./zen/catppuccin-mocha-peach/zen-logo-mocha.svg;
