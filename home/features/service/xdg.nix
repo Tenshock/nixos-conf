@@ -9,6 +9,7 @@ let
   documentViewer = "org.gnome.Papers.desktop";
   fileManager = "thunar.desktop";
   imageViewer = "org.gnome.Loupe.desktop";
+  torrentClient = "transmission-qt.desktop";
   videoPlayer = "vlc.desktop";
 
   defaultsFor = desktopFile: mimeTypes: lib.genAttrs mimeTypes (_: [ desktopFile ]);
@@ -30,6 +31,11 @@ let
 
   directoryMimeTypes = [
     "inode/directory"
+  ];
+
+  torrentMimeTypes = [
+    "application/x-bittorrent" # .torrent
+    "x-scheme-handler/magnet"
   ];
 
   videoMimeTypes = [
@@ -82,6 +88,7 @@ let
     defaultsFor browser webMimeTypes
     // defaultsFor documentViewer pdfMimeTypes
     // defaultsFor fileManager directoryMimeTypes
+    // defaultsFor torrentClient torrentMimeTypes
     // defaultsFor videoPlayer videoMimeTypes
     // defaultsFor imageViewer imageMimeTypes;
 in
