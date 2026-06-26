@@ -91,6 +91,20 @@ in
   xdg = {
     enable = true;
 
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      desktop = null;
+      documents = "${config.home.homeDirectory}/documents";
+      download = "${config.home.homeDirectory}/downloads";
+      pictures = "${config.home.homeDirectory}/pictures";
+      projects = "${config.home.homeDirectory}/projects";
+      videos = "${config.home.homeDirectory}/videos";
+      music = null;
+      publicShare = null;
+      templates = null;
+    };
+
     cacheHome = "${config.home.homeDirectory}/.cache";
     configHome = "${config.home.homeDirectory}/.config";
     dataHome = "${config.home.homeDirectory}/.local/share";
