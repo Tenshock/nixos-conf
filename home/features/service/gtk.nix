@@ -4,24 +4,36 @@ let
     variant = "mocha";
     accents = [ "peach" ];
   };
+  catppuccinKvantum = pkgs.catppuccin-kvantum.override {
+    variant = "mocha";
+    accent = "peach";
+  };
+  themeName = "catppuccin-mocha-peach-standard";
+  kvantumThemeName = "catppuccin-mocha-peach";
 in
 {
-  home.sessionVariables.GTK_THEME = "catppuccin-mocha-peach-standard";
+  home.sessionVariables.GTK_THEME = themeName;
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
     };
+
+    "org/gnome/desktop/wm/preferences" = {
+      button-layout = "menu:";
+    };
   };
 
   gtk = {
     enable = true;
+    gtk3.extraConfig.gtk-decoration-layout = "menu:";
+    gtk4.extraConfig.gtk-decoration-layout = "menu:";
     iconTheme = {
       name = "Papirus";
       package = pkgs.papirus-icon-theme;
     };
     theme = {
-      name = "catppuccin-mocha-peach-standard";
+      name = themeName;
       package = catppuccinGtk;
     };
   };
@@ -32,5 +44,15 @@ in
     style = {
       name = "kvantum";
     };
+  };
+
+  xdg.configFile = {
+    "gtk-4.0/gtk.css".source = "${catppuccinGtk}/share/themes/${themeName}/gtk-4.0/gtk.css";
+    "gtk-4.0/gtk-dark.css".source = "${catppuccinGtk}/share/themes/${themeName}/gtk-4.0/gtk-dark.css";
+    "Kvantum/${kvantumThemeName}".source = "${catppuccinKvantum}/share/Kvantum/${kvantumThemeName}";
+    "Kvantum/kvantum.kvconfig".text = ''
+      [General]
+      theme=${kvantumThemeName}
+    '';
   };
 }
