@@ -34,7 +34,7 @@ user:
     ../../home/features/cli/nss.nix
     ../../home/features/cli/qlty.nix
     ../../home/features/cli/starship.nix
-    ../../home/features/cli/unzip.nix
+    ../../home/features/cli/uncompress.nix
     ../../home/features/cli/neovim.nix
     ../../home/features/cli/tmux
     ../../home/features/cli/udiskie.nix

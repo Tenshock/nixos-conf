@@ -37,7 +37,7 @@ user: { inputs, lib, ... }: {
     ../../home/features/cli/mongosh.nix
     ../../home/features/cli/nh.nix
     ../../home/features/cli/starship.nix
-    ../../home/features/cli/unzip.nix
+    ../../home/features/cli/uncompress.nix
     ../../home/features/cli/neovim.nix
     ../../home/features/cli/qlty.nix
     ../../home/features/cli/tmux
