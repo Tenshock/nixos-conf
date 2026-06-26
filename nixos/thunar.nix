@@ -6,4 +6,6 @@ user:
       thunar
     ];
   };
+
+  services.tumbler.enable = true;
 }
