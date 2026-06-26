@@ -1,4 +1,6 @@
 {
+  imports = [ ./widget/gsimplecal.nix ];
+
   home.file.".config/waybar/style".source = ./style;
 
   programs.waybar = {
@@ -23,11 +25,13 @@
             "format" = "{:%a %d %b}";
             "tooltip" = false;
             "interval" = 1;
+            "on-click" = "uwsm app -- gsimplecal";
           };
           "clock#time" = {
             "format" = "  {:%H:%M:%S}";
             "tooltip" = false;
             "interval" = 1;
+            "on-click" = "uwsm app -- gsimplecal";
           };
           "custom/left-spacer" = {
             "tooltip" = false;
