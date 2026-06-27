@@ -1,10 +1,18 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --sessions /etc/greetd/sessions --theme 'text=darkgray;time=darkgray;container=darkgray;border=gray;title=darkgray;greet=darkgray;prompt=white;input=white;action=lightcyan;button=cyan' --greeting 'Authenticate to the sleeper build' --remember-session";
+        command = lib.concatStringsSep " " [
+          "${pkgs.tuigreet}/bin/tuigreet"
+          "--time"
+          "--sessions /etc/greetd/sessions"
+          "--theme 'text=darkgray;time=darkgray;container=darkgray;border=gray;title=darkgray;greet=darkgray;prompt=white;input=white;action=lightcyan;button=cyan'"
+          "--greeting 'Authenticate to the sleeper build'"
+          "--remember"
+          "--remember-session"
+        ];
         user = "greeter";
       };
     };
