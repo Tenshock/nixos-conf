@@ -28,6 +28,7 @@
       hyprlock._var = "uwsm app -- hyprlock";
       networkManager._var = "uwsm app -- $(kitty -e nmtui)";
       obsidian._var = "uwsm app -- obsidian";
+      powerMenu._var = "uwsm app -- power-menu";
       smile._var = "uwsm app -- smile";
       statusbar._var = "uwsm app -- waybar";
       teams._var = "uwsm app -- teams-for-linux";
@@ -86,10 +87,6 @@
           };
           no_initial_focus = true;
           focus_on_activate = false;
-        }
-        {
-          match.class = "wofi";
-          stay_focused = true;
         }
         {
           match.class = "walker";

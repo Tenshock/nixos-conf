@@ -1,7 +1,6 @@
 {
   imports = [
     ../features/application/walker
-    ../features/application/wofi
 
     ../features/cli/hyprpicker.nix
     ../features/cli/hyprshot.nix
@@ -16,6 +15,7 @@
     ../features/service/hyprlock.nix
     ../features/service/hyprpaper.nix
     ../features/service/mako.nix
+    ../features/service/power-menu.nix
     ../features/service/waycorner.nix
     ../features/service/waybar/waybar.nix
   ];

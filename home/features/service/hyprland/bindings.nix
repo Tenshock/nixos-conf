@@ -139,7 +139,7 @@ in
         (bind (main "C") (lua "hl.dsp.window.close()"))
         (bind "F11" (lua "hl.dsp.window.fullscreen()"))
         (bind (main "F") (exec "browser"))
-        (bind (main "M") (lua "hl.dsp.exec_cmd(\"wofi-power-menu\")"))
+        (bind (main "M") (exec "powerMenu"))
         (bind (main "L") (exec "hyprlock"))
         (bind (shift "L") (lua "hl.dsp.exec_cmd(\"systemctl suspend-then-hibernate\")"))
         (bind (main "N") (exec "networkManager"))

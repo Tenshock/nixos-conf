@@ -53,7 +53,7 @@
           };
           "custom/shutdown" = {
             "tooltip" = false;
-            "on-click" = "/home/cedric/.local/bin/wofi_power_menu.sh &";
+            "on-click" = "uwsm app -- power-menu";
             "format" = " ";
           };
         };
