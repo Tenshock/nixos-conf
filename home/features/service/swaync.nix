@@ -1,3 +1,6 @@
+let
+  colors = import ../../theme/colors.nix;
+in
 {
   services.swaync = {
     enable = true;
@@ -57,15 +60,15 @@
     };
 
     style = ''
-      @define-color foreground     #cdd6f4;
-      @define-color background     #1e1e2e;
-      @define-color background-sec #313244;
-      @define-color hyprland-border rgba(229, 199, 107, .67);
-      @define-color color1         #45475a;
-      @define-color color2         #f38ba8;
-      @define-color color3         #f9e2af;
-      @define-color color5         #89b4fa;
-      @define-color color6         #94e2d5;
+      @define-color foreground     ${colors.catppuccin.text};
+      @define-color background     ${colors.catppuccin.base};
+      @define-color background-sec ${colors.catppuccin.surface0};
+      @define-color hyprland-border ${colors.hyprland.activeBorderCss};
+      @define-color color1         ${colors.catppuccin.surface1};
+      @define-color color2         ${colors.catppuccin.red};
+      @define-color color3         ${colors.catppuccin.yellow};
+      @define-color color5         ${colors.catppuccin.blue};
+      @define-color color6         ${colors.catppuccin.teal};
 
       @define-color text            @foreground;
       @define-color background-alt  @color1;
