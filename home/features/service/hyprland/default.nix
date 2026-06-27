@@ -30,6 +30,7 @@
       statusbar._var = "uwsm app -- waybar";
       teams._var = "uwsm app -- teams-for-linux";
       terminal._var = "uwsm app -- kitty";
+      vesktop._var = "uwsm app -- vesktop";
       walker._var = "uwsm app -- walker";
 
       gesture = [
@@ -107,7 +108,9 @@
         "hyprland.start"
         (lib.generators.mkLuaInline ''
           function()
-            hl.exec_cmd("[workspace 1 silent] " .. terminal)
+            hl.exec_cmd(terminal, { workspace = "1" })
+            hl.exec_cmd(vesktop, { workspace = "2" })
+            hl.exec_cmd(browser, { workspace = "4" })
           end
         '')
       ];
