@@ -90,6 +90,10 @@
           stay_focused = true;
         }
         {
+          match.class = "walker";
+          stay_focused = true;
+        }
+        {
           match.title = "gsimplecal";
           float = true;
           border_color = "rgba(0f111abf) rgba(0f111abf)";
