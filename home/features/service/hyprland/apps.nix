@@ -10,7 +10,6 @@
     obsidian._var = "uwsm app -- obsidian";
     powerMenu._var = "uwsm app -- power-menu";
     smile._var = "uwsm app -- smile";
-    statusbar._var = "uwsm app -- waybar";
     teams._var = "uwsm app -- teams-for-linux";
     terminal._var = "uwsm app -- kitty";
     vesktop._var = "uwsm app -- vesktop";
