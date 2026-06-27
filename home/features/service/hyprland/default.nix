@@ -6,6 +6,8 @@
     sessionVariables.NIXOS_OZONE_WL = "1";
   };
 
+  services.hyprpolkitagent.enable = true;
+
   imports = [
     ./bindings.nix
     ./ui.nix
