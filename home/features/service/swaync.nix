@@ -92,12 +92,11 @@
         box-shadow: 0 0 8px 0 rgba(0,0,0,.6);
         border: 1px solid @selected;
         border-radius: 24px;
-        margin: 16px;
+        margin: 5px;
         padding: 0;
       }
 
       .floating-notifications.background .notification-row .notification-background .notification {
-        padding: 6px;
         border-radius: 12px;
       }
 
@@ -115,19 +114,85 @@
 
       .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action {
         border-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
         background-color: @background-alt;
         margin: 6px;
         border: 1px solid transparent;
       }
 
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action button,
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * button.notification-action {
+        border-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+
       .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
         background-color: @hover;
+        border-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
         border: 1px solid @selected;
+      }
+
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:hover button,
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action button:hover {
+        background-color: @hover;
+        border-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        color: @text;
       }
 
       .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
         background-color: @selected;
-        color: @background;
+        color: @text;
+      }
+
+      .notification-action:hover,
+      button.notification-action:hover,
+      button.notification-action:hover label {
+        background: @selected;
+        border-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        color: @text;
+      }
+
+      .notification-action:hover {
+        border: 1px solid @selected;
+        border-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:first-child,
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:first-child:hover,
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * button.notification-action:first-child,
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * button.notification-action:first-child:hover {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:last-child,
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * .notification-action:last-child:hover,
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * button.notification-action:last-child,
+      .floating-notifications.background .notification-row .notification-background .notification > *:last-child > * button.notification-action:last-child:hover {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
       }
 
       .image {
@@ -137,6 +202,7 @@
       .summary {
         font-weight: 800;
         font-size: 1rem;
+        margin-bottom: 2px;
       }
 
       .body {
@@ -212,15 +278,60 @@
         background: alpha(@selected, .6);
         color: @text;
         border-radius: 12px;
-        margin: 6px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-bottom-left-radius: 12px;
+        margin: 0;
+      }
+
+      .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action button,
+      .control-center .notification-row .notification-background .notification > *:last-child > * button.notification-action {
+        border-radius: 12px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-bottom-left-radius: 12px;
       }
 
       .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:hover {
         background: @selected;
+        border-radius: 12px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-bottom-left-radius: 12px;
+      }
+
+      .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:hover button,
+      .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action button:hover {
+        background: @selected;
+        border-radius: 12px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-bottom-left-radius: 12px;
+        color: @text;
       }
 
       .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:active {
         background-color: @selected;
+      }
+
+      .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:first-child,
+      .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:first-child:hover,
+      .control-center .notification-row .notification-background .notification > *:last-child > * button.notification-action:first-child,
+      .control-center .notification-row .notification-background .notification > *:last-child > * button.notification-action:first-child:hover {
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+      }
+
+      .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:last-child,
+      .control-center .notification-row .notification-background .notification > *:last-child > * .notification-action:last-child:hover,
+      .control-center .notification-row .notification-background .notification > *:last-child > * button.notification-action:last-child,
+      .control-center .notification-row .notification-background .notification > *:last-child > * button.notification-action:last-child:hover {
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
       }
 
       .control-center .notification-row .notification-background .close-button {
