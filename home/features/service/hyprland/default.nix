@@ -116,6 +116,7 @@
           function()
             hl.exec_cmd(terminal, { workspace = "1" })
             hl.exec_cmd(vesktop, { workspace = "2" })
+            hl.exec_cmd(obsidian, { workspace = "3" })
             hl.exec_cmd(browser, { workspace = "4" })
           end
         '')
