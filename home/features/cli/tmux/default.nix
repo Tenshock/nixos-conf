@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     (writeShellScriptBin "tmux-goto-window" (builtins.readFile ./tmux-goto-window.sh))
-    # (writeShellScriptBin "tmux-track-and-clean" (builtins.readFile ./tmux-track-and-clean.sh))
   ];
 
   programs.tmux = {
@@ -41,9 +40,6 @@
       bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel wl-copy
       bind -T copy-mode-vi v send -X begin-selection
       bind -T copy-mode-vi y send -X copy-pipe-and-cancel "wl-copy"
-
-      # set-hook -g client-session-changed 'run-shell "tmux-track-and-clean"'
-      # set-hook -g session-window-changed 'run-shell "tmux-track-and-clean"'
 
       # AZERTY Alt+number window switch
       bind-key -n M-&  run-shell 'tmux-goto-window 1'
