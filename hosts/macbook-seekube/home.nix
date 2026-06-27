@@ -22,7 +22,6 @@ user: { inputs, lib, ... }: {
     ../../home/features/cli/awscli.nix
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix
-    ../../home/features/cli/cbonsai.nix
     ../../home/features/cli/cocogitto.nix
     ../../home/features/cli/codex
     ../../home/features/cli/eza.nix

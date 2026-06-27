@@ -1,5 +1,18 @@
 {
   wayland.windowManager.hyprland.settings = {
+    layer_rule = [
+      {
+        match.namespace = "swaync-control-center";
+        blur = true;
+        ignore_alpha = 0.2;
+      }
+      {
+        match.namespace = "swaync-notification-window";
+        blur = true;
+        ignore_alpha = 0.2;
+      }
+    ];
+
     config = {
       general = {
         border_size = 1;
@@ -16,8 +29,8 @@
 
         blur = {
           enabled = true;
-          size = 3;
-          passes = 1;
+          size = 4;
+          passes = 2;
 
           vibrancy = 0.1696;
         };

@@ -145,7 +145,7 @@ in
         (bind (main "N") (exec "networkManager"))
         (bind (main "B") (exec "bluetoothManager"))
         (bind (main "H") (exec "audioManager"))
-        (bind (main "P") (exec "cbonsai"))
+        (bind (main "P") (exec "notificationCenter"))
         (bind (main "O") (exec "obsidian"))
         (bind (main "E") (exec "fileManager"))
         (bind (main "T") (exec "teams"))

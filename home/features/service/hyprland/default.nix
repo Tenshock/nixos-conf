@@ -23,10 +23,10 @@
       audioManager._var = "uwsm app -- $(kitty -e ncpamixer)";
       bluetoothManager._var = "uwsm app -- kitty -e bluetui";
       browser._var = "uwsm app -- zen-twilight";
-      cbonsai._var = "uwsm app -- $(kitty -e cbonsai --live --time 0,2)";
       fileManager._var = "uwsm app -- thunar";
       hyprlock._var = "uwsm app -- hyprlock";
       networkManager._var = "uwsm app -- $(kitty -e nmtui)";
+      notificationCenter._var = "uwsm app -- swaync-client -t -sw";
       obsidian._var = "uwsm app -- obsidian";
       powerMenu._var = "uwsm app -- power-menu";
       smile._var = "uwsm app -- smile";
