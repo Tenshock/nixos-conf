@@ -6,10 +6,11 @@ user:
     ../../nixos/cameractrls-gtk4.nix
     ../../catppuccin.nix
     (import ../../nixos/thunar.nix user)
-    ../../nixos/fingerprint-unlock.nix
+    ../../nixos/fingerprint.nix
     ../../nixos/hibernation.nix
     ../../nixos/hyprland.nix
     ../../nixos/i18n.nix
+    ../../nixos/keyring.nix
     ../../nixos/login-manager.nix
     ../../nixos/mattermost.nix
     ../../nixos/media.nix
@@ -17,6 +18,7 @@ user:
     ../../nixos/neovim.nix
     ../../nixos/nix.nix
     (import ../../nixos/pkg-config.nix user)
+    ../../nixos/polkit.nix
     ../../nixos/printing.nix
     ../../nixos/smile.nix
     ../../nixos/steam.nix
