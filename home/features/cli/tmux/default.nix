@@ -3,7 +3,6 @@
   home.packages = with pkgs; [
     (writeShellScriptBin "tmux-goto-window" (builtins.readFile ./tmux-goto-window.sh))
     # (writeShellScriptBin "tmux-track-and-clean" (builtins.readFile ./tmux-track-and-clean.sh))
-    (writeShellScriptBin "us" (builtins.readFile ./unyka-session.sh))
   ];
 
   programs.tmux = {

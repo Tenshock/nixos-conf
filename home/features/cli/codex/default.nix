@@ -46,9 +46,6 @@ let
   trustedProjects = [
     # Misc
     "${config.home.homeDirectory}/repo/anssi-lab-entretien-technique"
-    #
-    # Unyka
-    "${config.home.homeDirectory}/repo/unyka"
 
     # Personal
     "${config.home.homeDirectory}/.config/nixos"

@@ -17,7 +17,6 @@ user:
     (import ../../nixos/minecraft.nix user)
     ../../nixos/neovim.nix
     ../../nixos/nix.nix
-    (import ../../nixos/pkg-config.nix user)
     ../../nixos/polkit.nix
     ../../nixos/printing.nix
     ../../nixos/smile.nix
