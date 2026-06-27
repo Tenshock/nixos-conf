@@ -8,16 +8,12 @@
       extraLuaPackages = ps: [ ps.magick ];
       extraPackages = with pkgs; [
         clang
-        # csharpier
-        nodejs_22
         fd
         fzf
         ghostscript
-        go
         imagemagick
         mermaid-cli
         ripgrep
-        rustup
         statix
         sqlite
         tectonic
