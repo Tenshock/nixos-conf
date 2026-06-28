@@ -13,6 +13,7 @@
     ../features/service/hypridle.nix
     ../features/service/hyprland
     ../features/service/hyprlock.nix
+    ../features/service/hyprsunset.nix
     ../features/service/power-menu.nix
     ../features/service/swaync.nix
     ../features/service/waycorner.nix
