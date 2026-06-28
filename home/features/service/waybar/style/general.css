@@ -117,7 +117,8 @@
 
 #custom-left-spacer {
   border-radius: 0 0 0 1rem;
-  margin-right: -0.1rem;
+  padding-left: 1rem;
+  margin-right: -0.7rem;
   color: @sky;
 }
 
@@ -137,14 +138,15 @@
 
 /* --- */
 
-#bluetooth {
+#power-profiles-daemon {
   color: @mauve;
   border-radius: 0 0 0 1rem;
   padding-left: 1rem;
-  margin-left: 0.5rem;
+  margin-left: 0.4rem;
+  margin-right: -0.2rem;
 }
 
-#power-profiles-daemon {
+#bluetooth {
   color: @mauve;
 }
 
@@ -180,21 +182,4 @@
 
 #battery.critical:not(.charging) {
   color: @red;
-}
-
-/* --- */
-
-#custom-lock {
-  border-radius: 0 0 0 1rem;
-  padding-left: 1rem;
-  padding-right: 0.5rem;
-  color: @sky;
-}
-
-#custom-shutdown {
-  border-radius: 0 0 1rem 0;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  margin-right: 0.5rem;
-  color: @green;
 }

@@ -46,16 +46,6 @@
             "on-click" = "playerctl play-pause";
             "max-length" = 50;
           };
-          "custom/lock" = {
-            "tooltip" = false;
-            "on-click" = "hyprlock &";
-            "format" = "";
-          };
-          "custom/shutdown" = {
-            "tooltip" = false;
-            "on-click" = "uwsm app -- power-menu";
-            "format" = " ";
-          };
         };
         shared-modules = {
           "hyprland/workspaces" = {
@@ -101,7 +91,27 @@
           };
           "tray" = {
             "icon-size" = 16;
-            "spacing" = 8;
+            "spacing" = 6;
+            "icons" = {
+              "vesktop" = "${./style/icons/vesktop-brand-discord-red.png}";
+              "Vesktop" = "${./style/icons/vesktop-brand-discord-red.png}";
+              "beeper" = "${./style/icons/beeper-message-circle-red.png}";
+              "Beeper_status_icon_1" = "${./style/icons/beeper-message-circle-red.png}";
+              "beepertexts" = "${./style/icons/beeper-message-circle-red.png}";
+              "Beeper" = "${./style/icons/beeper-message-circle-red.png}";
+              "easyeffects" = "${./style/icons/easyeffects-adjustments-red.png}";
+              "mattermost" = "${./style/icons/mattermost-red.png}";
+              "mattermost-desktop" = "${./style/icons/mattermost-red.png}";
+              "Mattermost" = "${./style/icons/mattermost-red.png}";
+              "slack" = "${./style/icons/slack-red.png}";
+              "Slack" = "${./style/icons/slack-red.png}";
+              "slack_status_icon_1" = "${./style/icons/slack-red.png}";
+              "Slack_status_icon_1" = "${./style/icons/slack-red.png}";
+              "steam" = "${./style/icons/steam-brand-red.png}";
+              "Steam" = "${./style/icons/steam-brand-red.png}";
+              "vlc" = "${./style/icons/vlc-red.png}";
+              "VLC media player" = "${./style/icons/vlc-red.png}";
+            };
           };
           "bluetooth" = {
             "format" = " {status}";
@@ -210,8 +220,8 @@
               "network"
               "memory"
               "cpu"
-              "bluetooth"
               "power-profiles-daemon"
+              "bluetooth"
               "pulseaudio"
               "wireplumber"
               "backlight"
@@ -227,12 +237,13 @@
             "layer" = "top";
             "modules-center" = [ "hyprland/workspaces" ];
             "modules-right" = [
+              "custom/left-spacer"
               "tray"
               "network"
               "memory"
               "cpu"
-              "bluetooth"
               "power-profiles-daemon"
+              "bluetooth"
               "pulseaudio"
               "wireplumber"
               "backlight"
