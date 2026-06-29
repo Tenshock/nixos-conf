@@ -1,5 +1,10 @@
 { pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [
+    lsfg-vk
+    lsfg-vk-ui
+  ];
+
   programs.steam = {
     enable = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
