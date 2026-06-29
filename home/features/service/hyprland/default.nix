@@ -77,6 +77,11 @@
           stay_focused = true;
         }
         {
+          match.title = "Archive password";
+          stay_focused = true;
+          focus_on_activate = true;
+        }
+        {
           match.title = "gsimplecal";
           float = true;
           border_color = "rgba(0f111abf) rgba(0f111abf)";
