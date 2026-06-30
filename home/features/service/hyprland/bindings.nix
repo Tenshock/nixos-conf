@@ -148,7 +148,6 @@ in
         (bind (main "P") (exec "notificationCenter"))
         (bind (main "O") (exec "obsidian"))
         (bind (main "E") (exec "fileManager"))
-        (bind (main "T") (exec "teams"))
         (bind (main "V") (lua "hl.dsp.window.float()"))
         (bind (main "I") (lua "hl.dsp.exec_cmd(\"hyprpicker -a\")"))
         (bind (main "SPACE") (exec "walker"))
