@@ -23,6 +23,10 @@ let
       awww img --resize crop --transition-type random "$wallpaper"
     '';
   };
+  awwwRestoreAfterMonitor = pkgs.writeShellScript "awww-restore-after-monitor" ''
+    ${pkgs.coreutils}/bin/sleep 1
+    ${pkgs.awww}/bin/awww restore -a
+  '';
 in
 {
   home.packages = [ awwwSwitch ];
@@ -58,6 +62,12 @@ in
 
     Install.WantedBy = [ "awww.service" ];
   };
+
+  wayland.windowManager.hyprland.extraConfig = ''
+    hl.on("monitor.added", function()
+      hl.exec_cmd("${awwwRestoreAfterMonitor}")
+    end)
+  '';
 
   home.file."wallpapers" = {
     source = wallpaperSourceDir;
