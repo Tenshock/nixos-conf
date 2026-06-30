@@ -33,10 +33,6 @@
             "interval" = 1;
             "on-click" = "uwsm app -- gsimplecal";
           };
-          "custom/left-spacer" = {
-            "tooltip" = false;
-            "format" = " ";
-          };
           "custom/music" = {
             "format" = "  {}";
             "escape" = true;
@@ -53,6 +49,10 @@
             "all-outputs" = false;
             "tooltip" = false;
             "format" = "{icon}";
+          };
+          "custom/left-spacer" = {
+            "tooltip" = false;
+            "format" = " ";
           };
           "cpu" = {
             "interval" = 1;
