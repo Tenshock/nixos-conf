@@ -16,6 +16,7 @@ user:
     ../../nixos/media.nix
     (import ../../nixos/minecraft.nix user)
     ../../nixos/neovim.nix
+    ../../nixos/nvidia-broadcast-linux.nix
     ../../nixos/nix.nix
     ../../nixos/polkit.nix
     ../../nixos/printing.nix
