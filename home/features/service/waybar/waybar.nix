@@ -93,6 +93,7 @@
             "icon-size" = 16;
             "spacing" = 6;
             "icons" = {
+              "1Password_status_icon_1" = "${./style/icons/1password-lock-red.png}";
               "vesktop" = "${./style/icons/vesktop-brand-discord-red.png}";
               "Vesktop" = "${./style/icons/vesktop-brand-discord-red.png}";
               "beeper" = "${./style/icons/beeper-message-circle-red.png}";
