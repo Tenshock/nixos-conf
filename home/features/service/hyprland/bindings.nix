@@ -22,68 +22,6 @@ let
   main = key: lua "mainMod .. \" + ${key}\"";
   shift = key: lua "shiftMod .. \" + ${key}\"";
 
-  directionBinds = [
-    {
-      key = "left";
-      direction = "l";
-    }
-    {
-      key = "right";
-      direction = "r";
-    }
-    {
-      key = "up";
-      direction = "u";
-    }
-    {
-      key = "down";
-      direction = "d";
-    }
-  ];
-
-  workspaceBinds = [
-    {
-      key = "ampersand";
-      workspace = "1";
-    }
-    {
-      key = "eacute";
-      workspace = "2";
-    }
-    {
-      key = "quotedbl";
-      workspace = "3";
-    }
-    {
-      key = "apostrophe";
-      workspace = "4";
-    }
-    {
-      key = "parenleft";
-      workspace = "5";
-    }
-    {
-      key = "minus";
-      workspace = "6";
-    }
-    {
-      key = "egrave";
-      workspace = "7";
-    }
-    {
-      key = "underscore";
-      workspace = "8";
-    }
-    {
-      key = "ccedilla";
-      workspace = "9";
-    }
-    {
-      key = "agrave";
-      workspace = "10";
-    }
-  ];
-
   resizeBinds = [
     {
       key = "right";
@@ -106,15 +44,6 @@ let
       y = 10;
     }
   ];
-
-  mkFocusBind =
-    { key, direction }: bind (main key) (lua "hl.dsp.focus({ direction = \"${direction}\" })");
-
-  mkWorkspaceBind =
-    { key, workspace }: bind (main key) (lua "hl.dsp.focus({ workspace = \"${workspace}\" })");
-
-  mkMoveToWorkspaceBind =
-    { key, workspace }: bind (shift key) (lua "hl.dsp.window.move({ workspace = \"${workspace}\" })");
 
   mkResizeBind =
     {
@@ -159,11 +88,35 @@ in
         (bind (main "S") (lua "hl.dsp.exec_cmd(\"hyprshot -m output\")")) # Screenshot a monitor
         (bind (shift "Print") (lua "hl.dsp.exec_cmd(\"hyprshot -m region\")")) # Screenshot a region
         (bind (shift "S") (lua "hl.dsp.exec_cmd(\"hyprshot -m region\")")) # Screenshot a region
-      ]
-      ++ (map mkFocusBind directionBinds)
-      ++ (map mkWorkspaceBind workspaceBinds)
-      ++ (map mkMoveToWorkspaceBind workspaceBinds)
-      ++ [
+
+        (bind (main "left") (lua "hl.dsp.focus({ direction = \"l\" })"))
+        (bind (main "right") (lua "hl.dsp.focus({ direction = \"r\" })"))
+        (bind (main "up") (lua "hl.dsp.focus({ direction = \"u\" })"))
+        (bind (main "down") (lua "hl.dsp.focus({ direction = \"d\" })"))
+        (bind (main "Tab") (lua "hl.dsp.workspace.move({ monitor = \"+1\" })"))
+
+        (bind (main "ampersand") (lua "hl.dsp.focus({ workspace = \"1\" })"))
+        (bind (main "eacute") (lua "hl.dsp.focus({ workspace = \"2\" })"))
+        (bind (main "quotedbl") (lua "hl.dsp.focus({ workspace = \"3\" })"))
+        (bind (main "apostrophe") (lua "hl.dsp.focus({ workspace = \"4\" })"))
+        (bind (main "parenleft") (lua "hl.dsp.focus({ workspace = \"5\" })"))
+        (bind (main "minus") (lua "hl.dsp.focus({ workspace = \"6\" })"))
+        (bind (main "egrave") (lua "hl.dsp.focus({ workspace = \"7\" })"))
+        (bind (main "underscore") (lua "hl.dsp.focus({ workspace = \"8\" })"))
+        (bind (main "ccedilla") (lua "hl.dsp.focus({ workspace = \"9\" })"))
+        (bind (main "agrave") (lua "hl.dsp.focus({ workspace = \"10\" })"))
+
+        (bind (shift "ampersand") (lua "hl.dsp.window.move({ workspace = \"1\" })"))
+        (bind (shift "eacute") (lua "hl.dsp.window.move({ workspace = \"2\" })"))
+        (bind (shift "quotedbl") (lua "hl.dsp.window.move({ workspace = \"3\" })"))
+        (bind (shift "apostrophe") (lua "hl.dsp.window.move({ workspace = \"4\" })"))
+        (bind (shift "parenleft") (lua "hl.dsp.window.move({ workspace = \"5\" })"))
+        (bind (shift "minus") (lua "hl.dsp.window.move({ workspace = \"6\" })"))
+        (bind (shift "egrave") (lua "hl.dsp.window.move({ workspace = \"7\" })"))
+        (bind (shift "underscore") (lua "hl.dsp.window.move({ workspace = \"8\" })"))
+        (bind (shift "ccedilla") (lua "hl.dsp.window.move({ workspace = \"9\" })"))
+        (bind (shift "agrave") (lua "hl.dsp.window.move({ workspace = \"10\" })"))
+
         # Example special workspace (scratchpad)
         (bind (main "A") (lua "hl.dsp.workspace.toggle_special(\"magic\")"))
         (bind (shift "A") (lua "hl.dsp.window.move({ workspace = \"special:magic\" })"))
