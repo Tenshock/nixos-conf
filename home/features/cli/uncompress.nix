@@ -11,7 +11,7 @@ let
       zenity
     ];
     text = ''
-      log_dir=''${XDG_STATE_HOME:-$HOME/.local/state}
+      log_dir="$XDG_STATE_HOME"
       mkdir -p -- "$log_dir"
       log_file=$log_dir/thunar-extract.log
       exec >>"$log_file" 2>&1
