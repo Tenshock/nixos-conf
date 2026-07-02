@@ -56,7 +56,7 @@ in
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "set-awww-wallpaper" ''
         ${pkgs.coreutils}/bin/sleep 1
-        ${awwwSwitch}/bin/awww-switch
+        ${pkgs.awww}/bin/awww restore -a || ${awwwSwitch}/bin/awww-switch
       '';
     };
 
