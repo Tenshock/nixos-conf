@@ -16,23 +16,20 @@ let
     ]
   );
 
-  systemDependencyPackages = with pkgs; [
+  runtimePackages = with pkgs; [
+    pythonEnv
     cairo
     gdk-pixbuf
     glib
     gobject-introspection
     graphene
     gsettings-desktop-schemas
-    gst_all_1.gstreamer
     gst_all_1.gstreamer.out
-    gst_all_1.gstreamer.dev
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-base.dev
     gst_all_1.gst-plugins-good
     gtk4
     libadwaita
-    libayatana-appindicator
     harfbuzz
     pango.out
     pipewire
@@ -40,7 +37,6 @@ let
     pulseaudio
     v4l-utils
   ];
-  runtimePackages = systemDependencyPackages ++ [ pythonEnv ];
 
   giTypelibPath = pkgs.lib.makeSearchPath "lib/girepository-1.0" runtimePackages;
   gstPluginPath = pkgs.lib.makeSearchPath "lib/gstreamer-1.0" runtimePackages;
@@ -166,8 +162,7 @@ in
     nvbroadcastVcam
     nvbroadcastInstallCuda
     desktopItem
-  ]
-  ++ systemDependencyPackages;
+  ];
 
   programs.nix-ld.libraries = [ pkgs.stdenv.cc.cc ];
 }
