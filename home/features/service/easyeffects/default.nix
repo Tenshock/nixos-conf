@@ -1,6 +1,6 @@
 {
   services.easyeffects = {
-    enable = true;
+    enable = false;
     preset = "Yeti GX";
     extraPresets."Yeti GX".input = {
       blocklist = [ ];
