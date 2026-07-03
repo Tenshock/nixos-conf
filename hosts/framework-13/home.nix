@@ -6,6 +6,7 @@ user:
     ../../home/features/application/beeper.nix
     ../../home/features/application/datagrip.nix
     ../../home/features/application/discord.nix
+    ../../home/features/application/google-chrome.nix
     ../../home/features/application/kitty.nix
     ../../home/features/application/loupe.nix
     ../../home/features/application/mongodb-compass.nix
