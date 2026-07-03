@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 let
+  # See https://github.com/Hkshoonya/nvidia-broadcast-linux
   sourceVersion = "v1.1.12";
   nvidiaBroadcastLinuxSrc = pkgs.fetchFromGitHub {
     owner = "Hkshoonya";
