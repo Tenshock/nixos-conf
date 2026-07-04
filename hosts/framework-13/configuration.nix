@@ -16,7 +16,10 @@ user:
     ../../nixos/media.nix
     (import ../../nixos/minecraft.nix user)
     ../../nixos/neovim.nix
-    ../../nixos/nvidia-broadcast-linux.nix
+    ../../nixos/nvbroadcast-opt.nix
+    # ../../nixos/nvbroadcast-pkg.nix
+    # ../../nixos/nvbroadcast-standalone.nix
+    ../../nixos/nvidia.nix
     ../../nixos/nix.nix
     ../../nixos/polkit.nix
     ../../nixos/printing.nix
