@@ -5,7 +5,7 @@
   ...
 }:
 let
-  browser = "zen.desktop";
+  browser = "zen-twilight.desktop";
   documentViewer = "org.gnome.Papers.desktop";
   fileManager = "thunar.desktop";
   imageViewer = "org.gnome.Loupe.desktop";
