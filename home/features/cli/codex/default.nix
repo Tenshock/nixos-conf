@@ -7,11 +7,9 @@
 }:
 let
   integrations = [
-    ./caveman.nix
-    ./context7.nix
-    ./gitnexus.nix
-    ./playwright.nix
-    ./serena.nix
+    ./extensions/caveman.nix
+    ./extensions/context7.nix
+    ./extensions/serena.nix
   ];
 
   importIntegration =
@@ -66,11 +64,16 @@ in
       Use caveman mode by default in every session.
       Keep all technical details exact.
       Stop only if user says "stop caveman" or "normal mode".
+      Use Serena for coding tasks: read initial instructions first, then prefer semantic tools when useful.
+      Use Context7 for current library, framework, SDK, API, CLI, or cloud-service docs.
     '';
     settings = {
       model = "gpt-5.5";
       review_model = "gpt-5.5";
       model_provider = "openai";
+      approval_policy = "untrusted";
+      sandbox_mode = "workspace-write";
+      vim_mode_default = true;
 
       features = {
         memories = true;
@@ -78,6 +81,13 @@ in
       };
 
       mcp_servers = mcpServers;
+
+      plugins = {
+        "build-web-apps@openai-curated".enabled = true;
+        "codex-security@openai-curated".enabled = true;
+        "figma@openai-curated".enabled = true;
+        "github@openai-curated".enabled = true;
+      };
 
       inherit projects;
     };
