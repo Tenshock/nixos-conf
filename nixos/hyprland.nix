@@ -4,6 +4,4 @@
     enable = true;
     withUWSM = true;
   };
-
-  services.speechd.enable = false;
 }
