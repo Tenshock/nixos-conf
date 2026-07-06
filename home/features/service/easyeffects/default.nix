@@ -51,10 +51,10 @@ in
     touch "${easyeffectsConfig}"
     set_easyeffects_key StreamInputs listenToMic false
     set_easyeffects_key StreamInputs listenToMicIncludesOutputEffects false
-    set_easyeffects_key StreamInputs inputDevice echo_cancel_source
+    set_easyeffects_key StreamInputs inputDevice alsa_input.usb-Logitech_Yeti_GX_2612SGN00W28-00.mono-fallback
     set_easyeffects_key StreamInputs blocklist electron
     set_easyeffects_key StreamInputs blocklistUsesMediaName false
-    set_easyeffects_key StreamOutputs outputDevice echo_cancel_sink
+    set_easyeffects_key StreamOutputs outputDevice alsa_output.pci-0000_c1_00.6.analog-stereo
     set_easyeffects_key StreamOutputs blocklist electron
     set_easyeffects_key StreamOutputs blocklistUsesMediaName false
   '';
@@ -65,6 +65,7 @@ in
     extraPresets."Yeti GX".input = {
       blocklist = [ "electron" ];
       plugins_order = [
+        "echo_canceller#0"
         "rnnoise#0"
         "gate#0"
         "filter#0"
@@ -72,6 +73,25 @@ in
         "deesser#0"
         "limiter#0"
       ];
+      "echo_canceller#0" = {
+        bypass = false;
+        input-gain = 0.0;
+        output-gain = 0.0;
+        echo-canceller = {
+          enable = true;
+          mobile-mode = false;
+          enforce-high-pass = true;
+          automatic-gain-control = true;
+        };
+        noise-suppression = {
+          enable = true;
+          level = "Moderate";
+        };
+        high-pass = {
+          enable = true;
+          full-band = true;
+        };
+      };
       "rnnoise#0" = {
         bypass = false;
         enable-vad = true;
