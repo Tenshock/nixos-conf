@@ -51,8 +51,10 @@ in
     touch "${easyeffectsConfig}"
     set_easyeffects_key StreamInputs listenToMic false
     set_easyeffects_key StreamInputs listenToMicIncludesOutputEffects false
+    set_easyeffects_key StreamInputs inputDevice echo_cancel_source
     set_easyeffects_key StreamInputs blocklist electron
     set_easyeffects_key StreamInputs blocklistUsesMediaName false
+    set_easyeffects_key StreamOutputs outputDevice echo_cancel_sink
     set_easyeffects_key StreamOutputs blocklist electron
     set_easyeffects_key StreamOutputs blocklistUsesMediaName false
   '';
