@@ -28,8 +28,10 @@ let
       ${pkgs.coreutils}/bin/sleep "$delay"
 
       if ${pkgs.awww}/bin/awww restore -a; then
-        echo "awww restore succeeded after monitor change"
-        exit 0
+        if ! ${pkgs.awww}/bin/awww query | ${pkgs.gnugrep}/bin/grep -q "currently displaying: color:"; then
+          echo "awww restore succeeded after monitor change"
+          exit 0
+        fi
       fi
 
       echo "awww restore failed after waiting ''${delay}s; retrying" >&2
@@ -67,7 +69,13 @@ in
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "set-awww-wallpaper" ''
         ${pkgs.coreutils}/bin/sleep 1
-        ${pkgs.awww}/bin/awww restore -a || ${awwwSwitch}/bin/awww-switch
+        if ${pkgs.awww}/bin/awww restore -a; then
+          if ! ${pkgs.awww}/bin/awww query | ${pkgs.gnugrep}/bin/grep -q "currently displaying: color:"; then
+            exit 0
+          fi
+        fi
+
+        ${awwwSwitch}/bin/awww-switch
       '';
     };
 
