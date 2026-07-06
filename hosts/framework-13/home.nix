@@ -20,6 +20,7 @@ user:
     ../../home/features/cli/bat.nix
     ../../home/features/cli/btop.nix
     ../../home/features/cli/codex
+    ../../home/features/cli/direnv.nix
     ../../home/features/cli/eza.nix
     ../../home/features/cli/fastfetch.nix
     ../../home/features/cli/fzf.nix
