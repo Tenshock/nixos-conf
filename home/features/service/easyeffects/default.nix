@@ -61,12 +61,13 @@ in
 
   services.easyeffects = {
     enable = true;
-    preset = "Studio";
+    preset = "Yeti GX";
     extraPresets."Yeti GX".input = {
       blocklist = [ "electron" ];
       plugins_order = [
         "echo_canceller#0"
         "rnnoise#0"
+        "deepfilternet#0"
         "gate#0"
         "filter#0"
         "compressor#0"
@@ -102,6 +103,17 @@ in
         use-standard-model = true;
         vad-thres = 60.0;
         wet = 0.0;
+      };
+      "deepfilternet#0" = {
+        attenuation-limit = 100.0;
+        bypass = true;
+        input-gain = 0.0;
+        max-df-processing-threshold = 20.0;
+        max-erb-processing-threshold = 30.0;
+        min-processing-buffer = 0;
+        min-processing-threshold = 5.0;
+        output-gain = 0.0;
+        post-filter-beta = 0.019999999552965164;
       };
       "gate#0" = {
         attack = 20.0;
