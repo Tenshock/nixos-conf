@@ -24,8 +24,19 @@ let
     '';
   };
   awwwRestoreAfterMonitor = pkgs.writeShellScript "awww-restore-after-monitor" ''
-    ${pkgs.coreutils}/bin/sleep 1
-    ${pkgs.awww}/bin/awww restore -a
+    for delay in 1 2 4; do
+      ${pkgs.coreutils}/bin/sleep "$delay"
+
+      if ${pkgs.awww}/bin/awww restore -a; then
+        echo "awww restore succeeded after monitor change"
+        exit 0
+      fi
+
+      echo "awww restore failed after waiting ''${delay}s; retrying" >&2
+    done
+
+    echo "awww restore failed after monitor change" >&2
+    exit 1
   '';
 in
 {
@@ -63,10 +74,28 @@ in
     Install.WantedBy = [ "awww.service" ];
   };
 
+  systemd.user.services.awww-restore-after-monitor = {
+    Unit = {
+      Description = "Restore awww wallpaper after monitor layout changes";
+      After = [ "awww.service" ];
+      Requires = [ "awww.service" ];
+      PartOf = [ "awww.service" ];
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = awwwRestoreAfterMonitor;
+    };
+  };
+
   wayland.windowManager.hyprland.extraConfig = ''
-    hl.on("monitor.added", function()
-      hl.exec_cmd("${awwwRestoreAfterMonitor}")
-    end)
+    local restore_awww_after_monitor_change = function()
+      hl.exec_cmd("${pkgs.systemd}/bin/systemctl --user restart awww-restore-after-monitor.service")
+    end
+
+    hl.on("monitor.added", restore_awww_after_monitor_change)
+    hl.on("monitor.layout_changed", restore_awww_after_monitor_change)
+    hl.on("monitor.removed", restore_awww_after_monitor_change)
   '';
 
   home.file."wallpapers" = {

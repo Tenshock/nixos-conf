@@ -41,6 +41,18 @@
           scale = 1.6;
         }
         {
+          output = "desc:Dell Inc. DELL P2425DE 769WZB4";
+          mode = "2560x1440@99.95";
+          position = "auto";
+          scale = 1;
+        }
+        {
+          output = "desc:Dell Inc. DELL P2425D 68BZZB4";
+          mode = "2560x1440@99.95";
+          position = "auto";
+          scale = 1;
+        }
+        {
           output = "";
           mode = "preferred";
           position = "auto";
