@@ -32,7 +32,7 @@
   background: alpha(@background, 0.55);
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
   border: 1px solid @selected;
-  border-radius: 24px;
+  border-radius: 12px;
   margin: 5px;
   padding: 0;
 }
@@ -304,7 +304,7 @@ button.notification-action:hover label {
 
 .control-center {
   background: alpha(@background, 0.55);
-  border-radius: 24px;
+  border-radius: 12px;
   border: 1px solid @selected;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.6);
   margin: 18px;
@@ -317,7 +317,7 @@ button.notification-action:hover label {
   .notification-background
   .notification.critical {
   background-color: @background-alt;
-  border-radius: 16px;
+  border-radius: 12px;
   margin: 4px 0px;
   padding: 4px;
 }
