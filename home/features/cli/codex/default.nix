@@ -41,10 +41,16 @@ let
     codexSkills: integration: codexSkills // (integration.skills or { })
   ) { } integrationConfigs;
 
-  trustedProjects = [
-    # Misc
-    "${config.home.homeDirectory}/repo/anssi-lab-entretien-technique"
+  betagouvDirectory = "${config.home.homeDirectory}/projects/betagouv";
 
+  trustedBetagouvProjects =
+    let
+      entries = builtins.readDir betagouvDirectory;
+      directories = lib.attrNames (lib.filterAttrs (_: type: type == "directory") entries);
+    in
+    map (directory: "${betagouvDirectory}/${directory}") directories;
+
+  trustedProjects = trustedBetagouvProjects ++ [
     # Personal
     "${config.home.homeDirectory}/.config/nixos"
     "${config.home.homeDirectory}/.config/nvim"
