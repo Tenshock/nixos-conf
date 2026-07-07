@@ -1,42 +1,107 @@
-# Migrate Framework 13 NixOS To An Encrypted Disk
+# Migrate Framework 13 NixOS To Encrypted SSD In Place
 
-This runbook is for this repository's NixOS host:
+This runbook migrates this laptop from the current unencrypted install to an
+encrypted root filesystem without external backup storage.
 
-- Host: `framework-13`
+This is possible because the current root filesystem has enough free space to
+hold a second temporary copy on the same SSD.
+
+This is not as safe as a real backup. If the SSD fails, a partition command hits
+the wrong device, the filesystem shrink corrupts data, or the temporary copy is
+incomplete, data can be lost. The copy preserves data; it does not protect data
+against same-disk failure.
+
+- Host directory: `hosts/framework-13`
 - Flake output: `nixosConfigurations.nixos`
 - Current bootloader: `systemd-boot`
-- Current root filesystem: plain `ext4`
-- Current `/boot`: plain EFI/VFAT partition
-- Current swap: plain swap partition, also used as the hibernation resume device
+- Target filesystem: `ext4`
+- Target layout: LUKS + LVM
+- Default unlock method: passphrase typed at boot
+- Rescue path: bootable NixOS USB installer
 
-The target layout is:
+Expected result: after the migration, the laptop boots after the LUKS
+passphrase and the current root filesystem contents are preserved, including
+`/home/cedric`, dotfiles, `/home/cedric/.local`, Wi-Fi profiles,
+fingerprints, Docker state, Bluetooth state, NixOS config, `/nix`, and other
+state currently stored on `/`.
+
+## 0. Target Layout
+
+Final layout:
 
 ```text
-disk
-+- EFI System Partition       /boot        vfat, unencrypted
-+- LUKS encrypted partition
-   +- cryptroot
-      +- vg/root              /            ext4, encrypted
-      +- vg/swap              swap         encrypted, hibernation-capable
+SSD
++- GPT
+   +- ESP                       /boot        vfat, unencrypted
+   +- LUKS partition
+      +- cryptroot
+         +- LVM VG vg
+            +- vg-root          /            ext4, encrypted
+            +- vg-swap          swap         encrypted, hibernation-capable
 ```
 
-Keeping `/boot` unencrypted is normal with `systemd-boot`. The kernel and initrd
-remain visible, but the root filesystem, home directory, Nix store, logs, secrets,
-browser data, and swap are encrypted.
+Temporary in-place migration layout:
 
-This guide uses `ext4` for `/`. That is the conservative choice for this machine:
-it is simple, stable, well-supported in initrd, and works cleanly with a dedicated
-encrypted swap volume for hibernation. `btrfs` is also a valid choice if you want
-filesystem snapshots, transparent compression, and subvolumes, but it adds more
-layout decisions and maintenance. If you do not specifically want those features,
-use `ext4`.
+```text
+SSD
++- ESP                           /boot       existing vfat
++- old plain root                /oldroot    shrunk ext4
++- temporary encrypted staging   /staging    LUKS + ext4 or LUKS + LVM + ext4
+```
 
-This process destroys the current Linux disk contents. Do not continue until the
-backup verification step is complete.
+Do not try to make the temporary tail partition the final root partition. A
+partition created after the old root can grow forward, but it cannot simply
+grow backward into the old root's previous disk space. The safe in-place dance
+is:
 
-## 0. Current Context
+1. Shrink old root.
+2. Create encrypted staging in freed tail space.
+3. Copy old root to staging.
+4. Recreate old root slot as final encrypted root.
+5. Copy staging back to final root.
+6. Delete staging.
+7. Grow final encrypted root forward to the end of the SSD.
 
-Your current generated hardware config declares:
+## 1. Current Storage Context
+
+Current live layout observed before this runbook was updated:
+
+```text
+/dev/nvme0n1      931.5G disk
+/dev/nvme0n1p1      1.0G vfat  /boot
+/dev/nvme0n1p2    896.8G ext4  /
+/dev/nvme0n1p3     33.7G swap  [SWAP]
+```
+
+Current root usage observed:
+
+```text
+/dev/nvme0n1p2 ext4  882G  401G  437G  48% /
+```
+
+Dry-run sizing check from the current booted system passed on 2026-07-07:
+
+```text
+root device: /dev/nvme0n1p2
+swap device: /dev/nvme0n1p3
+shrink target: 460 GiB
+staging margin: 50 GiB
+partition overhead reserve: 2 GiB
+minimum ext4 size: 439616139264 bytes (409.42 GiB)
+target old root size: 493921239040 bytes (460.00 GiB)
+used root filesystem: 428293079040 bytes (398.88 GiB)
+old root partition: 962940210176 bytes (896.81 GiB)
+old swap partition: 36186190336 bytes (33.70 GiB)
+estimated staging capacity: 503057677824 bytes (468.51 GiB)
+required staging capacity: 481980170240 bytes (448.88 GiB)
+```
+
+This leaves about 50.58GiB between the `resize2fs -P` minimum and the 460GiB
+old-root target, and about 19.63GiB above the required staging capacity. Rerun
+the section 5 sizing check from the installer before doing any destructive
+operation, because data usage can change.
+
+Current generated hardware config declares plain root and plain swap:
 
 ```nix
 fileSystems."/" = {
@@ -54,787 +119,798 @@ swapDevices = [ { device = "/dev/disk/by-uuid/c3e47598-fe43-43c0-8f9f-f5116a28f8
 boot.resumeDevice = "/dev/disk/by-uuid/c3e47598-fe43-43c0-8f9f-f5116a28f86f";
 ```
 
-That means:
+After migration, root and swap UUIDs will change. The new encrypted swap device
+must be used for both `swapDevices` and `boot.resumeDevice`.
 
-- `/` is not encrypted.
-- `/boot` is not encrypted.
-- swap is not encrypted.
-- hibernation resumes from the current swap UUID.
-
-After migration, the root and swap UUIDs will change. The new swap UUID must be
-used both in `swapDevices` and `boot.resumeDevice`.
-
-## 1. Prepare A Known-Good Backup
-
-Do this from the existing NixOS installation before booting the installer.
-
-### 1.1 Identify Important Data
-
-At minimum, back up:
+Your current config uses hibernation:
 
 ```text
-/home/cedric
-~/.config/nixos
-/etc/nixos, if it contains anything not symlinked to ~/.config/nixos
-SSH keys
-GPG keys
-password manager recovery material
-browser profiles, if needed
-project directories
-any local databases or VM/container volumes
+nixos/hibernation.nix
+home/features/service/hypridle.nix
+home/features/service/power-menu.nix
+home/features/service/hyprland/bindings.nix
 ```
 
-Why: repartitioning and `cryptsetup luksFormat` will erase the target disk. NixOS
-can recreate system packages from the flake, but it cannot recreate personal data
-or secrets.
+Do not skip hibernation verification.
 
-### 1.2 Create The Backup
+## 2. Hard Safety Rules
 
-Example using `rsync` to an external disk mounted at `/run/media/cedric/backup`:
+This process intentionally destroys and recreates partitions on the internal
+SSD.
+
+Stop unless all of these are true:
+
+- Every rescue USB test in section 3 passes.
+- Section 5 sizing check passes from the installer immediately before
+  destructive steps.
+- You accept that there is no independent backup.
+
+Stop immediately if any command references the wrong disk.
+
+Never format:
+
+- installer USB
+- any external disk
+- `/dev/nvme0n1p1` ESP, unless intentionally rebuilding boot from scratch
+
+This runbook keeps the existing ESP.
+
+## 3. Create And Test The Rescue USB
+
+Download a current NixOS ISO and write it to the USB key.
+
+Example, replacing `sdX` with the USB key, not the internal SSD:
 
 ```sh
-rsync -aHAX --numeric-ids --info=progress2 \
-  /home/cedric/ \
-  /run/media/cedric/backup/framework-13-home/
+lsblk -d -o NAME,MODEL,SIZE,TYPE
+sudo dd if=nixos-graphical.iso of=/dev/sdX bs=4M status=progress oflag=sync
 ```
 
-What this does:
+Boot the Framework 13 from this USB once before touching the SSD.
 
-- `-a` preserves normal file metadata.
-- `-HAX` preserves hardlinks, ACLs, and extended attributes.
-- `--numeric-ids` avoids remapping ownership by user names.
-- The trailing slash on `/home/cedric/` copies the contents of the directory.
-
-Back up the Nix config too:
+In the installer, verify:
 
 ```sh
-rsync -aHAX --numeric-ids --info=progress2 \
-  /home/cedric/.config/nixos/ \
-  /run/media/cedric/backup/nixos-config/
+sudo -i
+whoami
+ip a
+command -v cryptsetup
+command -v lvm
+command -v e2fsck
+command -v resize2fs
+command -v rsync
+command -v sfdisk
+command -v nixos-enter
+lsblk -o NAME,PATH,TYPE,SIZE,FSTYPE,FSVER,LABEL,UUID,PARTUUID,MOUNTPOINTS,PKNAME
+lsblk -d -o NAME,MODEL,SIZE,SERIAL,TYPE
 ```
 
-If this repository is also pushed to Git, verify that status is clean or that all
-important work is pushed:
+Expected:
 
-```sh
-cd ~/.config/nixos
-git status --short
-git remote -v
-```
+- `whoami` prints `root`.
+- `ip a` shows network is available, or all needed tools are already present
+  in the installer.
+- `command -v cryptsetup` succeeds.
+- `command -v lvm` succeeds.
+- `command -v e2fsck` succeeds.
+- `command -v resize2fs` succeeds.
+- `command -v rsync` succeeds.
+- `command -v sfdisk` succeeds, or another GPT partition tool is available.
+- `command -v nixos-enter` succeeds.
+- `lsblk` shows the internal SSD.
+- `lsblk` shows the expected current partitions:
+  `/dev/nvme0n1p1` vfat ESP, `/dev/nvme0n1p2` ext4 root, and
+  `/dev/nvme0n1p3` swap.
 
-### 1.3 Verify The Backup
+If this does not work, stop. Fix the rescue path first.
 
-List files from the backup:
+## 4. Boot Installer For The Real Migration
 
-```sh
-ls -la /run/media/cedric/backup/framework-13-home
-ls -la /run/media/cedric/backup/nixos-config
-```
-
-Check that important files exist:
-
-```sh
-test -d /run/media/cedric/backup/framework-13-home/.ssh
-test -d /run/media/cedric/backup/nixos-config/hosts/framework-13
-```
-
-Optional but useful: compare sizes.
-
-```sh
-du -sh /home/cedric
-du -sh /run/media/cedric/backup/framework-13-home
-```
-
-Verification target:
-
-- You can browse the backup.
-- Your Nix config exists in the backup.
-- Important secrets and project directories are present.
-- The external backup device is not the disk you are about to wipe.
-
-## 2. Create And Boot A NixOS Installer USB
-
-Download a NixOS ISO, write it to a USB drive, and boot the Framework 13 from it.
-
-After booting the installer, become root if needed:
+Boot the tested NixOS installer USB and become root:
 
 ```sh
 sudo -i
 ```
 
-Verification:
+Connect network if needed:
 
 ```sh
-whoami
+nmtui
 ```
 
-Expected output:
-
-```text
-root
-```
-
-## 3. Identify The Target Disk
-
-List disks and filesystems:
+Identify the internal SSD:
 
 ```sh
-lsblk -o NAME,SIZE,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINTS
+lsblk -o NAME,PATH,TYPE,SIZE,FSTYPE,FSVER,LABEL,UUID,PARTUUID,MOUNTPOINTS,PKNAME
+lsblk -d -o NAME,MODEL,SIZE,SERIAL,TYPE
+ls -l /dev/disk/by-id/
 ```
 
-What this does:
-
-- Shows physical disks, partitions, filesystems, UUIDs, and mountpoints.
-- Helps distinguish the internal NVMe disk from the USB installer and backup disk.
-
-On a Framework laptop, the internal disk is commonly named something like:
-
-```text
-/dev/nvme0n1
-```
-
-Do not assume that name. Verify by size and model:
-
-```sh
-lsblk -d -o NAME,MODEL,SIZE,TYPE
-```
-
-Set a shell variable for readability after you have verified the correct disk:
+Set variables only after verifying the disk:
 
 ```sh
 DISK=/dev/nvme0n1
-```
+ESP=/dev/nvme0n1p1
+OLDROOT=/dev/nvme0n1p2
+OLDSWAP=/dev/nvme0n1p3
 
-Verify the variable:
-
-```sh
-echo "$DISK"
 lsblk "$DISK"
-```
-
-Stop if this points to your backup disk or USB installer.
-
-## 4. Wipe And Partition The Disk
-
-This is the destructive step.
-
-### 4.1 Clear Existing Signatures
-
-```sh
-wipefs -a "$DISK"
-```
-
-What this does:
-
-- Removes filesystem, RAID, LVM, and partition signatures from the disk.
-- Prevents the installer from accidentally detecting stale filesystems later.
-
-Verification:
-
-```sh
-wipefs "$DISK"
-```
-
-Expected result: no important old signatures remain.
-
-### 4.2 Create A GPT Partition Table
-
-```sh
-parted "$DISK" -- mklabel gpt
-```
-
-What this does:
-
-- Creates a new GPT partition table.
-- Required for a clean UEFI/systemd-boot setup.
-
-### 4.3 Create The EFI Partition
-
-```sh
-parted "$DISK" -- mkpart ESP fat32 1MiB 1025MiB
-parted "$DISK" -- set 1 esp on
-```
-
-What this does:
-
-- Creates a 1 GiB EFI System Partition.
-- Marks it as an ESP so firmware and `systemd-boot` can use it.
-
-### 4.4 Create The LUKS Partition
-
-```sh
-parted "$DISK" -- mkpart primary 1025MiB 100%
-```
-
-What this does:
-
-- Uses the rest of the disk for the encrypted Linux system.
-
-Ask the kernel to re-read the partition table:
-
-```sh
-partprobe "$DISK"
-```
-
-Verification:
-
-```sh
-lsblk -o NAME,SIZE,TYPE,FSTYPE,PARTTYPENAME "$DISK"
-```
-
-Expected shape:
-
-```text
-nvme0n1       disk
-+-nvme0n1p1   part        EFI System
-+-nvme0n1p2   part        Linux filesystem
-```
-
-Define partition variables:
-
-```sh
-EFI="${DISK}p1"
-CRYPT_PART="${DISK}p2"
-```
-
-If your disk is not NVMe, partition names may be `/dev/sda1` and `/dev/sda2`
-instead of `/dev/nvme0n1p1` and `/dev/nvme0n1p2`. In that case set:
-
-```sh
-EFI=/dev/sda1
-CRYPT_PART=/dev/sda2
-```
-
-Verify:
-
-```sh
-echo "$EFI"
-echo "$CRYPT_PART"
-lsblk "$DISK"
-```
-
-## 5. Create The Encrypted Container
-
-Format the second partition as LUKS:
-
-```sh
-cryptsetup luksFormat -y --label nixos-crypt "$CRYPT_PART"
-```
-
-What this does:
-
-- Creates an encrypted container on the Linux partition.
-- Prompts for a passphrase twice because of `-y`.
-- Labels the LUKS container `nixos-crypt`.
-- Destroys existing content on that partition.
-
-Use a strong passphrase you can type at boot.
-
-Open the encrypted container:
-
-```sh
-cryptsetup open "$CRYPT_PART" cryptroot
-```
-
-What this does:
-
-- Unlocks the LUKS container.
-- Exposes decrypted storage at `/dev/mapper/cryptroot`.
-
-Verification:
-
-```sh
-lsblk -f
-cryptsetup status cryptroot
 ```
 
 Expected:
 
-- `cryptroot` exists under the LUKS partition.
-- `cryptsetup status` says the device is active.
+- `ESP` is the 1G vfat partition.
+- `OLDROOT` is the large ext4 root partition.
+- `OLDSWAP` is the 33.7G swap partition.
 
-Back up the LUKS header:
+## 5. Measure Old Root Before Shrinking
+
+Run filesystem check:
 
 ```sh
-cryptsetup luksHeaderBackup "$CRYPT_PART" --header-backup-file /tmp/luks-header-nixos-crypt.img
+e2fsck -f "$OLDROOT"
 ```
 
-What this does:
-
-- Saves the LUKS metadata needed to unlock the encrypted partition.
-- Gives you a recovery path if the on-disk LUKS header is damaged.
-
-This backup is sensitive. Anyone with the header backup and your passphrase can
-attempt to unlock the disk. Move it to your external backup storage, not to the
-encrypted disk you are creating:
+Get minimum ext4 block count:
 
 ```sh
-cp /tmp/luks-header-nixos-crypt.img /run/media/cedric/backup/
-rm /tmp/luks-header-nixos-crypt.img
+resize2fs -P "$OLDROOT"
 ```
 
-Verification:
+Check used data:
 
 ```sh
-test -f /run/media/cedric/backup/luks-header-nixos-crypt.img
+mkdir -p /oldroot
+mount -o ro "$OLDROOT" /oldroot
+du -sxh /oldroot
+du -sxh /oldroot/home/cedric
+du -sxh /oldroot/nix
+du -sxh /oldroot/var/lib
 ```
 
-## 6. Create LVM Volumes Inside LUKS
-
-Using LVM inside LUKS makes hibernation-friendly swap straightforward and keeps
-root/swap management flexible.
-
-Create the LVM physical volume:
+Verify the shrink target and staging capacity with byte counts:
 
 ```sh
+SHRINK_TARGET_GIB=460
+STAGING_MARGIN_GIB=50
+PARTITION_OVERHEAD_GIB=2
+
+MIN_BLOCKS=$(resize2fs -P "$OLDROOT" 2>&1 | awk '/Estimated minimum size/ { print $NF }')
+BLOCK_SIZE=$(dumpe2fs -h "$OLDROOT" 2>/dev/null | awk -F: '/Block size/ { gsub(/[ \t]/, "", $2); print $2 }')
+MIN_BYTES=$((MIN_BLOCKS * BLOCK_SIZE))
+
+TARGET_BYTES=$((SHRINK_TARGET_GIB * 1024 * 1024 * 1024))
+STAGING_MARGIN_BYTES=$((STAGING_MARGIN_GIB * 1024 * 1024 * 1024))
+PARTITION_OVERHEAD_BYTES=$((PARTITION_OVERHEAD_GIB * 1024 * 1024 * 1024))
+
+OLDROOT_BYTES=$(blockdev --getsize64 "$OLDROOT")
+OLDSWAP_BYTES=$(blockdev --getsize64 "$OLDSWAP")
+USED_BYTES=$(du -sxB1 /oldroot | awk '{ print $1 }')
+
+STAGING_BYTES=$((OLDROOT_BYTES + OLDSWAP_BYTES - TARGET_BYTES - PARTITION_OVERHEAD_BYTES))
+
+printf 'minimum ext4 bytes: %s\n' "$MIN_BYTES"
+printf 'target old root bytes: %s\n' "$TARGET_BYTES"
+printf 'used old root bytes: %s\n' "$USED_BYTES"
+printf 'estimated staging bytes: %s\n' "$STAGING_BYTES"
+
+test "$TARGET_BYTES" -gt "$MIN_BYTES"
+test "$STAGING_BYTES" -gt "$((USED_BYTES + STAGING_MARGIN_BYTES))"
+```
+
+The first `test` proves the shrunken old root remains larger than the ext4
+minimum reported by `resize2fs -P`. The second `test` proves the freed tail
+space can hold the full root copy plus a 50GiB margin.
+
+Unmount old root after the checks:
+
+```sh
+umount /oldroot
+```
+
+Use a 460GiB partition target only if both `test` commands succeed. The
+filesystem shrink command below uses `459G` on purpose, leaving about 1GiB of
+slack inside the resized 460GiB partition. If the checks fail, choose a larger
+old root partition target and recalculate. If a larger old root size makes
+staging too small, stop and free space or get external storage.
+
+Stop if the numbers do not fit.
+
+## 6. Shrink Old Root And Free Tail Space
+
+Disable old swap:
+
+```sh
+swapoff "$OLDSWAP" || true
+```
+
+Shrink old root filesystem:
+
+```sh
+e2fsck -f "$OLDROOT"
+resize2fs "$OLDROOT" 459G
+e2fsck -f "$OLDROOT"
+```
+
+Shrink old root partition to 460GiB and delete old swap with the exact `sfdisk`
+commands below. Do not use an interactive partition editor for this step unless
+these commands fail and you have rechecked the sector math.
+
+Save the current partition table first:
+
+```sh
+sfdisk -d "$DISK" | tee /tmp/nvme0n1.before.sfdisk
+```
+
+Verify the expected current geometry and calculate the new partition 2 size:
+
+```sh
+SECTOR_SIZE=$(blockdev --getss "$DISK")
+P2_START=$(lsblk -bn -o START "$OLDROOT")
+P3_START=$(lsblk -bn -o START "$OLDSWAP")
+P2_TYPE=$(
+  sfdisk -d "$DISK" |
+    awk -v part="$OLDROOT" '$1 == part {
+      for (i = 1; i <= NF; i++) {
+        if ($i ~ /^type=/) {
+          sub(/^type=/, "", $i)
+          sub(/,$/, "", $i)
+          print $i
+        }
+      }
+    }'
+)
+
+test "$SECTOR_SIZE" = 512
+test "$P2_START" = 2101248
+test -n "$P2_TYPE"
+
+P2_TARGET_GIB=460
+P2_TARGET_SECTORS=$((P2_TARGET_GIB * 1024 * 1024 * 1024 / SECTOR_SIZE))
+P2_TARGET_END=$((P2_START + P2_TARGET_SECTORS - 1))
+
+printf 'sector size: %s\n' "$SECTOR_SIZE"
+printf 'partition 2 start: %s\n' "$P2_START"
+printf 'partition 2 target sectors: %s\n' "$P2_TARGET_SECTORS"
+printf 'partition 2 target end: %s\n' "$P2_TARGET_END"
+printf 'partition 3 old start: %s\n' "$P3_START"
+printf 'partition 2 type: %s\n' "$P2_TYPE"
+
+test "$P2_TARGET_END" -lt "$P3_START"
+```
+
+Expected for this laptop:
+
+```text
+sector size: 512
+partition 2 start: 2101248
+partition 2 target sectors: 964689920
+partition 2 target end: 966791167
+```
+
+Stop if any `test` fails. The most important invariant is that partition 2
+keeps start sector `2101248`.
+
+Delete old swap partition 3:
+
+```sh
+sfdisk --wipe never --wipe-partitions never --delete "$DISK" 3
+```
+
+Rewrite partition 2 with the same start sector and a 460GiB size:
+
+```sh
+printf 'start=%s, size=%s, type=%s\n' \
+  "$P2_START" "$P2_TARGET_SECTORS" "$P2_TYPE" |
+  sfdisk --wipe never --wipe-partitions never -N 2 "$DISK"
+```
+
+Re-read the table:
+
+```sh
+partprobe "$DISK" || true
+udevadm settle
+lsblk "$DISK"
+e2fsck -f "$OLDROOT"
+```
+
+Verify the result:
+
+```sh
+test "$(lsblk -bn -o START "$OLDROOT")" = "$P2_START"
+test "$(lsblk -bn -o SIZE "$OLDROOT")" = "$((P2_TARGET_SECTORS * SECTOR_SIZE))"
+if lsblk "$OLDSWAP" >/dev/null 2>&1; then
+  echo "old swap partition still exists; stop"
+  exit 1
+fi
+```
+
+Stop if partition 2 no longer starts at the same sector as before, if its size
+does not match the target size, or if old swap partition 3 still exists.
+
+## 7. Create Temporary Encrypted Staging
+
+Create a new partition in the freed tail space. This runbook assumes it becomes
+`/dev/nvme0n1p3`.
+
+```sh
+STAGING_PART=/dev/nvme0n1p3
+```
+
+Create partition 3 from the free space after the shrunken partition 2:
+
+```sh
+P2_START=$(lsblk -bn -o START "$OLDROOT")
+P2_SIZE=$(lsblk -bn -o SIZE "$OLDROOT")
+SECTOR_SIZE=$(blockdev --getss "$DISK")
+STAGING_START=$((P2_START + P2_SIZE / SECTOR_SIZE))
+LAST_LBA=$(sfdisk -d "$DISK" | awk '/^last-lba:/ { print $2 }')
+STAGING_SECTORS=$((LAST_LBA - STAGING_START + 1))
+P2_TYPE=$(
+  sfdisk -d "$DISK" |
+    awk -v part="$OLDROOT" '$1 == part {
+      for (i = 1; i <= NF; i++) {
+        if ($i ~ /^type=/) {
+          sub(/^type=/, "", $i)
+          sub(/,$/, "", $i)
+          print $i
+        }
+      }
+    }'
+)
+
+test -n "$P2_TYPE"
+test "$STAGING_SECTORS" -gt 0
+
+printf 'start=%s, size=%s, type=%s\n' \
+  "$STAGING_START" "$STAGING_SECTORS" "$P2_TYPE" |
+  sfdisk --wipe never --wipe-partitions never --append "$DISK"
+
+partprobe "$DISK" || true
+udevadm settle
+lsblk "$DISK"
+test "$(lsblk -bn -o START "$STAGING_PART")" = "$STAGING_START"
+```
+
+Format and open temporary LUKS:
+
+Choose a temporary staging passphrase here. You only need it until staging is
+deleted in section 9.
+
+```sh
+cryptsetup luksFormat "$STAGING_PART"
+cryptsetup open "$STAGING_PART" cryptstaging
+mkfs.ext4 -L staging /dev/mapper/cryptstaging
+```
+
+Mount source and staging:
+
+```sh
+mkdir -p /oldroot /staging
+mount -o ro "$OLDROOT" /oldroot
+mount /dev/mapper/cryptstaging /staging
+```
+
+Copy the complete old root:
+
+```sh
+rsync -aHAX --numeric-ids --info=progress2 \
+  /oldroot/ \
+  /staging/
+```
+
+The trailing slash matters. This copies dotfiles and hidden directories,
+including `/home/cedric/.local`, `/home/cedric/.config`, `/home/cedric/.ssh`,
+`/home/cedric/.gnupg`, browser profiles, and keyrings.
+
+Verify the staging copy:
+
+```sh
+du -sxh /oldroot /staging
+ls -la /staging/home/cedric
+ls -la /staging/home/cedric/.local
+ls -la /staging/home/cedric/.config/nixos
+ls -la /staging/etc/NetworkManager/system-connections || true
+ls -la /staging/var/lib/docker || true
+ls -la /staging/var/lib/fprint || true
+ls -la /staging/var/lib/bluetooth || true
+```
+
+Stop if important data is missing.
+
+## 8. Recreate Old Root Slot As Final Encrypted Root
+
+Unmount old root:
+
+```sh
+umount /oldroot
+```
+
+Create final LUKS on the old root partition. Do not create swap yet: the
+temporary 460GiB root slot is large enough for the data copy, but not for the
+data copy plus an 80GiB swap LV. Swap is created after the final partition is
+grown.
+
+Choose the real boot passphrase here. This is the passphrase typed at every
+boot after migration.
+
+```sh
+cryptsetup luksFormat "$OLDROOT"
+cryptsetup open "$OLDROOT" cryptroot
 pvcreate /dev/mapper/cryptroot
-```
-
-Create a volume group:
-
-```sh
 vgcreate vg /dev/mapper/cryptroot
-```
-
-Create encrypted swap:
-
-```sh
-lvcreate -L 80G -n swap vg
-```
-
-What this does:
-
-- Creates `/dev/vg/swap`.
-- `80G` is an example. For reliable hibernation, choose at least your RAM size.
-
-Check RAM size:
-
-```sh
-free -h
-```
-
-Create encrypted root using the remaining space:
-
-```sh
 lvcreate -l 100%FREE -n root vg
+mkfs.ext4 -L nixos /dev/vg/root
 ```
 
-What this does:
-
-- Creates `/dev/vg/root`.
-- Allocates all remaining space to root.
-
-Verification:
+Mount final root:
 
 ```sh
-lvs
-lsblk -f
-```
-
-Expected:
-
-```text
-vg-root
-vg-swap
-```
-
-Both should appear under `cryptroot`, which appears under the LUKS partition.
-
-## 7. Create Filesystems
-
-Create the root filesystem:
-
-```sh
-mkfs.ext4 -L nixos-root /dev/vg/root
-```
-
-What this does:
-
-- Formats the encrypted root logical volume as `ext4`.
-- Adds a readable label, `nixos-root`.
-
-Create swap:
-
-```sh
-mkswap -L nixos-swap /dev/vg/swap
-```
-
-What this does:
-
-- Formats the encrypted swap logical volume.
-- Adds a readable label, `nixos-swap`.
-
-Create the EFI filesystem:
-
-```sh
-mkfs.fat -F 32 -n NIXBOOT "$EFI"
-```
-
-What this does:
-
-- Formats the unencrypted EFI partition as FAT32.
-- Labels it `NIXBOOT`.
-
-Verification:
-
-```sh
-lsblk -f
-```
-
-Expected:
-
-- `vg-root` has `FSTYPE ext4` and label `nixos-root`.
-- `vg-swap` has `FSTYPE swap` and label `nixos-swap`.
-- EFI partition has `FSTYPE vfat` and label `NIXBOOT`.
-
-## 8. Mount The New System
-
-Mount root:
-
-```sh
+mkdir -p /mnt
 mount /dev/vg/root /mnt
 ```
 
-Create and mount `/boot`:
+Verify the temporary final root can hold the staging copy before copying back:
 
 ```sh
-mkdir -p /mnt/boot
-mount "$EFI" /mnt/boot
+STAGING_USED_BYTES=$(du -sxB1 /staging | awk '{ print $1 }')
+FINAL_AVAIL_BYTES=$(df -B1 --output=avail /mnt | tail -n1 | tr -d ' ')
+
+printf 'staging used bytes: %s\n' "$STAGING_USED_BYTES"
+printf 'final root available bytes: %s\n' "$FINAL_AVAIL_BYTES"
+
+test "$FINAL_AVAIL_BYTES" -gt "$STAGING_USED_BYTES"
 ```
 
-Enable swap:
+Stop if the final root does not have more available bytes than staging uses.
+
+Copy staging back into final root:
 
 ```sh
-swapon /dev/vg/swap
+rsync -aHAX --numeric-ids --info=progress2 \
+  /staging/ \
+  /mnt/
 ```
 
-If `swapon` is not in your shell path, try:
+Verify final root:
 
 ```sh
-/run/current-system/sw/bin/swapon /dev/vg/swap
-```
-
-Verification:
-
-```sh
-findmnt /mnt
-findmnt /mnt/boot
-cat /proc/swaps
-```
-
-Expected:
-
-- `/mnt` is mounted from `/dev/mapper/vg-root` or `/dev/vg/root`.
-- `/mnt/boot` is mounted from the EFI partition.
-- `/proc/swaps` lists `/dev/dm-*`, `/dev/mapper/vg-swap`, or `/dev/vg/swap`.
-
-## 9. Bring This Flake Into The Installer
-
-You need this repository available inside the installer environment.
-
-If you pushed it to Git, clone it:
-
-```sh
-mkdir -p /mnt/home/cedric/.config
-git clone <your-repo-url> /mnt/home/cedric/.config/nixos
-```
-
-If it is on your backup disk, copy it:
-
-```sh
-mkdir -p /mnt/home/cedric/.config
-rsync -aHAX --numeric-ids \
-  /run/media/cedric/backup/nixos-config/ \
-  /mnt/home/cedric/.config/nixos/
-```
-
-Verification:
-
-```sh
+du -sxh /staging /mnt
+ls -la /mnt/home/cedric
+ls -la /mnt/home/cedric/.local
 ls -la /mnt/home/cedric/.config/nixos
-test -f /mnt/home/cedric/.config/nixos/flake.nix
-test -f /mnt/home/cedric/.config/nixos/hosts/framework-13/configuration.nix
+ls -la /mnt/etc/NetworkManager/system-connections || true
+ls -la /mnt/var/lib/docker || true
+ls -la /mnt/var/lib/fprint || true
+ls -la /mnt/var/lib/bluetooth || true
 ```
 
-## 10. Generate Fresh Hardware Config For Reference
+Stop if important data is missing.
 
-Generate a new hardware configuration:
+## 9. Delete Staging, Grow Final Root, And Create Swap
+
+Only do this after final root copy is verified.
+
+Leave the final root cleanly unmounted before editing GPT. This avoids resizing
+a busy partition:
 
 ```sh
-nixos-generate-config --root /mnt
+sync
+umount /mnt
+vgchange -an vg
+cryptsetup close cryptroot
 ```
 
-What this does:
-
-- Inspects the mounted target system.
-- Writes generated config under `/mnt/etc/nixos`.
-- Gives you correct UUIDs for the new encrypted layout.
-
-Read the generated file:
+Unmount staging and close temporary LUKS:
 
 ```sh
-sed -n '1,220p' /mnt/etc/nixos/hardware-configuration.nix
+umount /staging
+cryptsetup close cryptstaging
 ```
 
-You will use this as reference to update:
-
-```text
-/mnt/home/cedric/.config/nixos/hosts/framework-13/hardware-configuration.nix
-```
-
-## 11. Update This Repo's Hardware Configuration
-
-Edit:
-
-```text
-/mnt/home/cedric/.config/nixos/hosts/framework-13/hardware-configuration.nix
-```
-
-The final result should keep your existing kernel modules, CPU microcode, and
-DHCP defaults, but replace the storage section.
-
-Use UUIDs from:
+Delete staging partition 3, then grow partition 2 forward to the end of the
+disk. Partition 2 must keep the same start sector.
 
 ```sh
-lsblk -f
-blkid
+P2_START=$(lsblk -bn -o START "$OLDROOT")
+P2_TYPE=$(
+  sfdisk -d "$DISK" |
+    awk -v part="$OLDROOT" '$1 == part {
+      for (i = 1; i <= NF; i++) {
+        if ($i ~ /^type=/) {
+          sub(/^type=/, "", $i)
+          sub(/,$/, "", $i)
+          print $i
+        }
+      }
+    }'
+)
+
+test "$P2_START" = 2101248
+test -n "$P2_TYPE"
+
+sfdisk --wipe never --wipe-partitions never --delete "$DISK" 3
+
+LAST_LBA=$(sfdisk -d "$DISK" | awk '/^last-lba:/ { print $2 }')
+P2_GROWN_SECTORS=$((LAST_LBA - P2_START + 1))
+
+printf 'start=%s, size=%s, type=%s\n' \
+  "$P2_START" "$P2_GROWN_SECTORS" "$P2_TYPE" |
+  sfdisk --wipe never --wipe-partitions never -N 2 "$DISK"
+
+partprobe "$DISK" || true
+udevadm settle
+lsblk "$DISK"
+
+test "$(lsblk -bn -o START "$OLDROOT")" = "$P2_START"
 ```
 
-You need three important UUIDs:
+Reopen and resize the final encrypted stack. Create swap now, after the PV has
+grown:
 
-```text
-LUKS partition UUID:   UUID of "$CRYPT_PART", FSTYPE crypto_LUKS
-Root filesystem UUID: UUID of /dev/vg/root, FSTYPE ext4
-Swap UUID:            UUID of /dev/vg/swap, FSTYPE swap
-EFI UUID:             UUID of "$EFI", FSTYPE vfat
+```sh
+cryptsetup open "$OLDROOT" cryptroot
+vgchange -ay
+cryptsetup resize cryptroot
+pvresize /dev/mapper/cryptroot
+lvcreate -L 80G -n swap vg
+mkswap -L swap /dev/vg/swap
+lvextend -l +100%FREE /dev/vg/root
+resize2fs /dev/vg/root
 ```
 
-The storage part should look like this:
+Mount final root and ESP:
+
+```sh
+mount /dev/vg/root /mnt
+mkdir -p /mnt/boot
+mount "$ESP" /mnt/boot
+df -h /mnt
+lvs
+vgs
+lsblk "$DISK"
+```
+
+## 10. Update NixOS Storage Config On Final Root
+
+Edit `/mnt/home/cedric/.config/nixos/hosts/framework-13/hardware-configuration.nix`.
+
+Keep generated kernel modules, platform, DHCP default, and CPU microcode. Replace
+old plain root and swap declarations with encrypted root, ESP, encrypted swap,
+and resume device.
+
+Use stable IDs from the installer:
+
+```sh
+blkid "$OLDROOT"
+blkid "$ESP"
+blkid /dev/vg/swap
+```
+
+Target shape:
 
 ```nix
-boot = {
-  initrd = {
-    availableKernelModules = [
-      "nvme"
-      "xhci_pci"
-      "thunderbolt"
-      "usb_storage"
-      "sd_mod"
-    ];
-    kernelModules = [ "amdgpu" ];
+{
+  config,
+  lib,
+  modulesPath,
+  ...
+}:
 
-    luks.devices."cryptroot" = {
-      device = "/dev/disk/by-uuid/<LUKS-PARTITION-UUID>";
-      allowDiscards = true;
+{
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+
+  boot = {
+    initrd = {
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "thunderbolt"
+        "usb_storage"
+        "sd_mod"
+      ];
+      kernelModules = [ "amdgpu" ];
+      luks.devices.cryptroot.device = "/dev/disk/by-uuid/<OLDROOT-LUKS-UUID>";
     };
-
-    services.lvm.enable = true;
+    kernelModules = [ "kvm-amd" ];
+    resumeDevice = "/dev/disk/by-uuid/<SWAP-UUID>";
   };
 
-  kernelModules = [ "kvm-amd" ];
-  resumeDevice = "/dev/disk/by-uuid/<SWAP-UUID>";
-};
+  fileSystems."/" = {
+    device = "/dev/vg/root";
+    fsType = "ext4";
+  };
 
-fileSystems."/" = {
-  device = "/dev/disk/by-uuid/<ROOT-FILESYSTEM-UUID>";
-  fsType = "ext4";
-};
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/<ESP-UUID>";
+    fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
+  };
 
-fileSystems."/boot" = {
-  device = "/dev/disk/by-uuid/<EFI-UUID>";
-  fsType = "vfat";
-  options = [
-    "fmask=0077"
-    "dmask=0077"
-  ];
-};
+  swapDevices = [ { device = "/dev/disk/by-uuid/<SWAP-UUID>"; } ];
 
-swapDevices = [
-  { device = "/dev/disk/by-uuid/<SWAP-UUID>"; }
-];
+  networking.useDHCP = lib.mkDefault true;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+}
 ```
 
-Why these settings matter:
+Do not use the old plain root UUID
+`13f2c8e5-c67d-4ef2-8a64-3dca476711b0`.
 
-- `boot.initrd.luks.devices."cryptroot"` tells initrd to ask for the passphrase
-  early in boot and unlock root before mounting `/`.
-- `allowDiscards = true` allows TRIM through LUKS for SSD/NVMe health and
-  performance. This can reveal discard patterns on the encrypted device. If you
-  prefer the stricter privacy posture, set it to `false` or omit it.
-- `boot.initrd.services.lvm.enable = true` tells initrd to activate LVM volumes
-  before mounting root. `nixos-generate-config` may add this automatically; keep
-  it explicit if root is on LVM.
-- `fileSystems."/"` must point to the decrypted root filesystem UUID, not the
-  raw LUKS partition UUID.
-- `swapDevices` must point to the decrypted swap logical volume UUID.
-- `boot.resumeDevice` must point to the same encrypted swap UUID for hibernation.
+Do not use the old plain swap UUID
+`c3e47598-fe43-43c0-8f9f-f5116a28f86f`.
 
-Verification:
+## 11. Rebuild Boot From The Installer
+
+Bind system mounts and enter the final root:
 
 ```sh
-nix --extra-experimental-features 'nix-command flakes' \
-  flake check /mnt/home/cedric/.config/nixos
+mkdir -p /mnt/dev /mnt/proc /mnt/sys /mnt/run
+mount --bind /dev /mnt/dev
+mount --bind /proc /mnt/proc
+mount --bind /sys /mnt/sys
+mount --bind /run /mnt/run
+nixos-enter --root /mnt
 ```
 
-If `flake check` is too broad or slow, at least evaluate the NixOS config:
+Inside `nixos-enter`, rebuild boot:
 
 ```sh
-nix --extra-experimental-features 'nix-command flakes' \
-  eval /mnt/home/cedric/.config/nixos#nixosConfigurations.nixos.config.system.build.toplevel.drvPath
+nixos-rebuild boot --flake /home/cedric/.config/nixos#nixos
+bootctl install
+exit
 ```
 
-## 12. Install NixOS
+If evaluation fails, fix it before rebooting.
 
-Install from your flake:
+## 12. Back Up The LUKS Header If Any Storage Exists Later
+
+No independent backup device exists during this plan. That means the LUKS
+header is not protected.
+
+When any external storage becomes available, back up the final LUKS header:
 
 ```sh
-nixos-install --flake /mnt/home/cedric/.config/nixos#nixos
+cryptsetup luksHeaderBackup "$OLDROOT" \
+  --header-backup-file /path/on/external/storage/luks-header-cryptroot.img
 ```
 
-What this does:
+Never store the only LUKS header backup only on the encrypted SSD it protects.
 
-- Builds the `nixosConfigurations.nixos` system.
-- Installs it to `/mnt`.
-- Installs the bootloader into the mounted EFI partition.
-- Prompts for the root password unless configured otherwise.
-
-Verification before reboot:
-
-```sh
-test -d /mnt/boot/EFI
-test -d /mnt/nix/store
-ls -la /mnt/boot
-```
-
-Also inspect generated boot entries:
-
-```sh
-bootctl --esp-path=/mnt/boot status
-```
-
-If `bootctl` cannot inspect the mounted ESP from the installer, this is not
-necessarily fatal. The stronger verification is that `nixos-install` completed
-without error and `/mnt/boot` contains loader files.
-
-## 13. Reboot Into The Encrypted System
+## 13. First Reboot
 
 Unmount and reboot:
 
 ```sh
-swapoff /dev/vg/swap
 umount -R /mnt
-cryptsetup close cryptroot
 reboot
 ```
 
-If unmounting fails, inspect what is still mounted:
-
-```sh
-findmnt -R /mnt
-```
-
-At boot, expected behavior:
+Expected boot flow:
 
 - Firmware loads `systemd-boot`.
 - NixOS initrd starts.
-- You are prompted for the LUKS passphrase.
-- Root mounts after successful unlock.
+- LUKS passphrase prompt appears.
+- Root unlocks after the correct passphrase.
+- Login manager starts.
+- User session opens with restored data.
+
+If it does not boot, use the rescue section below.
 
 ## 14. Verify The Booted System
 
-After logging in, verify the block layout:
+After logging in:
 
 ```sh
 lsblk -f
-```
-
-Expected shape:
-
-```text
-nvme0n1
-+-nvme0n1p1      vfat        NIXBOOT      mounted at /boot
-+-nvme0n1p2      crypto_LUKS
-  +-cryptroot
-    +-vg-root    ext4        nixos-root   mounted at /
-    +-vg-swap    swap        nixos-swap   active swap
-```
-
-Verify `/`:
-
-```sh
 findmnt /
-```
-
-Expected:
-
-- Source is `/dev/mapper/vg-root`, `/dev/vg/root`, or equivalent.
-- It is not the raw NVMe partition.
-
-Verify `/boot`:
-
-```sh
 findmnt /boot
-```
-
-Expected:
-
-- Source is the EFI partition.
-- Filesystem is `vfat`.
-
-Verify swap:
-
-```sh
-cat /proc/swaps
-```
-
-Expected:
-
-- Swap is active.
-- Swap source is the encrypted logical volume, not a raw disk partition.
-
-If available:
-
-```sh
 swapon --show
-```
-
-Verify LUKS:
-
-```sh
-cryptsetup status cryptroot
+cat /proc/cmdline
 ```
 
 Expected:
 
-- `cryptroot` is active.
+- `/` is mounted from `/dev/mapper/vg-root`, `/dev/vg/root`, or equivalent.
+- `/boot` is `vfat` on the ESP.
+- swap is active from `/dev/mapper/vg-swap`, `/dev/vg/swap`, or equivalent.
+- kernel command line contains a resume target for encrypted swap.
 
-Verify NixOS sees the intended config:
+Verify NixOS rebuild:
 
 ```sh
 sudo nixos-rebuild dry-build --flake ~/.config/nixos#nixos
 ```
 
-## 15. Verify Hibernation
-
-Because your config uses suspend-then-hibernate, do not skip this.
-
-Confirm resume device:
+If dry build succeeds, test a real switch:
 
 ```sh
-cat /proc/cmdline
+sudo nixos-rebuild switch --flake ~/.config/nixos#nixos
 ```
 
-Look for a `resume=` parameter pointing to the encrypted swap UUID or mapped swap
-device.
+Or with your normal helper:
 
-Check configured swap UUID:
+```sh
+nh os switch
+```
+
+## 15. Verify Preserved State
+
+Home data and hidden files:
+
+```sh
+ls -la /home/cedric
+ls -la /home/cedric/.local
+ls -la /home/cedric/.config
+ls -la /home/cedric/.ssh
+ls -la /home/cedric/.gnupg
+ls -la /home/cedric/.local/share/keyrings
+```
+
+NixOS config:
+
+```sh
+cd /home/cedric/.config/nixos
+git status --short
+nix flake metadata
+```
+
+Wi-Fi:
+
+```sh
+nmcli connection show
+```
+
+Expected:
+
+- Known Wi-Fi/VPN profiles are present.
+- Reconnection works without recreating profiles.
+
+Fingerprints:
+
+```sh
+fprintd-list cedric
+```
+
+If enrollments are rejected, reenroll:
+
+```sh
+fprintd-enroll cedric
+```
+
+Docker:
+
+```sh
+systemctl status docker --no-pager
+docker ps -a
+docker volume ls
+```
+
+Bluetooth:
+
+```sh
+bluetoothctl devices
+```
+
+Also open browser, password manager, terminal, editor, and main projects.
+
+## 16. Verify Hibernation
+
+Because this machine uses `suspend-then-hibernate`, test hibernation explicitly.
+
+Confirm resume config:
 
 ```sh
 grep -n "resumeDevice\|swapDevices" ~/.config/nixos/hosts/framework-13/hardware-configuration.nix
-lsblk -f
+cat /proc/cmdline
+swapon --show
 ```
 
-Test hibernation:
+Test:
 
 ```sh
 systemctl hibernate
@@ -842,9 +918,9 @@ systemctl hibernate
 
 Expected:
 
-- Machine powers off after writing memory to swap.
-- On power-on, you enter the LUKS passphrase.
-- The previous session resumes.
+- Machine powers off after writing memory to encrypted swap.
+- On power-on, LUKS passphrase is requested.
+- Previous session resumes.
 
 If hibernation fails:
 
@@ -855,169 +931,145 @@ journalctl -b -1 | grep -i 'hibernate\|resume\|swap'
 
 Common causes:
 
-- Swap is smaller than RAM.
-- `boot.resumeDevice` points to the old plain swap UUID.
-- `swapDevices` points to the wrong UUID.
-- Initrd does not unlock the LUKS container early enough.
+- swap LV smaller than RAM usage at hibernation time
+- `boot.resumeDevice` missing or wrong
+- swap UUID changed after formatting
+- initrd did not activate LUKS/LVM early enough
 
-## 16. Restore Personal Data
+## 17. Rescue: Boot Failure
 
-If you did not restore `/home/cedric` before installation, restore it now.
-
-Example:
+Boot the NixOS installer USB, become root, and identify partitions:
 
 ```sh
-rsync -aHAX --numeric-ids --info=progress2 \
-  /run/media/cedric/backup/framework-13-home/ \
-  /home/cedric/
-```
-
-Fix ownership if needed:
-
-```sh
-sudo chown -R cedric:users /home/cedric
-```
-
-Be careful with this command. Only run it for your home directory, not for `/`,
-`/nix`, or the backup disk.
-
-Verification:
-
-```sh
-ls -la /home/cedric
-ls -la /home/cedric/.ssh
-```
-
-## 17. Post-Migration Cleanup
-
-Check system health:
-
-```sh
-systemctl --failed
-journalctl -p warning -b
-```
-
-Check boot entries:
-
-```sh
-bootctl status
-```
-
-Check rebuild:
-
-```sh
-nh os switch
-```
-
-Or, without `nh`:
-
-```sh
-sudo nixos-rebuild switch --flake ~/.config/nixos#nixos
-```
-
-Check Git status:
-
-```sh
-cd ~/.config/nixos
-git status --short
-```
-
-Commit the hardware config change once the encrypted system boots and hibernates:
-
-```sh
-git add hosts/framework-13/hardware-configuration.nix migrate-to-encrypted.md
-git commit -m "Document encrypted NixOS disk migration"
-```
-
-## 18. Quick Failure Recovery
-
-### Boot Asks For Passphrase But Cannot Mount Root
-
-Likely causes:
-
-- `fileSystems."/"` points to the LUKS partition UUID instead of the ext4 root
-  filesystem UUID.
-- LVM modules are missing from initrd.
-- The generated config was not copied into the flake config used by install.
-
-Boot the installer, unlock manually, mount, and inspect:
-
-```sh
-cryptsetup open "$CRYPT_PART" cryptroot
-vgchange -ay
-mount /dev/vg/root /mnt
-mount "$EFI" /mnt/boot
-sed -n '1,220p' /mnt/home/cedric/.config/nixos/hosts/framework-13/hardware-configuration.nix
-```
-
-### System Boots But Hibernation Does Not Resume
-
-Likely causes:
-
-- `boot.resumeDevice` is wrong.
-- Swap UUID changed after `mkswap`.
-- Swap is too small.
-
-Inspect:
-
-```sh
+sudo -i
 lsblk -f
-cat /proc/swaps
-cat /proc/cmdline
 ```
 
-Then update `boot.resumeDevice` to the UUID of `/dev/vg/swap`.
-
-### `swapon` Is Not Found
-
-Use:
+Unlock LUKS:
 
 ```sh
-cat /proc/swaps
+cryptsetup open /dev/nvme0n1p2 cryptroot
 ```
 
-Or try the full path:
+Activate LVM:
 
 ```sh
-/run/current-system/sw/bin/swapon --show
-```
-
-### Need To Reinstall The Bootloader
-
-Boot installer, unlock and mount the system:
-
-```sh
-cryptsetup open "$CRYPT_PART" cryptroot
 vgchange -ay
+```
+
+Mount root and boot:
+
+```sh
 mount /dev/vg/root /mnt
-mount "$EFI" /mnt/boot
+mount /dev/nvme0n1p1 /mnt/boot
+```
+
+Enter the installed system:
+
+```sh
+mkdir -p /mnt/dev /mnt/proc /mnt/sys /mnt/run
+mount --bind /dev /mnt/dev
+mount --bind /proc /mnt/proc
+mount --bind /sys /mnt/sys
+mount --bind /run /mnt/run
 nixos-enter --root /mnt
 ```
 
-Inside `nixos-enter`:
+Inside `nixos-enter`, repair boot config:
 
 ```sh
-bootctl install
 nixos-rebuild boot --flake /home/cedric/.config/nixos#nixos
+bootctl install
 ```
 
-Then exit and reboot:
+Exit and reboot:
 
 ```sh
 exit
+umount -R /mnt
 reboot
 ```
 
-## 19. Final Acceptance Checklist
+## 18. Rescue: LUKS Opens But Root Does Not Mount
 
-The migration is complete when all of these are true:
+From the installer:
 
-- Boot prompts for the LUKS passphrase.
-- `/` is mounted from the decrypted LVM root volume.
-- `/boot` is mounted from the EFI partition.
-- Swap is active from the decrypted LVM swap volume.
-- `boot.resumeDevice` points to the encrypted swap UUID.
-- `systemctl hibernate` powers down and resumes successfully.
+```sh
+cryptsetup open /dev/nvme0n1p2 cryptroot
+vgchange -ay
+lsblk -f
+lvs
+vgs
+```
+
+Verify:
+
+- `cryptroot` exists.
+- `vg-root` exists.
+- `vg-swap` exists.
+- `vg-root` has `ext4`.
+
+If `/dev/vg/root` exists, mount it:
+
+```sh
+mount /dev/vg/root /mnt
+```
+
+Inspect config:
+
+```sh
+sed -n '1,220p' /mnt/home/cedric/.config/nixos/hosts/framework-13/hardware-configuration.nix
+```
+
+Look for:
+
+- missing LUKS unlock config
+- missing LVM activation in initrd
+- wrong root filesystem device
+- wrong swap resume device
+
+## 19. Rescue: Wi-Fi Missing After Boot
+
+Check restored files:
+
+```sh
+sudo ls -la /etc/NetworkManager/system-connections
+sudo find /etc/NetworkManager/system-connections -maxdepth 1 -type f -printf '%m %u %g %p\n'
+```
+
+Fix ownership and permissions:
+
+```sh
+sudo chown root:root /etc/NetworkManager/system-connections/*
+sudo chmod 600 /etc/NetworkManager/system-connections/*
+sudo systemctl restart NetworkManager
+```
+
+Then check:
+
+```sh
+nmcli connection show
+```
+
+## 20. Final Acceptance Checklist
+
+Migration is complete when all are true:
+
+- NixOS installer USB booted and was proven usable before partition edits.
+- Old root was copied to encrypted staging with `rsync -aHAX --numeric-ids`.
+- Staging was inspected before old root was reformatted.
+- Staging was copied back to final encrypted root.
+- `/home/cedric` exists.
+- `/home/cedric/.local` exists.
+- `/home/cedric/.config/nixos` exists.
+- NetworkManager profiles exist and Wi-Fi works.
+- Fingerprints work, or old enrollment was rejected and reenrolled.
+- Docker state exists if you chose to keep it.
+- Bluetooth state exists if needed.
+- LUKS passphrase prompt appears at boot.
+- `/` is mounted from encrypted `vg-root`.
+- `/boot` is mounted from the ESP.
+- swap is active from encrypted `vg-swap`.
+- `systemctl hibernate` powers off and resumes.
 - `sudo nixos-rebuild switch --flake ~/.config/nixos#nixos` succeeds.
-- Backup data has been restored and checked.
-- The hardware config change is committed.
+- Only `migrate-to-encrypted.md` changed in the repo.
