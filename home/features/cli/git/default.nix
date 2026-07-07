@@ -8,6 +8,10 @@
     git = {
       enable = true;
 
+      ignores = [
+        ".serena"
+      ];
+
       settings = {
         user = {
           name = "Cédric Prezelin";
