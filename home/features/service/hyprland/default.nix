@@ -65,6 +65,18 @@
           workspace = "1";
           monitor = "eDP-1";
         }
+        {
+          workspace = "2";
+          monitor = "desc:Dell Inc. DELL P2425DE 769WZB4";
+        }
+        {
+          workspace = "3";
+          monitor = "desc:Dell Inc. DELL P2425D 68BZZB4";
+        }
+        {
+          workspace = "4";
+          monitor = "eDP-1";
+        }
       ];
 
       window_rule = [
@@ -113,6 +125,7 @@
         (lib.generators.mkLuaInline ''
           function()
             hl.exec_cmd(terminal, { workspace = "1" })
+            hl.exec_cmd(mattermost, { workspace = "2" })
             hl.exec_cmd(vesktop, { workspace = "2" })
             hl.exec_cmd(obsidian, { workspace = "3" })
             hl.exec_cmd(browser, { workspace = "4" })

@@ -5,6 +5,7 @@
     browser._var = "uwsm app -- zen-twilight";
     fileManager._var = "uwsm app -- thunar";
     hyprlock._var = "uwsm app -- hyprlock";
+    mattermost._var = "uwsm app -- mattermost-desktop";
     networkManager._var = "uwsm app -- $(kitty -e nmtui)";
     notificationCenter._var = "uwsm app -- swaync-client -t -sw";
     obsidian._var = "uwsm app -- obsidian";
