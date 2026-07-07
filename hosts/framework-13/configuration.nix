@@ -10,6 +10,7 @@ user:
     ../../nixos/hibernation.nix
     ../../nixos/hyprland.nix
     ../../nixos/i18n.nix
+    ../../nixos/gpg-agent.nix
     ../../nixos/keyring.nix
     ../../nixos/login-manager.nix
     ../../nixos/mattermost.nix

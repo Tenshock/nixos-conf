@@ -8,11 +8,6 @@
     git = {
       enable = true;
 
-      ignores = [
-        ".playwright-cli/"
-        ".serena/"
-      ];
-
       settings = {
         user = {
           name = "Cédric Prezelin";
@@ -74,12 +69,15 @@
 
       includes = [
         {
-          condition = "hasconfig:remote.*.url:git@github.com:Tenshock/**";
-          contents.user.email = "cedric.prezelin@gmail.com";
-        }
-        {
-          condition = "hasconfig:remote.*.url:git@github.com:seygroup/**";
-          contents.user.email = "cedric.prezelin@gmail.com";
+          condition = "gitdir:~/projects/betagouv/**";
+          contents = {
+            commit.gpgSign = true;
+            gpg.format = "openpgp";
+            user = {
+              email = "cedric.prezelin.ext@beta.gouv.fr";
+              signingKey = "F7685F485C283BEA";
+            };
+          };
         }
       ];
     };
