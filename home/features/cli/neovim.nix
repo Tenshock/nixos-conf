@@ -13,6 +13,7 @@
         ghostscript
         imagemagick
         mermaid-cli
+        nil
         ripgrep
         statix
         sqlite
