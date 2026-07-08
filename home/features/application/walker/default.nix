@@ -22,10 +22,6 @@ in
         url = "https://duckduckgo.com/?q=%TERM%"
         icon = "duckduckgo"
       '';
-
-      "elephant/1password.toml".text = ''
-        vaults = ["personal"]
-      '';
     };
   };
 
@@ -33,7 +29,6 @@ in
     enable = true;
     settings.providers = {
       default = [
-        "1password"
         "desktopapplications"
         "runner"
         "calc"
