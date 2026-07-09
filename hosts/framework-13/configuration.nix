@@ -41,7 +41,10 @@ user:
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  services.fwupd.enable = true;
+  services = {
+    fwupd.enable = true;
+    hardware.bolt.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     brightnessctl # enables hotkey brightness control
