@@ -6,6 +6,11 @@
     sessionVariables.NIXOS_OZONE_WL = "1";
   };
 
+  xdg.configFile."uwsm/env-hyprland".text = ''
+    export AQ_DRM_DEVICES="/dev/dri/nvidia-egpu:/dev/dri/amd-igpu"
+    export AQ_FORCE_LINEAR_BLIT=0
+  '';
+
   services.hyprpolkitagent.enable = true;
 
   imports = [

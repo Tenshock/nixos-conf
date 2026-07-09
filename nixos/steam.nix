@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     lsfg-vk
     lsfg-vk-ui
+    mangohud
   ];
 
   programs.steam = {

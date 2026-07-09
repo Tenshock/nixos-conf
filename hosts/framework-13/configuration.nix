@@ -44,6 +44,10 @@ user:
   services = {
     fwupd.enable = true;
     hardware.bolt.enable = true;
+    udev.extraRules = ''
+      SUBSYSTEM=="drm", KERNEL=="card[0-9]*", ATTRS{vendor}=="0x1002", ATTRS{device}=="0x150e", SYMLINK+="dri/amd-igpu"
+      SUBSYSTEM=="drm", KERNEL=="card[0-9]*", ATTRS{vendor}=="0x10de", ATTRS{device}=="0x2f04", SYMLINK+="dri/nvidia-egpu"
+    '';
   };
 
   environment.systemPackages = with pkgs; [
