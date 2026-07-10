@@ -81,9 +81,25 @@ in
       model = "gpt-5.5";
       review_model = "gpt-5.5";
       model_provider = "openai";
-      approval_policy = "untrusted";
+      approval_policy = "on-request";
+      approvals_reviewer = "auto_review";
       sandbox_mode = "workspace-write";
-      vim_mode_default = true;
+      tui = {
+        status_line = [
+          "model-with-reasoning"
+          "run-state"
+          "git-branch"
+          "branch-changes"
+          "task-progress"
+          "five-hour-limit"
+          "weekly-limit"
+        ];
+        vim_mode_default = true;
+      };
+
+      model_verbosity = "low";
+      personality = "pragmatic";
+      plan_mode_reasoning_effort = "xhigh";
 
       features = {
         memories = true;
