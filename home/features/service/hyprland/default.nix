@@ -1,13 +1,102 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
+let
+  hyprlandGpuProfile = pkgs.writeShellApplication {
+    name = "hyprland-gpu-profile";
+    runtimeInputs = with pkgs; [
+      jq
+      hyprland
+    ];
+    text = ''
+      profile="''${HYPRLAND_GPU_PROFILE:-mobile}"
+
+      vendor_for_output() {
+        output="$1"
+
+        case "$output" in
+          *[!A-Za-z0-9_-]*)
+            return
+            ;;
+        esac
+
+        for connector in "/sys/class/drm"/card*-"$output"; do
+          [ -e "$connector/device/vendor" ] || continue
+          cat "$connector/device/vendor"
+          return
+        done
+      }
+
+      disable_output() {
+        output="$1"
+
+        case "$output" in
+          *[!A-Za-z0-9_-]*)
+            return
+            ;;
+        esac
+
+        hyprctl -q eval "hl.monitor({ output = \"$output\", disabled = true })" || true
+      }
+
+      for _ in 1 2 3 4 5 6 7 8 9 10; do
+        monitors="$(hyprctl monitors all -j 2>/dev/null || true)"
+        [ -n "$monitors" ] && break
+        sleep 1
+      done
+
+      [ -n "''${monitors:-}" ] || exit 0
+
+      printf '%s\n' "$monitors" | jq -r '.[] | [.name, .description] | @tsv' | while IFS="$(printf '\t')" read -r output description; do
+        vendor="$(vendor_for_output "$output")"
+
+        if [ "$profile" = "egpu" ]; then
+          case "$vendor:$output:$description" in
+            0x1002:eDP-*:*)
+              ;;
+            0x1002:*)
+              disable_output "$output"
+              ;;
+            0x10de:DP-*:*"Dell Inc. DELL P2425D 68BZZB4"*)
+              disable_output "$output"
+              ;;
+          esac
+        else
+          [ "$vendor" = "0x10de" ] && disable_output "$output"
+        fi
+      done
+    '';
+  };
+in
 {
   catppuccin.hyprland.enable = false;
 
   home = {
     sessionVariables.NIXOS_OZONE_WL = "1";
+    packages = [ hyprlandGpuProfile ];
   };
 
   xdg.configFile."uwsm/env-hyprland".text = ''
-    export AQ_DRM_DEVICES="/dev/dri/nvidia-egpu:/dev/dri/amd-igpu"
+    export HYPRLAND_GPU_PROFILE="''${HYPRLAND_GPU_PROFILE:-mobile}"
+
+    amd="/dev/dri/amd-igpu"
+    nvidia="/dev/dri/nvidia-egpu"
+
+    if [ "$HYPRLAND_GPU_PROFILE" = "egpu" ]; then
+      for _ in 1 2 3 4 5 6 7 8 9 10; do
+        [ -e "$nvidia" ] && break
+        sleep 1
+      done
+
+      if [ -e "$nvidia" ]; then
+        export AQ_DRM_DEVICES="$nvidia:$amd"
+      else
+        export AQ_DRM_DEVICES="$amd"
+      fi
+    elif [ -e "$nvidia" ]; then
+      export AQ_DRM_DEVICES="$amd:$nvidia"
+    else
+      export AQ_DRM_DEVICES="$amd"
+    fi
+
     export AQ_FORCE_LINEAR_BLIT=0
   '';
 
@@ -129,6 +218,7 @@
         "hyprland.start"
         (lib.generators.mkLuaInline ''
           function()
+            hl.exec_cmd("${lib.getExe hyprlandGpuProfile}")
             hl.exec_cmd(terminal, { workspace = "1" })
             hl.exec_cmd(mattermost, { workspace = "2" })
             hl.exec_cmd(vesktop, { workspace = "2" })

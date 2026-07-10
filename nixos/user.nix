@@ -4,7 +4,12 @@ user: { pkgs, ... }: {
   users.users.${user} = {
     isNormalUser = true;
     description = user;
-    extraGroups = [ "wheel" ];
+    extraGroups = [
+      "wheel"
+      "i2c"
+    ];
     shell = pkgs.zsh;
   };
+
+  users.groups.i2c = { };
 }

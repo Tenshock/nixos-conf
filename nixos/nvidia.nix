@@ -12,8 +12,16 @@
       modesetting.enable = true;
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.latest;
+      nvidiaPersistenced = false;
+
+      powerManagement = {
+        enable = false;
+        finegrained = false;
+      };
 
       prime = {
+        allowExternalGpu = true;
+
         offload = {
           enable = true;
           enableOffloadCmd = true;

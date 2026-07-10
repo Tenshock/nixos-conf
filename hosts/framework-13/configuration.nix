@@ -39,6 +39,7 @@ user:
     };
 
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = [ "i2c-dev" ];
   };
 
   services = {
@@ -47,11 +48,13 @@ user:
     udev.extraRules = ''
       SUBSYSTEM=="drm", KERNEL=="card[0-9]*", ATTRS{vendor}=="0x1002", ATTRS{device}=="0x150e", SYMLINK+="dri/amd-igpu"
       SUBSYSTEM=="drm", KERNEL=="card[0-9]*", ATTRS{vendor}=="0x10de", ATTRS{device}=="0x2f04", SYMLINK+="dri/nvidia-egpu"
+      KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
     '';
   };
 
   environment.systemPackages = with pkgs; [
     brightnessctl # enables hotkey brightness control
+    ddcutil
   ];
 
   #####################
