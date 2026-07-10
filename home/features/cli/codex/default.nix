@@ -41,16 +41,20 @@ let
     codexSkills: integration: codexSkills // (integration.skills or { })
   ) { } integrationConfigs;
 
-  betagouvDirectory = "${config.home.homeDirectory}/projects/betagouv";
+  trustedProjectDirectories = [
+    "${config.home.homeDirectory}/projects/betagouv"
+    "${config.home.homeDirectory}/projects/own"
+  ];
 
-  trustedBetagouvProjects =
+  trustedOwnedProjects =
+    directory:
     let
-      entries = builtins.readDir betagouvDirectory;
+      entries = builtins.readDir directory;
       directories = lib.attrNames (lib.filterAttrs (_: type: type == "directory") entries);
     in
-    map (directory: "${betagouvDirectory}/${directory}") directories;
+    map (project: "${directory}/${project}") directories;
 
-  trustedProjects = trustedBetagouvProjects ++ [
+  trustedProjects = (lib.concatMap trustedOwnedProjects trustedProjectDirectories) ++ [
     # Personal
     "${config.home.homeDirectory}/.config/nixos"
     "${config.home.homeDirectory}/.config/nvim"
