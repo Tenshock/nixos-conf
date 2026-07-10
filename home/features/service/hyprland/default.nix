@@ -171,6 +171,10 @@ in
           workspace = "4";
           monitor = "eDP-1";
         }
+        {
+          workspace = "5";
+          monitor = "desc:Dell Inc. DELL P2425D 68BZZB4";
+        }
       ];
 
       window_rule = [
