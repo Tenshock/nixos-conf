@@ -1,10 +1,22 @@
 { pkgs, ... }:
+let
+  onlineFix = pkgs.writeShellApplication {
+    name = "online-fix";
+    text = ''
+      export WINEDLLOVERRIDES=OnlineFix64,SteamOverlay64,winmm,dnet,steam_api64=n,b
+      exec "$@"
+    '';
+  };
+in
 {
-  environment.systemPackages = with pkgs; [
-    lsfg-vk
-    lsfg-vk-ui
-    mangohud
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      lsfg-vk
+      lsfg-vk-ui
+      mangohud
+    ]
+    ++ [ onlineFix ];
 
   programs.steam = {
     enable = true;
