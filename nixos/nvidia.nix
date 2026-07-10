@@ -20,7 +20,10 @@ in
     "nvidia"
   ];
 
-  environment.systemPackages = [ NvidiaVulkan ];
+  environment.systemPackages = [
+    NvidiaVulkan
+    pkgs.nvtopPackages.nvidia
+  ];
 
   hardware = {
     graphics.enable = true;

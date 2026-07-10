@@ -9,6 +9,7 @@ user:
     ../../home/features/application/google-chrome.nix
     ../../home/features/application/kitty.nix
     ../../home/features/application/loupe.nix
+    ../../home/features/application/mangohud.nix
     ../../home/features/application/mongodb-compass.nix
     ../../home/features/application/obsidian.nix
     ../../home/features/application/slack.nix
@@ -70,4 +71,5 @@ user:
     sessionPath = [ "$HOME/.local/bin" ];
     stateVersion = "26.05";
   };
+
 }
