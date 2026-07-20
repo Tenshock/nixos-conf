@@ -78,8 +78,9 @@ in
       Use Context7 for current library, framework, SDK, API, CLI, or cloud-service docs.
     '';
     settings = {
-      model = "gpt-5.5";
-      review_model = "gpt-5.5";
+      model = "gpt-5.6-sol";
+      model_reasoning_effort = "medium";
+      review_model = "gpt-5.6-sol";
       model_provider = "openai";
       approval_policy = "on-request";
       approvals_reviewer = "auto_review";
