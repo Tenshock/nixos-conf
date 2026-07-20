@@ -6,6 +6,7 @@ user: { pkgs, ... }: {
     description = user;
     extraGroups = [
       "wheel"
+      "lpadmin"
       "i2c"
     ];
     shell = pkgs.zsh;
