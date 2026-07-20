@@ -10,6 +10,7 @@
     };
 
     pointerCursor = with pkgs; {
+      enable = true;
       name = "MochaPeach";
       package = catppuccin-cursors.mochaPeach;
       size = 24;
