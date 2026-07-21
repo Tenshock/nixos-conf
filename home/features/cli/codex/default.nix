@@ -94,6 +94,7 @@ in
           "git-branch"
           "branch-changes"
           "task-progress"
+          "context-remaining"
           "weekly-limit"
         ];
         vim_mode_default = true;
