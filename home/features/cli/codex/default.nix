@@ -65,7 +65,7 @@ let
   });
 in
 {
-  home.packages = integrationPackages;
+  home.packages = integrationPackages ++ [ pkgs.rtk ];
 
   programs.codex = {
     enable = true;
@@ -76,6 +76,8 @@ in
       Stop only if user says "stop caveman" or "normal mode".
       Use Serena for coding tasks: read initial instructions first, then prefer semantic tools when useful.
       Use Context7 for current library, framework, SDK, API, CLI, or cloud-service docs.
+      Use RTK for supported shell commands when output would otherwise be large.
+      Use raw commands when exact unfiltered output is needed or RTK does not support the command.
     '';
     settings = {
       model = "gpt-5.6-sol";
