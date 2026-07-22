@@ -72,17 +72,19 @@
 
   programs.zsh = {
     envExtra = ''
-      export ZSH_TMUX_AUTOSTART=true
+      export ZSH_TMUX_AUTOSTART=false
       export ZSH_TMUX_AUTOCONNECT=false
     '';
     initContent = ''
-      tmux set-window-option @is_window_pristine true 2>/dev/null
+      if [[ -n "$TMUX" ]]; then
+        tmux set-window-option @is_window_pristine true 2>/dev/null
 
-      preexec() {
-        if [[ -n "''${1//[[:space:]]/}" ]]; then
-          tmux set-window-option @is_window_pristine false 2>/dev/null
-        fi
-      }
+        preexec() {
+          if [[ -n "''${1//[[:space:]]/}" ]]; then
+            tmux set-window-option @is_window_pristine false 2>/dev/null
+          fi
+        }
+      fi
     '';
   };
 }

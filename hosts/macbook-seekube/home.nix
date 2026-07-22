@@ -4,7 +4,7 @@ user: { inputs, lib, ... }: {
     ../../darwin/macos-app-link-fix.nix
 
     ../../home/features/application/google-chrome.nix
-    ../../home/features/application/kitty.nix
+    ../../home/features/application/kitty
     ../../home/features/application/mongodb-compass.nix
     ../../home/features/application/notion.nix
     ../../home/features/application/obsidian.nix
