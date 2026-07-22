@@ -85,7 +85,10 @@ in
   systemd.user.services.awww-restore-after-monitor = {
     Unit = {
       Description = "Restore awww wallpaper after monitor layout changes";
-      After = [ "awww.service" ];
+      After = [
+        "awww.service"
+        "awww-wallpaper.service"
+      ];
       Requires = [ "awww.service" ];
       PartOf = [ "awww.service" ];
     };
@@ -98,7 +101,7 @@ in
 
   wayland.windowManager.hyprland.extraConfig = ''
     local restore_awww_after_monitor_change = function()
-      hl.exec_cmd("${pkgs.systemd}/bin/systemctl --user restart awww-restore-after-monitor.service")
+      hl.exec_cmd("${pkgs.systemd}/bin/systemctl --user start awww-restore-after-monitor.service")
     end
 
     hl.on("monitor.added", restore_awww_after_monitor_change)
