@@ -10,6 +10,7 @@
       url = "github:JuliusBrussee/caveman";
       flake = false;
     };
+    monique.url = "github:ToRvaLDz/monique";
 
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -57,6 +58,7 @@
           nixos-hardware,
           home-manager,
           catppuccin,
+          monique,
         }:
         nixos.lib.nixosSystem {
           system = host.arch;
@@ -70,6 +72,7 @@
             nixos-hardware.nixosModules.framework-amd-ai-300-series
             home-manager.nixosModules.home-manager
             catppuccin.nixosModules.catppuccin
+            monique.nixosModules.default
             {
               home-manager = {
                 useGlobalPkgs = true;
@@ -147,6 +150,7 @@
         inherit (inputs) nixos-hardware;
         inherit (inputs) home-manager;
         inherit (inputs) catppuccin;
+        inherit (inputs) monique;
       };
       darwinConfigurations."${hosts.macbook-seekube.hostname}" = mkDarwinConfigurations {
         host = hosts.macbook-seekube;
