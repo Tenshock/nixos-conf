@@ -114,6 +114,13 @@
               "VLC media player" = "${./style/icons/vlc-red.png}";
             };
           };
+          "custom/never-idle" = {
+            "format" = "{}";
+            "interval" = 1;
+            "tooltip-format" = "Never Idle";
+            "exec" = "systemctl --user is-active --quiet stay-awake.service && printf '\\n'";
+            "on-click" = "systemctl --user stop stay-awake.service";
+          };
           "bluetooth" = {
             "format" = " {status}";
             "format-off" = "󰂲 {status}";
@@ -218,6 +225,7 @@
             "modules-right" = [
               "custom/left-spacer"
               "tray"
+              "custom/never-idle"
               "network"
               "memory"
               "cpu"
@@ -240,6 +248,7 @@
             "modules-right" = [
               "custom/left-spacer"
               "tray"
+              "custom/never-idle"
               "network"
               "memory"
               "cpu"

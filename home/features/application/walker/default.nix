@@ -41,7 +41,18 @@ in
   services.walker = {
     enable = true;
     enableElephantIntegration = true;
-    settings.app_launch_prefix = "uwsm app -- ";
+    settings = {
+      app_launch_prefix = "uwsm app -- ";
+      keybinds.quick_activate = [
+        "F1"
+        "F2"
+        "F3"
+        "F4"
+        "F5"
+        "F6"
+        "F7"
+      ];
+    };
     systemd.enable = true;
   };
 

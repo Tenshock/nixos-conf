@@ -18,6 +18,7 @@
 /* MODULES */
 #workspaces button,
 #custom-music,
+#custom-never-idle,
 #clock,
 #cpu,
 #memory,
@@ -120,6 +121,10 @@
   padding-left: 1rem;
   margin-right: -0.7rem;
   color: @sky;
+}
+
+#custom-never-idle {
+  color: @red;
 }
 
 #network {
