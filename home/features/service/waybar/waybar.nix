@@ -81,9 +81,9 @@
             "on-click" = "uwsm app -- kitty -e btop";
           };
           "network" = {
-            "format-linked" = "󰛵 {bandwidthDownOctets}";
-            "format-wifi" = "  {signalStrength}% {bandwidthDownOctets}";
-            "format-ethernet" = "󰛳 {bandwidthDownOctets}";
+            "format-linked" = "󰛵 {bandwidthDownOctets:>10}";
+            "format-wifi" = "  {signalStrength}% {bandwidthDownOctets:>10}";
+            "format-ethernet" = "󰛳 {bandwidthDownOctets:>10}";
             "format-disconnected" = "󰲛  no network";
             "interval" = 1;
             "tooltip" = false;
@@ -162,8 +162,8 @@
           "wireplumber" = {
             "scroll-step" = 5;
             "max-volume" = 150.0;
-            "format" = "{icon} {volume}%";
-            "format-muted" = "  {volume}%";
+            "format" = "{icon} {volume:>3}%";
+            "format-muted" = "  {volume:>3}%";
             "format-icons" = {
               "default" = [
                 " "
@@ -171,7 +171,7 @@
                 " "
               ];
             };
-            "format-bluetooth" = "{icon} {volume}%";
+            "format-bluetooth" = "{icon} {volume:>3}%";
             "nospacing" = 1;
             "on-click" = "uwsm app -- kitty -e ncpamixer";
             "tooltip" = false;
