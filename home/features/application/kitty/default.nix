@@ -173,7 +173,7 @@ in
       tab_bar_margin_height = "2 0";
       tab_bar_style = "custom";
       tab_title_template = "{title} {custom}";
-      active_tab_title_template = "{fmt.bold}{fmt.fg._94e2d5}{title}{fmt.fg.tab}{fmt.nobold} {custom}";
+      active_tab_title_template = "{fmt.bold}{fmt.fg._94e2d5}{title} {custom}{fmt.fg.tab}{fmt.nobold}";
       active_tab_foreground = "#cdd6f4";
       active_tab_background = "#45475a";
       active_tab_font_style = "normal";

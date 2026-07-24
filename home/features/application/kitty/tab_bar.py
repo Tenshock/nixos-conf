@@ -1,6 +1,10 @@
 import os
 
+from kitty.fast_data_types import get_boss, get_options
+from kitty.rgb import color_as_sgr
 from kitty.tab_bar import as_rgb, draw_title as draw_tab_title
+
+GIT_FOLDER_ICON = ""
 
 
 def display_path(path):
@@ -17,8 +21,42 @@ def display_path(path):
     return path
 
 
+def git_root(path):
+    path = os.path.abspath(path)
+    while True:
+        if os.path.exists(os.path.join(path, ".git")):
+            return path
+
+        parent = os.path.dirname(path)
+        if parent == path:
+            return None
+        path = parent
+
+
+def active_tab_foreground_escape():
+    return f"\x1b[38{color_as_sgr(get_options().active_tab_foreground)}m"
+
+
+def is_active_tab(data):
+    boss = get_boss()
+    active_tab = boss.active_tab if boss else None
+    return active_tab is not None and active_tab.id == data["tab"].tab_id
+
+
 def draw_title(data):
-    return display_path(data["tab"].active_wd)
+    path = data["tab"].active_wd
+    active = is_active_tab(data)
+    root = git_root(path)
+    if root:
+        folder = os.path.basename(root)
+        if active:
+            return f"{GIT_FOLDER_ICON}{active_tab_foreground_escape()} {folder}"
+        return f"{GIT_FOLDER_ICON} {folder}"
+
+    title = display_path(path)
+    if active:
+        return f"{active_tab_foreground_escape()}{title}"
+    return title
 
 
 def draw_tab(
