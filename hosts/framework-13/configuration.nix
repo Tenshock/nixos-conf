@@ -19,6 +19,7 @@ user:
     ../../nixos/neovim.nix
     ../../nixos/nvbroadcast.nix
     ../../nixos/nvidia.nix
+    ../../nixos/obs-studio.nix
     ../../nixos/nix.nix
     ../../nixos/polkit.nix
     ../../nixos/printing.nix
