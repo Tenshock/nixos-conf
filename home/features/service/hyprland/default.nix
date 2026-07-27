@@ -74,6 +74,12 @@ in
     packages = [ hyprlandGpuProfile ];
   };
 
+  xdg.configFile."hypr/xdph.conf".text = ''
+    screencopy {
+      allow_token_by_default = true
+    }
+  '';
+
   xdg.configFile."uwsm/env-hyprland".text = ''
     export HYPRLAND_GPU_PROFILE="''${HYPRLAND_GPU_PROFILE:-mobile}"
 
