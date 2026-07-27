@@ -1,7 +1,7 @@
-{
+{ pkgs, ... }: {
   programs.obs-studio = {
     enable = true;
     enableVirtualCamera = true;
-    plugins = [ ];
+    plugins = with pkgs; [ obs-studio-plugins.obs-composite-blur ];
   };
 }
