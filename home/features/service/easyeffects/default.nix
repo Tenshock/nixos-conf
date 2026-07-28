@@ -9,7 +9,10 @@
   services.easyeffects = {
     enable = true;
     preset = "home";
-    extraPresets.home = import ./home.nix;
+    extraPresets = {
+      home = import ./home.nix;
+      "Discord Voice" = import ./discord-voice.nix;
+    };
     settings = {
       StreamInputs = {
         blocklist = null;
