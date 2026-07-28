@@ -48,11 +48,6 @@ user:
 
     ../../home/features/fonts/nerd.nix
 
-    ../../home/features/prog-lang/go.nix
-    ../../home/features/prog-lang/node.nix
-    ../../home/features/prog-lang/python3.nix
-    ../../home/features/prog-lang/rust.nix
-
     ../../home/features/service/kind.nix
     ../../home/features/service/skaffold.nix
     ../../home/features/service/ssh.nix
