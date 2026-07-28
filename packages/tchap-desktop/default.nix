@@ -9,6 +9,10 @@
 let
   tchapVersion = "4.21.1";
   webArchive = "tchap-4.21.1-prod-20260722.tar.gz";
+  variant = builtins.fromJSON (builtins.readFile ./variant.json);
+
+  commandLineArgs =
+    "--no-update" + lib.optionalString stdenv.hostPlatform.isLinux " --password-store=gnome-libsecret";
 
   tchap-web = fetchzip {
     name = "tchap-web-${tchapVersion}";
@@ -18,7 +22,7 @@ let
 
   element-desktop-tchap = element-desktop.override {
     element-web = tchap-web;
-    commandLineArgs = "--no-update --password-store=gnome-libsecret";
+    inherit commandLineArgs;
   };
 in
 element-desktop-tchap.overrideAttrs (oldAttrs: {
@@ -29,9 +33,37 @@ element-desktop-tchap.overrideAttrs (oldAttrs: {
     VARIANT_PATH = "${./variant.json}";
   };
 
-  postPatch = (oldAttrs.postPatch or "") + ''
-    cp ${tchap-web}/vector-icons/512.png apps/desktop/build/icon.png
-  '';
+  postPatch =
+    (oldAttrs.postPatch or "")
+    + lib.optionalString stdenv.hostPlatform.isLinux ''
+      cp ${tchap-web}/vector-icons/512.png apps/desktop/build/icon.png
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      cp ${tchap-web}/vector-icons/1024.png \
+        apps/desktop/build/icon.icon/Assets/element.png
+    '';
+
+  installPhase =
+    if stdenv.hostPlatform.isDarwin then
+      ''
+        runHook preInstall
+
+        mkdir -p "$out/Applications" "$out/bin"
+        mv dist/mac*/${lib.escapeShellArg "${variant.productName}.app"} "$out/Applications"
+
+        app="$out/Applications/${variant.productName}.app"
+        executable="$app/Contents/MacOS/${variant.productName}"
+
+        ln -s ${tchap-web} "$app/Contents/Resources/webapp"
+
+        wrapProgram "$executable" \
+          --add-flags ${lib.escapeShellArg commandLineArgs}
+        makeWrapper "$executable" "$out/bin/${variant.name}"
+
+        runHook postInstall
+      ''
+    else
+      oldAttrs.installPhase;
 
   postInstall =
     (oldAttrs.postInstall or "")
@@ -45,7 +77,7 @@ element-desktop-tchap.overrideAttrs (oldAttrs: {
         "$out/share/icons/hicolor/512x512/apps/tchap.png"
     '';
 
-  desktopItems = [
+  desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
     (makeDesktopItem {
       name = "tchap-desktop";
       exec = "tchap-desktop %u";
@@ -75,7 +107,7 @@ element-desktop-tchap.overrideAttrs (oldAttrs: {
       lib.licenses.agpl3Plus
       lib.licenses.gpl3Plus
     ];
-    platforms = lib.platforms.linux;
+    platforms = element-desktop.meta.platforms;
     mainProgram = "tchap-desktop";
   };
 })
