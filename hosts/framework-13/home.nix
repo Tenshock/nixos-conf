@@ -3,6 +3,7 @@ user:
 {
   imports = [
     inputs.zen-browser.homeModules.twilight
+
     ../../home/features/application/beeper.nix
     ../../home/features/application/datagrip.nix
     ../../home/features/application/discord.nix
@@ -10,9 +11,7 @@ user:
     ../../home/features/application/kitty
     ../../home/features/application/loupe.nix
     ../../home/features/application/mangohud.nix
-    ../../home/features/application/mongodb-compass.nix
     ../../home/features/application/obsidian.nix
-    ../../home/features/application/slack.nix
     ../../home/features/application/transmission.nix
     ../../home/features/application/vlc.nix
     ../../home/features/application/zen.nix
@@ -32,16 +31,13 @@ user:
     ../../home/features/cli/k9s.nix
     ../../home/features/cli/kubectl.nix
     ../../home/features/cli/lazygit.nix
-    ../../home/features/cli/mkcert.nix
     ../../home/features/cli/nh.nix
-    ../../home/features/cli/nss.nix
     ../../home/features/cli/qlty.nix
     ../../home/features/cli/ripgrep.nix
     ../../home/features/cli/starship.nix
     ../../home/features/cli/stay-awake.nix
     ../../home/features/cli/uncompress.nix
     ../../home/features/cli/neovim.nix
-    ../../home/features/cli/tmux
     ../../home/features/cli/udiskie.nix
     ../../home/features/cli/wget.nix
     ../../home/features/cli/zoxide.nix
@@ -49,10 +45,7 @@ user:
 
     ../../home/features/fonts/nerd.nix
 
-    ../../home/features/service/kind.nix
-    ../../home/features/service/skaffold.nix
     ../../home/features/service/ssh.nix
-    ../../home/features/service/terraform.nix
     ../../home/features/service/xdg.nix
 
     ../../home/flavors/hyprland.nix

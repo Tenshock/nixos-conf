@@ -3,7 +3,7 @@
     inherit hostName;
     networkmanager = {
       enable = true;
-      wifi.powersave = false;
+      wifi.powersave = true;
     };
     firewall.enable = true;
   };

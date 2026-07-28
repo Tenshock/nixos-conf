@@ -11,9 +11,12 @@
         fd
         fzf
         ghostscript
+        go
         imagemagick
         mermaid-cli
         nil
+        nodejs_26
+        python3
         ripgrep
         statix
         sqlite
