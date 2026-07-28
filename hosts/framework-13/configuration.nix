@@ -21,6 +21,7 @@ user:
     ../../nixos/nvidia.nix
     ../../nixos/obs-studio.nix
     ../../nixos/opendeck.nix
+    ../../nixos/tchap-desktop.nix
     ../../nixos/nix.nix
     ../../nixos/polkit.nix
     ../../nixos/printing.nix
