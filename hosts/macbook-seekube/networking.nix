@@ -1,3 +1,0 @@
-hostName: {
-  networking.hostName = hostName;
-}
