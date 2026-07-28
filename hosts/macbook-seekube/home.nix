@@ -30,6 +30,7 @@ user: { inputs, lib, ... }: {
     ../../home/features/cli/gcloud.nix
     ../../home/features/cli/jq-yq.nix
     ../../home/features/cli/git
+    ../../home/features/cli/gh-cli.nix
     ../../home/features/cli/k9s.nix
     ../../home/features/cli/lazygit.nix
     ../../home/features/cli/less.nix

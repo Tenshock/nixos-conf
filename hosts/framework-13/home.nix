@@ -28,6 +28,7 @@ user:
     ../../home/features/cli/helm.nix
     ../../home/features/cli/jq-yq.nix
     ../../home/features/cli/git
+    ../../home/features/cli/gh-cli.nix
     ../../home/features/cli/k9s.nix
     ../../home/features/cli/kubectl.nix
     ../../home/features/cli/lazygit.nix

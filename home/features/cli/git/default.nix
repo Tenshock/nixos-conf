@@ -86,16 +86,6 @@
       ];
     };
 
-    gh = {
-      enable = true;
-      hosts = {
-        "github.com" = {
-          user = "Tenshock";
-          git_protocol = "ssh";
-        };
-      };
-    };
-
     delta = {
       enable = true;
       enableGitIntegration = true;
