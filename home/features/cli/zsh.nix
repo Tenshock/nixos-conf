@@ -30,7 +30,6 @@
     oh-my-zsh = {
       enable = true;
       plugins = [
-        "tmux"
         "git"
       ];
     };
