@@ -69,6 +69,8 @@ in
     pkgs.rtk
   ];
 
+  programs.zsh.shellAliases.c = "codex";
+
   programs.codex = {
     enable = true;
     inherit skills;
