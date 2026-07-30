@@ -12,6 +12,7 @@ user:
     ../../home/features/application/loupe.nix
     ../../home/features/application/mangohud.nix
     ../../home/features/application/obsidian.nix
+    ../../home/features/application/onlyoffice.nix
     ../../home/features/application/transmission.nix
     ../../home/features/application/vlc.nix
     ../../home/features/application/zen.nix
