@@ -29,7 +29,7 @@
 
 let
   pname = "opendeck";
-  version = "2.13.1";
+  version = "2.14.0";
   pluginLibraryPath = lib.makeLibraryPath [
     libglvnd
     libX11
@@ -44,7 +44,7 @@ let
     owner = "nekename";
     repo = "OpenDeck";
     tag = "v${version}";
-    hash = "sha256-eFkdLSm6jgXLQjNgCxEwgNpYVH+lDzefd14FY3/2EAg=";
+    hash = "sha256-2zI1asMPLxllKaDaCaGbIZ1PwiQJCCsiuyG/gUKe0Mk=";
   };
 
   denoDeps = stdenvNoCC.mkDerivation {
@@ -80,14 +80,14 @@ let
 
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-1oLPNBX8JRx2ASl2cXZ74sz3k4vvwUXPkLRfzNU5V1k=";
+    outputHash = "sha256-0KQOWC8rizZ8ssJbc72cBwRHc9WWgCKe/4rKOjQ74wM=";
   };
 
   mainCargoDeps = rustPlatform.fetchCargoVendor {
     name = "${pname}-${version}-main-cargo-deps";
     inherit src;
     cargoRoot = "src-tauri";
-    hash = "sha256-LRCZetPg4222zS/5M4ojiCcxECsDrTbXlsQaFo66qSQ=";
+    hash = "sha256-AZ32cl5qbq/lROow9CpBgl3eztLos7VMqOnQV4kdvJU=";
   };
 
   starterpackCargoDeps = rustPlatform.fetchCargoVendor {
