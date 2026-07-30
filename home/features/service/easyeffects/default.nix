@@ -8,7 +8,10 @@
 
   services.easyeffects = {
     enable = true;
-    preset = "home";
+    preset = {
+      input = "home";
+      output = "Discord Voice";
+    };
     extraPresets = {
       home = import ./home.nix;
       "Discord Voice" = import ./discord-voice.nix;
