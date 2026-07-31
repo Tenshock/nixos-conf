@@ -11,6 +11,7 @@ let
   imageViewer = "org.gnome.Loupe.desktop";
   torrentClient = "transmission-qt.desktop";
   videoPlayer = "vlc.desktop";
+  chatgpt = "chatgpt.desktop";
 
   defaultsFor = desktopFile: mimeTypes: lib.genAttrs mimeTypes (_: [ desktopFile ]);
 
@@ -36,6 +37,10 @@ let
   torrentMimeTypes = [
     "application/x-bittorrent" # .torrent
     "x-scheme-handler/magnet"
+  ];
+
+  chatgptMimeTypes = [
+    "x-scheme-handler/codex"
   ];
 
   videoMimeTypes = [
@@ -89,6 +94,7 @@ let
     // defaultsFor documentViewer pdfMimeTypes
     // defaultsFor fileManager directoryMimeTypes
     // defaultsFor torrentClient torrentMimeTypes
+    // defaultsFor chatgpt chatgptMimeTypes
     // defaultsFor videoPlayer videoMimeTypes
     // defaultsFor imageViewer imageMimeTypes;
 in

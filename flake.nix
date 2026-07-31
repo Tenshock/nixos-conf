@@ -12,6 +12,11 @@
     };
     monique.url = "github:ToRvaLDz/monique";
 
+    chatgpt-desktop-linux = {
+      url = "github:Tenshock/chatgpt-desktop-linux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -62,6 +67,7 @@
         }:
         nixos.lib.nixosSystem {
           system = host.arch;
+          specialArgs = { inherit inputs; };
           modules = [
             (import ./hosts/${host.dir}/configuration.nix host.user)
             ./hosts/${host.dir}/hardware-configuration.nix
