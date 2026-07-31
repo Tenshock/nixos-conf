@@ -115,6 +115,7 @@ in
 
       mcp_servers = mcpServers;
 
+      # TODO: add linear plugin
       plugins = {
         "build-web-apps@openai-curated".enabled = true;
         "codex-security@openai-curated".enabled = true;
