@@ -115,12 +115,12 @@ in
 
       mcp_servers = mcpServers;
 
-      # TODO: add linear plugin
       plugins = {
         "build-web-apps@openai-curated".enabled = true;
         "codex-security@openai-curated".enabled = true;
         "figma@openai-curated".enabled = true;
         "github@openai-curated".enabled = true;
+        "linear@openai-curated".enabled = true;
       };
 
       inherit projects;
