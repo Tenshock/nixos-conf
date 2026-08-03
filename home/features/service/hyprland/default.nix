@@ -205,12 +205,12 @@ in
         (lib.generators.mkLuaInline ''
           function()
             hl.exec_cmd("${lib.getExe hyprlandGpuProfile}")
-            hl.exec_cmd(terminal, { workspace = "1" })
-            hl.exec_cmd(mattermost, { workspace = "2" })
-            hl.exec_cmd(tchap, { workspace = "2" })
-            hl.exec_cmd(vesktop, { workspace = "2" })
-            hl.exec_cmd(obsidian, { workspace = "3" })
-            hl.exec_cmd(browser, { workspace = "4" })
+            hl.exec_cmd(terminal, { workspace = "1 silent" })
+            hl.exec_cmd(mattermost, { workspace = "2 silent" })
+            hl.exec_cmd(tchap, { workspace = "2 silent" })
+            hl.exec_cmd(vesktop, { workspace = "2 silent" })
+            hl.exec_cmd(obsidian, { workspace = "3 silent" })
+            hl.exec_cmd(browser, { workspace = "4 silent" })
           end
         '')
       ];
