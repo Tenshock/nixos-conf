@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   ...
@@ -13,11 +14,17 @@ in
     ./shortcuts.nix
   ];
 
+  home.file."${config.home.homeDirectory}/.zen/profiles.ini".force = true;
+
   programs.zen-browser = {
     enable = true;
     setAsDefaultBrowser = true;
+    configPath = "${config.home.homeDirectory}/.zen";
 
     profiles.default = {
+      name = "Default Profile";
+      path = "default";
+
       extensions.packages = with firefox-addons; [
         ublock-origin
         onepassword-password-manager

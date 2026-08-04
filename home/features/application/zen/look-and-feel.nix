@@ -19,6 +19,10 @@
           "reset-pbm-toolbar-button"
         ];
       };
+      seen = [
+        "ublock0_raymondhill_net-browser-action"
+        "_d634138d-c276-4fc8-924b-40a0ea21d284_-browser-action"
+      ];
       currentVersion = 24;
     };
   };
