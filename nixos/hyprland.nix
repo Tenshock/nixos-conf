@@ -11,6 +11,18 @@ let
       });
 in
 {
+  # TODO: Temporary workaround for https://github.com/NixOS/nixpkgs/pull/549253.
+  nixpkgs.overlays = [
+    (_final: prev: {
+      hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
+        postPatch = (oldAttrs.postPatch or "") + ''
+          substituteInPlace CMakeLists.txt start/CMakeLists.txt hyprpm/CMakeLists.txt \
+            --replace-fail "glaze 7...<8" "glaze"
+        '';
+      });
+    })
+  ];
+
   # Needed to add a desktop entry at NixOS level.
   programs.hyprland = {
     enable = true;
