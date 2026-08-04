@@ -15,7 +15,7 @@ user:
     ../../home/features/application/onlyoffice.nix
     ../../home/features/application/transmission.nix
     ../../home/features/application/vlc.nix
-    ../../home/features/application/zen.nix
+    ../../home/features/application/zen
 
     ../../home/features/cli/atuin.nix
     ../../home/features/cli/bat.nix
