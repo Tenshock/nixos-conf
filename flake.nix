@@ -4,17 +4,26 @@
   inputs = {
     nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
-    catppuccin.url = "github:catppuccin/nix";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixos";
+    };
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     caveman = {
       url = "github:JuliusBrussee/caveman";
       flake = false;
     };
-    monique.url = "github:ToRvaLDz/monique";
+    monique = {
+      url = "github:ToRvaLDz/monique";
+      inputs.nixpkgs.follows = "nixos";
+    };
 
     chatgpt-desktop-linux = {
       url = "github:Tenshock/chatgpt-desktop-linux";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixos";
     };
 
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
@@ -39,14 +48,14 @@
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixos";
         home-manager.follows = "home-manager";
       };
     };
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixos";
     };
   };
 
