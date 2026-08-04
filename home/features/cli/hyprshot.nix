@@ -4,20 +4,20 @@ let
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.perl ];
 
     postPatch = (old.postPatch or "") + ''
-      perl -0pi -e 's!notify-send "Screenshot saved" \\\n\s+"\$\{message\}" \\\n\s+-t "\$NOTIF_TIMEOUT" -i "\$\{1\}" -a Hyprshot!q~(
-        local action
-        action=$(
-            notify-send "Screenshot saved" \
-                        "''${message}" \
-                        -t "$NOTIF_TIMEOUT" -i "''${1}" -a Hyprshot \
-                        --action default=Open --wait
-        )
-        case "$action" in
-            default)
-                xdg-open "$1" >/dev/null 2>&1 &
-                ;;
-        esac
-    ) &~!se' hyprshot
+        perl -0pi -e 's!notify-send "Screenshot saved" \\\n\s+"\$\{message\}" \\\n\s+-t "\$NOTIF_TIMEOUT" -i "\$\{1\}" -a Hyprshot!q~(
+          local action
+          action=$(
+              notify-send "Screenshot saved" \
+                          "''${message}" \
+                          -t "$NOTIF_TIMEOUT" -i "''${1}" -a Hyprshot \
+                          --action default=Open --wait
+          )
+          case "$action" in
+              default)
+                  xdg-open "$1" >/dev/null 2>&1 &
+                  ;;
+          esac
+      ) &~!se' hyprshot
     '';
 
     postFixup = (old.postFixup or "") + ''
