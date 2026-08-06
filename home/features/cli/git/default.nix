@@ -16,6 +16,8 @@
         user = {
           name = "Cédric Prezelin";
           email = "cedric.prezelin@gmail.com";
+          # 1Password "Git Commit Signing" SSH key
+          signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII41+k73bU3ax55hLATwqeWLFU/FTKYx+Th0CG7I65Jg";
         };
 
         advice = {
@@ -24,6 +26,8 @@
         };
 
         column.ui = "auto";
+
+        commit.gpgSign = true;
 
         core = {
           autocrlf = false;
@@ -40,6 +44,11 @@
           all = true;
           prune = true;
           pruneTags = true;
+        };
+
+        gpg = {
+          format = "ssh";
+          ssh.program = "${pkgs._1password-gui}/bin/op-ssh-sign";
         };
 
         help.autocorrect = true;
@@ -75,12 +84,7 @@
         {
           condition = "gitdir:~/projects/betagouv/**";
           contents = {
-            commit.gpgSign = true;
-            gpg.format = "openpgp";
-            user = {
-              email = "cedric.prezelin.ext@beta.gouv.fr";
-              signingKey = "F7685F485C283BEA";
-            };
+            user.email = "cedric.prezelin.ext@beta.gouv.fr";
           };
         }
       ];
