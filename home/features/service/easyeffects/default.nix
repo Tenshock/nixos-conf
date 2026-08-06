@@ -1,11 +1,4 @@
-{ ... }:
 {
-  disabledModules = [ "services/easyeffects.nix" ];
-
-  imports = [
-    /home/cedric/projects/own/home-manager/modules/services/easyeffects.nix
-  ];
-
   services.easyeffects = {
     enable = true;
     preset = {
