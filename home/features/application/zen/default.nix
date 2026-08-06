@@ -9,6 +9,8 @@ let
 in
 {
   imports = [
+    inputs.zen-browser.homeModules.twilight
+
     ./look-and-feel.nix
     ./search-engines.nix
     ./shortcuts.nix

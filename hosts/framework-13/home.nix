@@ -2,8 +2,6 @@ user:
 { inputs, ... }:
 {
   imports = [
-    inputs.zen-browser.homeModules.twilight
-
     ../../home/features/application/beeper.nix
     ../../home/features/application/datagrip.nix
     ../../home/features/application/discord.nix
