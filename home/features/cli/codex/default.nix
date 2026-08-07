@@ -75,13 +75,12 @@ in
     enable = true;
     inherit skills;
     context = ''
-      Use caveman mode by default in every session.
+      Use caveman skill in full mode by default in every session.
       Keep all technical details exact.
-      Stop only if user says "stop caveman" or "normal mode".
-      Use Serena for coding tasks: read initial instructions first, then prefer semantic tools when useful.
-      Use Context7 for current library, framework, SDK, API, CLI, or cloud-service docs.
-      Use RTK for supported shell commands when output would otherwise be large.
-      Use raw commands when exact unfiltered output is needed or RTK does not support the command.
+      For coding tasks, use Serena MCP server: read its initial instructions first, then prefer semantic tools when useful.
+      For current library, framework, SDK, API, CLI, or cloud-service documentation, use Context7 MCP server.
+      For supported shell commands, use RTK CLI when raw output would otherwise be large.
+      Use raw shell commands when exact unfiltered output is needed or RTK CLI does not support command.
     '';
     settings = {
       model = "gpt-5.6-sol";
