@@ -90,6 +90,9 @@
         };
     in
     {
+      checks.x86_64-linux.nixos =
+        self.nixosConfigurations."${hosts.framework-13.hostname}".config.system.build.toplevel;
+
       formatter.x86_64-linux = inputs.nixos.legacyPackages.x86_64-linux.nixfmt-tree;
 
       nixosConfigurations."${hosts.framework-13.hostname}" = mkNixOSConfiguration {
