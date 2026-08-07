@@ -29,6 +29,7 @@ user:
     ../../nixos/smile.nix
     ../../nixos/steam.nix
     ../../nixos/systemd-boot.nix
+    ../../nixos/zswap.nix
     ../../nixos/power-profiles-daemon.nix
     (import ../../nixos/user.nix user)
     (import ../../nixos/virtualization.nix user)
