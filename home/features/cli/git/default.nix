@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 let
+  # 1Password "Git Commit Signing" SSH key
   signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII41+k73bU3ax55hLATwqeWLFU/FTKYx+Th0CG7I65Jg";
 in
 {
@@ -20,12 +21,17 @@ in
         ".serena"
       ];
 
+      signing = {
+        signByDefault = true;
+        format = "ssh";
+        key = signingKey;
+        signer = "${pkgs._1password-gui}/bin/op-ssh-sign";
+      };
+
       settings = {
         user = {
           name = "Cédric Prezelin";
           email = "cedric.prezelin@gmail.com";
-          # 1Password "Git Commit Signing" SSH key
-          inherit signingKey;
         };
 
         advice = {
@@ -54,13 +60,7 @@ in
           pruneTags = true;
         };
 
-        gpg = {
-          format = "ssh";
-          ssh = {
-            allowedSignersFile = "${config.xdg.configHome}/git/allowed_signers";
-            program = "${pkgs._1password-gui}/bin/op-ssh-sign";
-          };
-        };
+        gpg.ssh.allowedSignersFile = "${config.xdg.configHome}/git/allowed_signers";
 
         help.autocorrect = true;
 
