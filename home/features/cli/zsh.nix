@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }:
 {
@@ -34,18 +33,5 @@
       ];
     };
 
-    # macOS-only init: make SDKROOT/LIBRARY_PATH available
-    initContent = lib.mkIf pkgs.stdenv.isDarwin ''
-      # Only for interactive shells, and only if xcrun is available
-      if [[ $- == *i* ]] && command -v xcrun >/dev/null 2>&1; then
-        export SDKROOT="$(xcrun --show-sdk-path)"
-        export LIBRARY_PATH="$SDKROOT/usr/lib''${LIBRARY_PATH:+:$LIBRARY_PATH}"
-      fi
-
-      # nvm
-      export NVM_DIR="$HOME/.nvm"
-      [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
-      [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
-    '';
   };
 }

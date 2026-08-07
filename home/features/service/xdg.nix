@@ -123,7 +123,7 @@ in
     dataHome = "${config.home.homeDirectory}/.local/share";
     stateHome = "${config.home.homeDirectory}/.local/state";
 
-    mimeApps = lib.mkIf (!pkgs.stdenv.isDarwin) {
+    mimeApps = {
       enable = true;
       associations.added = defaultApplications;
       inherit defaultApplications;
