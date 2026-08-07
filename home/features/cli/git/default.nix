@@ -1,8 +1,16 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }:
+let
+  signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII41+k73bU3ax55hLATwqeWLFU/FTKYx+Th0CG7I65Jg";
+in
+{
   home.packages = with pkgs; [
     (writeShellScriptBin "git-large-files" (builtins.readFile ./git-large-files.sh))
     git-sizer
   ];
+
+  xdg.configFile."git/allowed_signers".text = ''
+    cedric.prezelin@gmail.com,cedric.prezelin.ext@beta.gouv.fr namespaces="git" ${signingKey}
+  '';
 
   programs = {
     git = {
@@ -17,7 +25,7 @@
           name = "Cédric Prezelin";
           email = "cedric.prezelin@gmail.com";
           # 1Password "Git Commit Signing" SSH key
-          signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII41+k73bU3ax55hLATwqeWLFU/FTKYx+Th0CG7I65Jg";
+          inherit signingKey;
         };
 
         advice = {
@@ -48,7 +56,10 @@
 
         gpg = {
           format = "ssh";
-          ssh.program = "${pkgs._1password-gui}/bin/op-ssh-sign";
+          ssh = {
+            allowedSignersFile = "${config.xdg.configHome}/git/allowed_signers";
+            program = "${pkgs._1password-gui}/bin/op-ssh-sign";
+          };
         };
 
         help.autocorrect = true;
