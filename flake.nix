@@ -90,6 +90,8 @@
         };
     in
     {
+      formatter.x86_64-linux = inputs.nixos.legacyPackages.x86_64-linux.nixfmt-tree;
+
       nixosConfigurations."${hosts.framework-13.hostname}" = mkNixOSConfiguration {
         host = hosts.framework-13;
         inherit (inputs) nixos;
