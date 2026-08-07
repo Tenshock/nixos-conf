@@ -30,7 +30,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:Tenshock/home-manager/f0d9d6468869bad5088aabe86f8c0b4a16411c6b";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -74,13 +74,6 @@ in
     packages = [ hyprlandGpuProfile ];
   };
 
-  xdg.configFile."hypr/xdph.conf".text = ''
-    screencopy {
-      allow_token_by_default = true
-      cursor_mode = 2
-    }
-  '';
-
   xdg.configFile."uwsm/env-hyprland".text = ''
     export HYPRLAND_GPU_PROFILE="''${HYPRLAND_GPU_PROFILE:-mobile}"
 
@@ -122,6 +115,11 @@ in
     extraConfig = ''
       pcall(require, "monitors")
     '';
+
+    xdph.settings.screencopy = {
+      allow_token_by_default = true;
+      cursor_mode = 2;
+    };
 
     settings = {
       gesture = [
