@@ -26,8 +26,25 @@
     };
 
     home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixos";
+    };
+
+    # TODO: remove when https://github.com/nix-community/home-manager/pull/9785 merged
+    home-manager-git = {
+      url = "github:Tenshock/home-manager/8e09684fbb2a1121b8ce416bba791979dafff5d4";
+      inputs.nixpkgs.follows = "nixos";
+    };
+
+    # TODO: remove when https://github.com/nix-community/home-manager/pull/9782 merged
+    home-manager-xdph = {
       url = "github:Tenshock/home-manager/f0d9d6468869bad5088aabe86f8c0b4a16411c6b";
       inputs.nixpkgs.follows = "nixos";
+    };
+
+    # TODO: remove when https://github.com/NixOS/nixpkgs/pull/538136 merged
+    nvbroadcast-nixpkgs = {
+      url = "github:Tenshock/nixpkgs/a996b4ad0e6d7445afb231340e3d2d6a2cbaa3b9";
     };
 
     zen-browser = {
@@ -70,6 +87,18 @@
               inherit (host) user;
             })
             nixos-hardware.nixosModules.framework-amd-ai-300-series
+            # TODO: remove when https://github.com/NixOS/nixpkgs/pull/538136 merged
+            {
+              imports = [
+                (inputs.nvbroadcast-nixpkgs.outPath + "/nixos/modules/programs/nvbroadcast.nix")
+              ];
+
+              # The imported module's manual anchor is absent from the locked
+              # official NixOS redirects, so validation cannot cover this mixed revision.
+              documentation.nixos.checkRedirects = false;
+
+              programs.nvbroadcast.package = inputs.nvbroadcast-nixpkgs.legacyPackages.${host.arch}.nvbroadcast;
+            }
             home-manager.nixosModules.home-manager
             catppuccin.nixosModules.catppuccin
             monique.nixosModules.default
@@ -79,7 +108,17 @@
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
                 users."${host.user}" = {
+                  disabledModules = [
+                    # TODO: remove when https://github.com/nix-community/home-manager/pull/9785 merged
+                    "programs/git.nix"
+                    # TODO: remove when https://github.com/nix-community/home-manager/pull/9782 merged
+                    "services/window-managers/hyprland.nix"
+                  ];
                   imports = [
+                    # TODO: remove when https://github.com/nix-community/home-manager/pull/9785 merged
+                    (inputs.home-manager-git.outPath + "/modules/programs/git.nix")
+                    # TODO: remove when https://github.com/nix-community/home-manager/pull/9782 merged
+                    (inputs.home-manager-xdph.outPath + "/modules/services/window-managers/hyprland.nix")
                     (import ./hosts/${host.dir}/home.nix host.user)
                     catppuccin.homeModules.catppuccin
                   ];

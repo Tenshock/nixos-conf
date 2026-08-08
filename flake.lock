@@ -23,11 +23,11 @@
     "caveman": {
       "flake": false,
       "locked": {
-        "lastModified": 1785851092,
-        "narHash": "sha256-zYWuv/uPEV5W9AGsmivYuGb4bDAGlVngZ94GbAGcz3M=",
+        "lastModified": 1786187098,
+        "narHash": "sha256-54NN2TsYVVjWXJn6C+tPgCn1IdpecASJXeaMRpWXcFk=",
         "owner": "JuliusBrussee",
         "repo": "caveman",
-        "rev": "ec83e5bace4c20484d704dea21e12fc4eb94e9aa",
+        "rev": "11ddc0c9813c8f75365cd5be2f753df08712f154",
         "type": "github"
       },
       "original": {
@@ -64,11 +64,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1786075368,
-        "narHash": "sha256-vSiTq6wa9WiKGHOdCRlABkKksOgfrsUuRz/K6tQ9EYA=",
+        "lastModified": 1786177081,
+        "narHash": "sha256-k8oMgW50OIXcGEz6Unic8sV3c+GTvinL3UUZL1TRayM=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "f516bdb9bc003c9d1f041d8ad9f0a9627fe800d2",
+        "rev": "e56e2b53b293be127a1360c7d30c713eaaadce08",
         "type": "gitlab"
       },
       "original": {
@@ -79,6 +79,47 @@
       }
     },
     "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786031233,
+        "narHash": "sha256-TIDlLTLI1/pB7IqgjzcKQjpODQsZE2oII4XGG9B6KjI=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "7834e82588860aaf780cec1366524456a70898d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager-git": {
+      "inputs": {
+        "nixpkgs": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786112292,
+        "narHash": "sha256-VilOWyA3EibRXjwgZKb3I86gsmoQiV1bwEAWCosNBNM=",
+        "owner": "Tenshock",
+        "repo": "home-manager",
+        "rev": "8e09684fbb2a1121b8ce416bba791979dafff5d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Tenshock",
+        "repo": "home-manager",
+        "rev": "8e09684fbb2a1121b8ce416bba791979dafff5d4",
+        "type": "github"
+      }
+    },
+    "home-manager-xdph": {
       "inputs": {
         "nixpkgs": [
           "nixos"
@@ -155,6 +196,22 @@
         "type": "github"
       }
     },
+    "nvbroadcast-nixpkgs": {
+      "locked": {
+        "lastModified": 1785925464,
+        "narHash": "sha256-ZXeEp7G2sfNWuQvpO5Rhw1h7xnmeYTOpedboN4/eatk=",
+        "owner": "Tenshock",
+        "repo": "nixpkgs",
+        "rev": "a996b4ad0e6d7445afb231340e3d2d6a2cbaa3b9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Tenshock",
+        "repo": "nixpkgs",
+        "rev": "a996b4ad0e6d7445afb231340e3d2d6a2cbaa3b9",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
@@ -162,9 +219,12 @@
         "chatgpt-desktop-linux": "chatgpt-desktop-linux",
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
+        "home-manager-git": "home-manager-git",
+        "home-manager-xdph": "home-manager-xdph",
         "monique": "monique",
         "nixos": "nixos",
         "nixos-hardware": "nixos-hardware",
+        "nvbroadcast-nixpkgs": "nvbroadcast-nixpkgs",
         "zen-browser": "zen-browser"
       }
     },
@@ -178,11 +238,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786103105,
-        "narHash": "sha256-2MhXLiiw5K9Q/d2rLV+v3hbSVQTrEDXyNAPv4/XChu8=",
+        "lastModified": 1786171986,
+        "narHash": "sha256-kvmCZLYbByuE+zskqtf5+UPGrFI8e8KspB8jVey0nj0=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "67202a6dc9ad712796fe31ef7797084d1fb8dbfe",
+        "rev": "f3a721857afb4c34f687390213e0bc034d8e4999",
         "type": "github"
       },
       "original": {

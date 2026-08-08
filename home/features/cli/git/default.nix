@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   # 1Password "Git Commit Signing" SSH key
   signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII41+k73bU3ax55hLATwqeWLFU/FTKYx+Th0CG7I65Jg";
@@ -9,10 +9,6 @@ in
     git-sizer
   ];
 
-  xdg.configFile."git/allowed_signers".text = ''
-    cedric.prezelin@gmail.com,cedric.prezelin.ext@beta.gouv.fr namespaces="git" ${signingKey}
-  '';
-
   programs = {
     git = {
       enable = true;
@@ -22,6 +18,9 @@ in
       ];
 
       signing = {
+        allowedSigners = ''
+          cedric.prezelin@gmail.com,cedric.prezelin.ext@beta.gouv.fr namespaces="git" ${signingKey}
+        '';
         signByDefault = true;
         format = "ssh";
         key = signingKey;
@@ -59,8 +58,6 @@ in
           prune = true;
           pruneTags = true;
         };
-
-        gpg.ssh.allowedSignersFile = "${config.xdg.configHome}/git/allowed_signers";
 
         help.autocorrect = true;
 
