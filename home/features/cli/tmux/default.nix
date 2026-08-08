@@ -16,7 +16,9 @@
     plugins = with pkgs; [
       {
         plugin = tmuxPlugins.catppuccin;
-        extraConfig = ''
+        extraConfig =
+          # bash
+          ''
           set -g @catppuccin_flavor "mocha"
           set -g @catppuccin_window_status_style "rounded"
           set -g @catppuccin_status_background "#0f111a"
@@ -34,7 +36,9 @@
       { plugin = tmuxPlugins.vim-tmux-navigator; }
     ];
 
-    extraConfig = ''
+    extraConfig =
+      # bash
+      ''
       set-option -ga terminal-overrides ",tmux-256color:Tc"
       set-option -g status-position top
       bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-and-cancel wl-copy
@@ -71,11 +75,15 @@
   };
 
   programs.zsh = {
-    envExtra = ''
+    envExtra =
+      # zsh
+      ''
       export ZSH_TMUX_AUTOSTART=false
       export ZSH_TMUX_AUTOCONNECT=false
     '';
-    initContent = ''
+    initContent =
+      # zsh
+      ''
       if [[ -n "$TMUX" ]]; then
         tmux set-window-option @is_window_pristine true 2>/dev/null
 

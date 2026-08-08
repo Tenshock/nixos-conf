@@ -10,32 +10,34 @@ in
     packages = [ hyprlandGpuProfile ];
   };
 
-  xdg.configFile."uwsm/env-hyprland".text = ''
-    export HYPRLAND_GPU_PROFILE="''${HYPRLAND_GPU_PROFILE:-igpu}"
-    export HYPRLAND_APP_PROFILE="''${HYPRLAND_APP_PROFILE:-default}"
+  xdg.configFile."uwsm/env-hyprland".text =
+    # bash
+    ''
+      export HYPRLAND_GPU_PROFILE="''${HYPRLAND_GPU_PROFILE:-igpu}"
+      export HYPRLAND_APP_PROFILE="''${HYPRLAND_APP_PROFILE:-default}"
 
-    amd="/dev/dri/amd-igpu"
-    nvidia="/dev/dri/nvidia-egpu"
+      amd="/dev/dri/amd-igpu"
+      nvidia="/dev/dri/nvidia-egpu"
 
-    if [ "$HYPRLAND_GPU_PROFILE" = "egpu" ]; then
-      for _ in 1 2 3 4 5 6 7 8 9 10; do
-        [ -e "$nvidia" ] && break
-        sleep 1
-      done
+      if [ "$HYPRLAND_GPU_PROFILE" = "egpu" ]; then
+        for _ in 1 2 3 4 5 6 7 8 9 10; do
+          [ -e "$nvidia" ] && break
+          sleep 1
+        done
 
-      if [ -e "$nvidia" ]; then
-        export AQ_DRM_DEVICES="$nvidia:$amd"
+        if [ -e "$nvidia" ]; then
+          export AQ_DRM_DEVICES="$nvidia:$amd"
+        else
+          export AQ_DRM_DEVICES="$amd"
+        fi
+      elif [ -e "$nvidia" ]; then
+        export AQ_DRM_DEVICES="$amd:$nvidia"
       else
         export AQ_DRM_DEVICES="$amd"
       fi
-    elif [ -e "$nvidia" ]; then
-      export AQ_DRM_DEVICES="$amd:$nvidia"
-    else
-      export AQ_DRM_DEVICES="$amd"
-    fi
 
-    export AQ_FORCE_LINEAR_BLIT=0
-  '';
+      export AQ_FORCE_LINEAR_BLIT=0
+    '';
 
   services.hyprpolkitagent.enable = true;
 
@@ -49,9 +51,11 @@ in
     enable = true;
     configType = "lua";
     systemd.enable = false; # Necessary for UWSM integration. See nixos/hyprland.nix
-    extraConfig = ''
-      pcall(require, "monitors")
-    '';
+    extraConfig =
+      # lua
+      ''
+        pcall(require, "monitors")
+      '';
 
     xdph.settings.screencopy = {
       allow_token_by_default = true;
@@ -138,24 +142,27 @@ in
 
       on._args = [
         "hyprland.start"
-        (lib.generators.mkLuaInline ''
-          function()
-            local app_profile = os.getenv("HYPRLAND_APP_PROFILE") or "default"
+        (lib.generators.mkLuaInline
+          # lua
+          ''
+            function()
+              local app_profile = os.getenv("HYPRLAND_APP_PROFILE") or "default"
 
-            hl.exec_cmd("${lib.getExe hyprlandGpuProfile}")
-            hl.exec_cmd(loginToOnePassword)
-            hl.exec_cmd(terminal, { workspace = "1 silent" })
+              hl.exec_cmd("${lib.getExe hyprlandGpuProfile}")
+              hl.exec_cmd(loginToOnePassword)
+              hl.exec_cmd(terminal, { workspace = "1 silent" })
 
-            if app_profile == "work" then
-              hl.exec_cmd(mattermost, { workspace = "2 silent" })
-              hl.exec_cmd(tchap, { workspace = "2 silent" })
-              hl.exec_cmd(vesktop, { workspace = "2 silent" })
-              hl.exec_cmd(obsidian, { workspace = "3 silent" })
+              if app_profile == "work" then
+                hl.exec_cmd(mattermost, { workspace = "2 silent" })
+                hl.exec_cmd(tchap, { workspace = "2 silent" })
+                hl.exec_cmd(vesktop, { workspace = "2 silent" })
+                hl.exec_cmd(obsidian, { workspace = "3 silent" })
+              end
+
+              hl.exec_cmd(browser, { workspace = "4 silent" })
             end
-
-            hl.exec_cmd(browser, { workspace = "4 silent" })
-          end
-        '')
+          ''
+        )
       ];
 
       config = {

@@ -99,7 +99,9 @@ in
     };
   };
 
-  wayland.windowManager.hyprland.extraConfig = ''
+  wayland.windowManager.hyprland.extraConfig =
+    # lua
+    ''
     local restore_awww_after_monitor_change = function()
       hl.exec_cmd("${pkgs.systemd}/bin/systemctl --user start awww-restore-after-monitor.service")
     end

@@ -50,7 +50,9 @@ in
     "gtk-4.0/gtk.css".source = "${catppuccinGtk}/share/themes/${themeName}/gtk-4.0/gtk.css";
     "gtk-4.0/gtk-dark.css".source = "${catppuccinGtk}/share/themes/${themeName}/gtk-4.0/gtk-dark.css";
     "Kvantum/${kvantumThemeName}".source = "${catppuccinKvantum}/share/Kvantum/${kvantumThemeName}";
-    "Kvantum/kvantum.kvconfig".text = ''
+    "Kvantum/kvantum.kvconfig".text =
+      # ini
+      ''
       [General]
       theme=${kvantumThemeName}
     '';

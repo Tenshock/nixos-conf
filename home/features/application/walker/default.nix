@@ -11,11 +11,15 @@ in
         launch_prefix = "${pkgs.uwsm}/bin/uwsm-app --";
       };
 
-      "elephant/calc.toml".text = ''
+      "elephant/calc.toml".text =
+        # toml
+        ''
         command = "${pkgs.qalculate-gtk}/bin/qalculate-gtk '%VALUE%'"
       '';
 
-      "elephant/websearch.toml".text = ''
+      "elephant/websearch.toml".text =
+        # toml
+        ''
         [[entries]]
         default = true
         name = "DuckDuckGo"

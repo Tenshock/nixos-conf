@@ -3,7 +3,9 @@ let
   hyprshot-xdg-open = pkgs.hyprshot.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.perl ];
 
-    postPatch = (old.postPatch or "") + ''
+    postPatch = (old.postPatch or "") +
+      # bash
+      ''
         perl -0pi -e 's!notify-send "Screenshot saved" \\\n\s+"\$\{message\}" \\\n\s+-t "\$NOTIF_TIMEOUT" -i "\$\{1\}" -a Hyprshot!q~(
           local action
           action=$(
@@ -20,7 +22,9 @@ let
       ) &~!se' hyprshot
     '';
 
-    postFixup = (old.postFixup or "") + ''
+    postFixup = (old.postFixup or "") +
+      # bash
+      ''
       wrapProgram "$out/bin/hyprshot" \
         --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.xdg-utils ]}
     '';

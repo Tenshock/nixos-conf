@@ -153,7 +153,9 @@ in
   ];
 
   xdg.configFile."Thunar/uca.xml" = lib.mkIf pkgs.stdenv.isLinux {
-    text = ''
+    text =
+      # xml
+      ''
       <?xml version="1.0" encoding="UTF-8"?>
       <actions>
       <action>

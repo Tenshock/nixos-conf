@@ -1,7 +1,9 @@
 { pkgs, ... }:
 let
   gsimplecal = pkgs.gsimplecal.overrideAttrs (old: {
-    postPatch = (old.postPatch or "") + ''
+    postPatch = (old.postPatch or "") +
+      # bash
+      ''
       substituteInPlace src/MainWindow.cpp \
         --replace-fail '    gtk_window_set_title(GTK_WINDOW(widget), "gsimplecal");' '    gtk_widget_set_name(widget, "gsimplecal-waybar");
           gtk_window_set_title(GTK_WINDOW(widget), "gsimplecal");'
@@ -11,7 +13,9 @@ in
 {
   home.packages = [ gsimplecal ];
 
-  home.file.".config/gsimplecal/config".text = ''
+  home.file.".config/gsimplecal/config".text =
+    # ini
+    ''
     show_calendar = 1
     show_timezones = 0
     mark_today = 1
@@ -28,7 +32,9 @@ in
     mainwindow_yoffset = 0
   '';
 
-  gtk.gtk3.extraCss = ''
+  gtk.gtk3.extraCss =
+    # css
+    ''
     window#gsimplecal-waybar,
     window#gsimplecal-waybar > box {
       background-color: rgba(15, 17, 26, 0.75);

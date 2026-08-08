@@ -264,7 +264,9 @@
         )
       ];
 
-    style = ''
+    style =
+      # css
+      ''
       @import "style/mocha.css";
       @import "style/general.css";
       @import "style/main-bar.css";

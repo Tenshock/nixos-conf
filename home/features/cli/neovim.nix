@@ -39,7 +39,9 @@
       view = "nvim -R";
     };
 
-    tmux.extraConfig = ''
+    tmux.extraConfig =
+      # bash
+      ''
       # For 3rd-image Neovim setup
       set -gq allow-passthrough on
       set -g visual-activity off

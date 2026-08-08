@@ -35,16 +35,21 @@ element-desktop-tchap.overrideAttrs (oldAttrs: {
 
   postPatch =
     (oldAttrs.postPatch or "")
-    + lib.optionalString stdenv.hostPlatform.isLinux ''
+    + lib.optionalString stdenv.hostPlatform.isLinux
+      # bash
+      ''
       cp ${tchap-web}/vector-icons/512.png apps/desktop/build/icon.png
     ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin
+      # bash
+      ''
       cp ${tchap-web}/vector-icons/1024.png \
         apps/desktop/build/icon.icon/Assets/element.png
     '';
 
   installPhase =
     if stdenv.hostPlatform.isDarwin then
+      # bash
       ''
         runHook preInstall
 
@@ -67,7 +72,9 @@ element-desktop-tchap.overrideAttrs (oldAttrs: {
 
   postInstall =
     (oldAttrs.postInstall or "")
-    + lib.optionalString stdenv.hostPlatform.isLinux ''
+    + lib.optionalString stdenv.hostPlatform.isLinux
+      # bash
+      ''
       mv "$out/bin/element-desktop" "$out/bin/tchap-desktop"
 
       rm "$out/share/icons/hicolor/512x512/apps/element.png"

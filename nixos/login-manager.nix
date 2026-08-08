@@ -6,6 +6,7 @@ let
       gpuProfile ? "igpu",
       appProfile ? "default",
     }:
+    # ini
     ''
       [Desktop Entry]
       Name=${name}
