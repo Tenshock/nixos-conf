@@ -7,7 +7,7 @@ let
       hyprland
     ];
     text = ''
-      profile="''${HYPRLAND_GPU_PROFILE:-mobile}"
+      profile="''${HYPRLAND_GPU_PROFILE:-igpu}"
 
       vendor_for_output() {
         output="$1"
@@ -75,7 +75,8 @@ in
   };
 
   xdg.configFile."uwsm/env-hyprland".text = ''
-    export HYPRLAND_GPU_PROFILE="''${HYPRLAND_GPU_PROFILE:-mobile}"
+    export HYPRLAND_GPU_PROFILE="''${HYPRLAND_GPU_PROFILE:-igpu}"
+    export HYPRLAND_APP_PROFILE="''${HYPRLAND_APP_PROFILE:-default}"
 
     amd="/dev/dri/amd-igpu"
     nvidia="/dev/dri/nvidia-egpu"
@@ -203,12 +204,18 @@ in
         "hyprland.start"
         (lib.generators.mkLuaInline ''
           function()
+            local app_profile = os.getenv("HYPRLAND_APP_PROFILE") or "default"
+
             hl.exec_cmd("${lib.getExe hyprlandGpuProfile}")
             hl.exec_cmd(terminal, { workspace = "1 silent" })
-            hl.exec_cmd(mattermost, { workspace = "2 silent" })
-            hl.exec_cmd(tchap, { workspace = "2 silent" })
-            hl.exec_cmd(vesktop, { workspace = "2 silent" })
-            hl.exec_cmd(obsidian, { workspace = "3 silent" })
+
+            if app_profile == "work" then
+              hl.exec_cmd(mattermost, { workspace = "2 silent" })
+              hl.exec_cmd(tchap, { workspace = "2 silent" })
+              hl.exec_cmd(vesktop, { workspace = "2 silent" })
+              hl.exec_cmd(obsidian, { workspace = "3 silent" })
+            end
+
             hl.exec_cmd(browser, { workspace = "4 silent" })
           end
         '')

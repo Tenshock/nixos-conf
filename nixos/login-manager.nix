@@ -3,13 +3,14 @@ let
   mkHyprlandSession =
     {
       name,
-      profile,
+      gpuProfile ? "igpu",
+      appProfile ? "default",
     }:
     ''
       [Desktop Entry]
       Name=${name}
-      Comment=Hyprland ${profile} GPU profile
-      Exec=${pkgs.coreutils}/bin/env HYPRLAND_GPU_PROFILE=${profile} ${pkgs.uwsm}/bin/uwsm start -e -D Hyprland hyprland.desktop
+      Comment=Hyprland ${appProfile} ${gpuProfile}
+      Exec=${pkgs.coreutils}/bin/env HYPRLAND_GPU_PROFILE=${gpuProfile} HYPRLAND_APP_PROFILE=${appProfile} ${pkgs.uwsm}/bin/uwsm start -e -D Hyprland hyprland.desktop
       TryExec=${pkgs.uwsm}/bin/uwsm
       DesktopNames=Hyprland
       Type=Application
@@ -35,14 +36,16 @@ in
   };
 
   environment.etc = {
-    # Keep the old filename so tuigreet's remembered session remains valid.
-    "greetd/sessions/hyprland-uwsm.desktop".text = mkHyprlandSession {
-      name = "Hyprland Mobile";
-      profile = "mobile";
+    "greetd/sessions/hyprland.desktop".text = mkHyprlandSession {
+      name = "Hyprland";
+    };
+    "greetd/sessions/hyprland-work.desktop".text = mkHyprlandSession {
+      name = "Hyprland - Work";
+      appProfile = "work";
     };
     "greetd/sessions/hyprland-egpu.desktop".text = mkHyprlandSession {
-      name = "Hyprland eGPU Docked";
-      profile = "egpu";
+      name = "Hyprland - eGPU";
+      gpuProfile = "egpu";
     };
   };
 
