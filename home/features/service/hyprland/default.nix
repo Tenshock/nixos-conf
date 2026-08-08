@@ -207,6 +207,7 @@ in
             local app_profile = os.getenv("HYPRLAND_APP_PROFILE") or "default"
 
             hl.exec_cmd("${lib.getExe hyprlandGpuProfile}")
+            hl.exec_cmd(loginToOnePassword)
             hl.exec_cmd(terminal, { workspace = "1 silent" })
 
             if app_profile == "work" then
