@@ -6,6 +6,7 @@
     ../features/cli/hyprshot.nix
     ../features/cli/wl-clipboard.nix
 
+    ../features/service/1password.nix
     ../features/service/awww.nix
     ../features/service/easyeffects
     ../features/service/gtk.nix
