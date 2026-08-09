@@ -37,7 +37,7 @@ user:
     ../../home/features/cli/starship.nix
     ../../home/features/cli/stay-awake.nix
     ../../home/features/cli/uncompress.nix
-    ../../home/features/cli/neovim.nix
+    ../../home/features/cli/neovim
     ../../home/features/cli/udiskie.nix
     ../../home/features/cli/wget.nix
     ../../home/features/cli/zoxide.nix
