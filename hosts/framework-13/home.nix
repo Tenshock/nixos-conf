@@ -2,6 +2,8 @@ user:
 { inputs, ... }:
 {
   imports = [
+    ../../home/options.nix
+
     ../../home/features/application/beeper.nix
     ../../home/features/application/datagrip.nix
     ../../home/features/application/discord.nix

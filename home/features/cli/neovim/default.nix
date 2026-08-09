@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  lazyLockPath = "${config.dotfiles.repositoryRoot}/home/features/cli/neovim/lazy-lock.json";
+in
 {
   imports = [
     ./tooling/docker
@@ -31,7 +34,6 @@
       defaultEditor = true;
       sideloadInitLua = true;
       initLua = lib.mkAfter (builtins.readFile ./config/init.lua);
-      extraLuaPackages = ps: [ ps.magick ];
       extraPackages = with pkgs; [
         clang
         fd
@@ -64,6 +66,13 @@
       '';
   };
 
+  assertions = [
+    {
+      assertion = builtins.pathExists lazyLockPath;
+      message = "Neovim lazy.nvim lock file does not exist: ${lazyLockPath}";
+    }
+  ];
+
   xdg.configFile = {
     "nvim/lazyvim.json".source = ./config/lazyvim.json;
     "nvim/.neoconf.json".source = ./config/neoconf.json;
@@ -79,8 +88,6 @@
     };
 
     # lazy.nvim must be able to update its canonical lock file.
-    "nvim/lazy-lock.json".source = config.lib.file.mkOutOfStoreSymlink (
-      config.home.homeDirectory + "/.config/nixos/home/features/cli/neovim/lazy-lock.json"
-    );
+    "nvim/lazy-lock.json".source = config.lib.file.mkOutOfStoreSymlink lazyLockPath;
   };
 }

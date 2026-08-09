@@ -1,3 +1,10 @@
+{ pkgs, ... }:
 {
-  xdg.configFile."nvim/lua/tooling-plugins/typst.lua".source = ./config.lua;
+  programs.neovim.extraPackages = with pkgs; [
+    tinymist
+    typst
+    typstyle
+  ];
+
+  xdg.configFile."nvim/lua/tooling-extras/typst.lua".source = ./extras.lua;
 }
