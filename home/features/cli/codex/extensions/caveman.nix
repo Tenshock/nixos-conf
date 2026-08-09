@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ sources, ... }:
 {
-  skills.caveman = "${inputs.caveman}/skills/caveman";
+  skills.caveman = "${sources.caveman}/skills/caveman";
 }

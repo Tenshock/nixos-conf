@@ -1,7 +1,7 @@
-{ inputs, ... }:
+{ dependencies, ... }:
 
 {
-  imports = [ inputs.chatgpt-desktop-linux.nixosModules.default ];
+  imports = [ dependencies.nixosModules.chatgptDesktop ];
 
   programs.chatgptDesktop.enable = true;
 }

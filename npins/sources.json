@@ -1,0 +1,164 @@
+{
+  "pins": {
+    "catppuccin": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "catppuccin",
+        "repo": "nix"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "9e5cacc4e3a2d01c828fc4b29e88fb577241d70f",
+      "url": "https://github.com/catppuccin/nix/archive/9e5cacc4e3a2d01c828fc4b29e88fb577241d70f.tar.gz",
+      "hash": "sha256-lUkfsIy1inAB7dxARG2i3seNDHkSmRejEhhH2NYXDJ4="
+    },
+    "caveman": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "JuliusBrussee",
+        "repo": "caveman"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "11ddc0c9813c8f75365cd5be2f753df08712f154",
+      "url": "https://github.com/JuliusBrussee/caveman/archive/11ddc0c9813c8f75365cd5be2f753df08712f154.tar.gz",
+      "hash": "sha256-54NN2TsYVVjWXJn6C+tPgCn1IdpecASJXeaMRpWXcFk="
+    },
+    "chatgpt-desktop-linux": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Tenshock",
+        "repo": "chatgpt-desktop-linux"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "fefdb14e3921131e91bee6d055d656488b2f30b7",
+      "url": "https://github.com/Tenshock/chatgpt-desktop-linux/archive/fefdb14e3921131e91bee6d055d656488b2f30b7.tar.gz",
+      "hash": "sha256-KjyS051Sko4Rx/a+FuyM27n5xSZ77xDWXTVpVbUfrqY="
+    },
+    "firefox-addons": {
+      "type": "Git",
+      "repository": {
+        "type": "GitLab",
+        "repo_path": "rycee/nur-expressions",
+        "server": "https://gitlab.com/"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "2e85abc79236d031845a0e2be3ebbd1759cea715",
+      "url": "https://gitlab.com/api/v4/projects/rycee%2Fnur-expressions/repository/archive.tar.gz?sha=2e85abc79236d031845a0e2be3ebbd1759cea715",
+      "hash": "sha256-ALbtZKFam+O2ONRk7XhYsXmXxmhR0Y3Bj+qZkTA8zCg="
+    },
+    "home-manager": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "home-manager"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "367f7ef80856d18438953d54dda235d42a46ba31",
+      "url": "https://github.com/nix-community/home-manager/archive/367f7ef80856d18438953d54dda235d42a46ba31.tar.gz",
+      "hash": "sha256-7dN93WKkEERgutPtTjK7SY3ZarO2LAU33A1+vKu+7cc="
+    },
+    "home-manager-git": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Tenshock",
+        "repo": "home-manager"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "8e09684fbb2a1121b8ce416bba791979dafff5d4",
+      "url": "https://github.com/Tenshock/home-manager/archive/8e09684fbb2a1121b8ce416bba791979dafff5d4.tar.gz",
+      "hash": "sha256-VilOWyA3EibRXjwgZKb3I86gsmoQiV1bwEAWCosNBNM=",
+      "frozen": true
+    },
+    "home-manager-xdph": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Tenshock",
+        "repo": "home-manager"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "f0d9d6468869bad5088aabe86f8c0b4a16411c6b",
+      "url": "https://github.com/Tenshock/home-manager/archive/f0d9d6468869bad5088aabe86f8c0b4a16411c6b.tar.gz",
+      "hash": "sha256-LsH1gYcx0AhPaMMB5tdqbCjZkuQOpGbQoqMhMVrZnCg=",
+      "frozen": true
+    },
+    "monique": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ToRvaLDz",
+        "repo": "monique"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c0aec028692b8c35a4ed1cfa3bead9f139133d0a",
+      "url": "https://github.com/ToRvaLDz/monique/archive/c0aec028692b8c35a4ed1cfa3bead9f139133d0a.tar.gz",
+      "hash": "sha256-zP5KlfgbWR2GuqO8+hRToiv2g/27fTko/OiKIaQ3wBs="
+    },
+    "nixos-hardware": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "nixos-hardware"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "2e790b0a6be8ec2b76174ac0931b8ff11919ec98",
+      "url": "https://github.com/NixOS/nixos-hardware/archive/2e790b0a6be8ec2b76174ac0931b8ff11919ec98.tar.gz",
+      "hash": "sha256-65EQYIRRpTdpH8lUiB6Mvo5uBkG60aBIzAJuALfx+O0="
+    },
+    "nixpkgs": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "nixpkgs"
+      },
+      "branch": "nixos-unstable",
+      "submodules": false,
+      "revision": "f13ff45afd1bb73e640eaa08a7066dbed07e3238",
+      "url": "https://github.com/NixOS/nixpkgs/archive/f13ff45afd1bb73e640eaa08a7066dbed07e3238.tar.gz",
+      "hash": "sha256-zDSUbpoeo/9ZmD2+wXnzxoo1+uhL8vxc0b8yuYMKYq0="
+    },
+    "nvbroadcast-nixpkgs": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Tenshock",
+        "repo": "nixpkgs"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "a996b4ad0e6d7445afb231340e3d2d6a2cbaa3b9",
+      "url": "https://github.com/Tenshock/nixpkgs/archive/a996b4ad0e6d7445afb231340e3d2d6a2cbaa3b9.tar.gz",
+      "hash": "sha256-ZXeEp7G2sfNWuQvpO5Rhw1h7xnmeYTOpedboN4/eatk=",
+      "frozen": true
+    },
+    "zen-browser": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "a1f244256e643fe7bd3f811e75b4267fd180cd7c",
+      "url": "https://github.com/0xc000022070/zen-browser-flake/archive/a1f244256e643fe7bd3f811e75b4267fd180cd7c.tar.gz",
+      "hash": "sha256-V5WOJhCGsuSRkz60K8TcALKMiMVCNubfJquMJqoCow0="
+    }
+  },
+  "version": 8
+}

@@ -1,7 +1,9 @@
-{ config, ... }: {
+{ config, ... }:
+{
+  home.sessionVariables.NH_FILE = "${config.xdg.configHome}/nixos/system.nix";
+
   programs.nh = {
     enable = true;
-    flake = "${config.xdg.configHome}/nixos";
     clean = {
       enable = true;
       dates = "weekly";

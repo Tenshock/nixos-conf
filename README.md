@@ -14,6 +14,13 @@ Then, you can build the configuration as follows:
 
 ```bash
 cd ~/.config/nixos
-sudo nix flake update
-nh os switch
+nix-shell --run update-rolling-pins
+nh os build -f ./system.nix
+```
+
+Inspect the build result before activating it. Activation is an explicit,
+separate step:
+
+```bash
+nh os switch -f ./system.nix
 ```

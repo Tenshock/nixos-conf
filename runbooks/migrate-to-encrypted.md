@@ -12,7 +12,7 @@ incomplete, data can be lost. The copy preserves data; it does not protect data
 against same-disk failure.
 
 - Host directory: `hosts/framework-13`
-- Flake output: `nixosConfigurations.nixos`
+- Classic entrypoint: `system.nix` (`nixosConfigurations.nixos` in `default.nix`)
 - Current bootloader: `systemd-boot`
 - Target filesystem: `ext4`
 - Target layout: LUKS + LVM
@@ -760,7 +760,7 @@ nixos-enter --root /mnt
 Inside `nixos-enter`, rebuild boot:
 
 ```sh
-nixos-rebuild boot --flake /home/cedric/.config/nixos#nixos
+nixos-rebuild boot --file /home/cedric/.config/nixos/system.nix
 bootctl install
 exit
 ```
@@ -823,19 +823,19 @@ Expected:
 Verify NixOS rebuild:
 
 ```sh
-sudo nixos-rebuild dry-build --flake ~/.config/nixos#nixos
+sudo nixos-rebuild dry-build --file ~/.config/nixos/system.nix
 ```
 
 If dry build succeeds, test a real switch:
 
 ```sh
-sudo nixos-rebuild switch --flake ~/.config/nixos#nixos
+sudo nixos-rebuild switch --file ~/.config/nixos/system.nix
 ```
 
 Or with your normal helper:
 
 ```sh
-nh os switch
+nh os switch -f ~/.config/nixos/system.nix
 ```
 
 ## 15. Verify Preserved State
@@ -856,7 +856,7 @@ NixOS config:
 ```sh
 cd /home/cedric/.config/nixos
 git status --short
-nix flake metadata
+nix-shell --run 'npins verify'
 ```
 
 Wi-Fi:
@@ -978,7 +978,7 @@ nixos-enter --root /mnt
 Inside `nixos-enter`, repair boot config:
 
 ```sh
-nixos-rebuild boot --flake /home/cedric/.config/nixos#nixos
+nixos-rebuild boot --file /home/cedric/.config/nixos/system.nix
 bootctl install
 ```
 
@@ -1071,5 +1071,5 @@ Migration is complete when all are true:
 - `/boot` is mounted from the ESP.
 - swap is active from encrypted `vg-swap`.
 - `systemctl hibernate` powers off and resumes.
-- `sudo nixos-rebuild switch --flake ~/.config/nixos#nixos` succeeds.
+- `sudo nixos-rebuild switch --file ~/.config/nixos/system.nix` succeeds.
 - Only `migrate-to-encrypted.md` changed in the repo.

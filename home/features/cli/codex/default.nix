@@ -1,8 +1,8 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
+  sources,
   ...
 }:
 let
@@ -22,9 +22,9 @@ let
       imported {
         inherit
           config
-          inputs
           lib
           pkgs
+          sources
           ;
       }
     else

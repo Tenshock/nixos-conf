@@ -163,31 +163,24 @@ sudo test -d /mnt/backup/framework-13-root/var/lib/fprint
 sudo test -d /mnt/backup/framework-13-boot/EFI
 ```
 
-## 3. Add Disko To The Flake
+## 3. Add Disko To npins
 
-Add the Disko input in `flake.nix`:
+Add the rolling Disko pin:
 
-```nix
-disko.url = "github:nix-community/disko/latest";
-disko.inputs.nixpkgs.follows = "nixos";
+```sh
+nix-shell --run 'npins add github nix-community disko -b latest'
 ```
 
-Pass `disko` into `mkNixOSConfiguration`:
+Expose its NixOS module in `dependencies.nix`:
 
 ```nix
-mkNixOSConfiguration =
-  {
-    host,
-    nixos,
-    nixos-hardware,
-    disko,
-    home-manager,
-    catppuccin,
-    monique,
-  }:
+nixosModules = {
+  disko = "${sources.disko}/module.nix";
+  # Keep the existing modules here too.
+};
 ```
 
-Add Disko modules for the Framework 13 NixOS host:
+Add Disko modules for the Framework 13 host in `default.nix`:
 
 ```nix
 modules = [
@@ -197,44 +190,24 @@ modules = [
     hostName = host.hostname;
     inherit (host) user;
   })
-  disko.nixosModules.disko
+  dependencies.nixosModules.disko
   ./hosts/${host.dir}/disko.nix
-  nixos-hardware.nixosModules.framework-amd-ai-300-series
-  home-manager.nixosModules.home-manager
-  catppuccin.nixosModules.catppuccin
-  monique.nixosModules.default
+  dependencies.nixosModules.nixosHardware
+  dependencies.nixosModules.homeManager
+  dependencies.nixosModules.catppuccin
+  dependencies.nixosModules.monique
   # Keep the existing Home Manager configuration module here too.
 ];
 ```
 
-Pass `disko` when creating the Framework 13 configuration:
-
-```nix
-nixosConfigurations."${hosts.framework-13.hostname}" = mkNixOSConfiguration {
-  host = hosts.framework-13;
-  inherit (inputs) nixos;
-  inherit (inputs) nixos-hardware;
-  inherit (inputs) disko;
-  inherit (inputs) home-manager;
-  inherit (inputs) catppuccin;
-  inherit (inputs) monique;
-};
-```
-
-Add only the new Disko lock input. Current Lix uses `nix flake update`; the old
-`nix flake lock --update-input` form is deprecated:
+Verify the new pin and inspect only its generated lock-data change:
 
 ```sh
-mkdir -p /tmp/codex-nix-cache
-XDG_CACHE_HOME=/tmp/codex-nix-cache nix flake update disko
+nix-shell --run 'npins verify'
+git diff -- npins/sources.json
 ```
 
-`flake.lock` is already dirty before this migration. Inspect its full diff and
-do not stage unrelated existing lock changes blindly:
-
-```sh
-git diff -- flake.lock
-```
+Do not stage unrelated existing pin changes blindly.
 
 ## 4. Add Minimal Disko Config
 
@@ -374,28 +347,24 @@ reference root, boot, swap, resume, LUKS UUIDs, filesystem UUIDs, PARTUUIDs, or
 
 ## 6. Evaluate The Dirty Tree Without Staging Unrelated Files
 
-This repository already has unrelated dirty files. Use a path flake for
-validation so the new untracked `disko.nix` is visible without staging unrelated
-changes:
+Classic-file evaluation reads the working tree directly, so the new untracked
+`disko.nix` is visible without staging unrelated changes:
 
 ```sh
 git status --short
 ```
 
 Do not stage or commit anything merely to make evaluation work. When eventually
-committing, select migration changes deliberately; `git add flake.lock` would
-also stage its pre-existing unrelated updates.
+committing, select migration changes deliberately.
 
 ## 7. Verify Generated NixOS Storage Config
 
 Assert the generated storage config targets the existing labels and LVM paths:
 
 ```sh
-XDG_CACHE_HOME=/tmp/codex-nix-cache nix eval --impure --raw \
-  path:.#nixosConfigurations.nixos.config \
-  --apply '
-config:
+XDG_CACHE_HOME=/tmp/codex-nix-cache nix-instantiate --eval --strict --raw --expr '
 let
+  config = (import ./default.nix { }).nixosConfigurations.nixos.config;
   fs = config.fileSystems;
   swaps = builtins.map (s: s.device) config.swapDevices;
 in
@@ -417,9 +386,10 @@ ok
 For human inspection, evaluate the relevant generated storage paths:
 
 ```sh
-XDG_CACHE_HOME=/tmp/codex-nix-cache nix eval --impure --json \
-  path:.#nixosConfigurations.nixos.config \
-  --apply 'config: {
+XDG_CACHE_HOME=/tmp/codex-nix-cache nix-instantiate --eval --strict --json --expr '
+let
+  config = (import ./default.nix { }).nixosConfigurations.nixos.config;
+in {
     fileSystems = builtins.mapAttrs (_: fs: {
       device = fs.device;
       fsType = fs.fsType;
@@ -452,8 +422,8 @@ behavior, not a data migration.
 Build the generated Disko script without running it:
 
 ```sh
-XDG_CACHE_HOME=/tmp/codex-nix-cache nix build --impure \
-  path:.#nixosConfigurations.nixos.config.system.build.diskoScript \
+XDG_CACHE_HOME=/tmp/codex-nix-cache nix-build default.nix \
+  -A nixosConfigurations.nixos.config.system.build.diskoScript \
   --out-link /tmp/framework-13-disko-script
 ```
 
@@ -478,8 +448,7 @@ Never execute the built script.
 Build the system closure without switching:
 
 ```sh
-XDG_CACHE_HOME=/tmp/codex-nix-cache nix build --impure \
-  path:.#nixosConfigurations.nixos.config.system.build.toplevel \
+XDG_CACHE_HOME=/tmp/codex-nix-cache nix-build system.nix \
   --out-link /tmp/framework-13-disko-system
 ```
 

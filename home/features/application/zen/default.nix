@@ -1,15 +1,15 @@
 {
   config,
-  inputs,
+  dependencies,
   pkgs,
   ...
 }:
 let
-  inherit (inputs.firefox-addons.overlays.default pkgs pkgs) firefox-addons;
+  firefox-addons = dependencies.mkFirefoxAddons pkgs;
 in
 {
   imports = [
-    inputs.zen-browser.homeModules.twilight
+    dependencies.homeModules.zenTwilight
 
     ./look-and-feel.nix
     ./search-engines.nix
