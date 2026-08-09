@@ -31,6 +31,7 @@ user:
     ../../home/features/cli/kubectl.nix
     ../../home/features/cli/lazygit.nix
     ../../home/features/cli/nh.nix
+    ../../home/features/cli/nix-index.nix
     ../../home/features/cli/qlty.nix
     ../../home/features/cli/ripgrep.nix
     ../../home/features/cli/starship.nix
