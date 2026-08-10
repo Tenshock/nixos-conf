@@ -32,9 +32,11 @@ return {
 		"nvim-neotest/neotest",
 		dependencies = {
 			"AkisArou/neotest-nodejs",
+			"marilari88/neotest-vitest",
 		},
 		opts = {
 			adapters = {
+				["neotest-vitest"] = {},
 				["neotest-nodejs"] = {
 					nodeArguments = function(default_args)
 						return vim.list_extend({ "--import", "tsx" }, default_args)
