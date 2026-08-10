@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
   thunarExtract = pkgs.writeShellApplication {
     name = "thunar-extract";
@@ -152,47 +152,47 @@ in
     thunarExtract
   ];
 
-  xdg.configFile."Thunar/uca.xml" = lib.mkIf pkgs.stdenv.isLinux {
+  xdg.configFile."Thunar/uca.xml" = {
     text =
       # xml
       ''
-      <?xml version="1.0" encoding="UTF-8"?>
-      <actions>
-      <action>
-        <icon>utilities-terminal</icon>
-        <name>Open Terminal Here</name>
-        <submenu></submenu>
-        <unique-id>1782482197099335-1</unique-id>
-        <command>exo-open --working-directory %f --launch TerminalEmulator</command>
-        <description>Open a terminal in this directory</description>
-        <range></range>
-        <patterns>*</patterns>
-        <startup-notify/>
-        <directories/>
-      </action>
-      <action>
-        <icon>package-x-generic</icon>
-        <name>Extract Here</name>
-        <submenu></submenu>
-        <unique-id>1782820000000000-1</unique-id>
-        <command>${thunarExtract}/bin/thunar-extract here %f</command>
-        <description>Extract selected archives into their current folder</description>
-        <range></range>
-        <patterns>${archivePatterns}</patterns>
-        <other-files/>
-      </action>
-      <action>
-        <icon>folder-new</icon>
-        <name>Extract to Folder</name>
-        <submenu></submenu>
-        <unique-id>1782820000000000-2</unique-id>
-        <command>${thunarExtract}/bin/thunar-extract folder %f</command>
-        <description>Extract each selected archive into a folder named after the archive</description>
-        <range></range>
-        <patterns>${archivePatterns}</patterns>
-        <other-files/>
-      </action>
-      </actions>
-    '';
+        <?xml version="1.0" encoding="UTF-8"?>
+        <actions>
+        <action>
+          <icon>utilities-terminal</icon>
+          <name>Open Terminal Here</name>
+          <submenu></submenu>
+          <unique-id>1782482197099335-1</unique-id>
+          <command>exo-open --working-directory %f --launch TerminalEmulator</command>
+          <description>Open a terminal in this directory</description>
+          <range></range>
+          <patterns>*</patterns>
+          <startup-notify/>
+          <directories/>
+        </action>
+        <action>
+          <icon>package-x-generic</icon>
+          <name>Extract Here</name>
+          <submenu></submenu>
+          <unique-id>1782820000000000-1</unique-id>
+          <command>${thunarExtract}/bin/thunar-extract here %f</command>
+          <description>Extract selected archives into their current folder</description>
+          <range></range>
+          <patterns>${archivePatterns}</patterns>
+          <other-files/>
+        </action>
+        <action>
+          <icon>folder-new</icon>
+          <name>Extract to Folder</name>
+          <submenu></submenu>
+          <unique-id>1782820000000000-2</unique-id>
+          <command>${thunarExtract}/bin/thunar-extract folder %f</command>
+          <description>Extract each selected archive into a folder named after the archive</description>
+          <range></range>
+          <patterns>${archivePatterns}</patterns>
+          <other-files/>
+        </action>
+        </actions>
+      '';
   };
 }
