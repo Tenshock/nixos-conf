@@ -2,37 +2,42 @@ user:
 { pkgs, ... }:
 {
   imports = [
-    (import ../../nixos/1password.nix user)
-    ../../nixos/cameractrls-gtk4.nix
     ../../catppuccin.nix
-    (import ../../nixos/thunar.nix user)
-    ../../nixos/fingerprint.nix
-    ../../nixos/hibernation.nix
-    ../../nixos/hyprland.nix
-    ../../nixos/i18n.nix
-    ../../nixos/gpg-agent.nix
-    ../../nixos/keyring.nix
-    ../../nixos/login-manager.nix
-    ../../nixos/mattermost.nix
-    ../../nixos/media.nix
-    (import ../../nixos/minecraft.nix user)
-    ../../nixos/neovim.nix
-    ../../nixos/nvbroadcast.nix
-    ../../nixos/nvidia.nix
-    ../../nixos/obs-studio.nix
-    ../../nixos/opendeck.nix
-    ../../nixos/tchap-desktop.nix
-    ../../nixos/chatgpt-desktop.nix
-    ../../nixos/nix.nix
-    ../../nixos/polkit.nix
-    ../../nixos/printing.nix
-    ../../nixos/smile.nix
-    ../../nixos/steam.nix
-    ../../nixos/systemd-boot.nix
-    ../../nixos/zswap.nix
-    ../../nixos/power-profiles-daemon.nix
-    (import ../../nixos/user.nix user)
-    (import ../../nixos/virtualization.nix user)
+
+    ../../nixos/core/i18n.nix
+    ../../nixos/core/nix.nix
+    ../../nixos/core/systemd-boot.nix
+    (import ../../nixos/core/user.nix user)
+
+    ../../nixos/desktop/gpg-agent.nix
+    ../../nixos/desktop/hyprland.nix
+    ../../nixos/desktop/keyring.nix
+    ../../nixos/desktop/login-manager.nix
+    ../../nixos/desktop/media.nix
+    ../../nixos/desktop/polkit.nix
+
+    ../../nixos/hardware/fingerprint.nix
+    ../../nixos/hardware/hibernation.nix
+    ../../nixos/hardware/nvidia.nix
+    ../../nixos/hardware/power-profiles-daemon.nix
+    ../../nixos/hardware/zswap.nix
+
+    (import ../../nixos/programs/1password.nix user)
+    ../../nixos/programs/cameractrls-gtk4.nix
+    ../../nixos/programs/chatgpt-desktop.nix
+    ../../nixos/programs/mattermost.nix
+    (import ../../nixos/programs/minecraft.nix user)
+    ../../nixos/programs/neovim.nix
+    ../../nixos/programs/nvbroadcast.nix
+    ../../nixos/programs/obs-studio.nix
+    ../../nixos/programs/opendeck.nix
+    ../../nixos/programs/smile.nix
+    ../../nixos/programs/steam.nix
+    ../../nixos/programs/tchap-desktop.nix
+    (import ../../nixos/programs/thunar.nix user)
+
+    ../../nixos/services/printing.nix
+    (import ../../nixos/services/virtualization.nix user)
   ];
 
   boot = {

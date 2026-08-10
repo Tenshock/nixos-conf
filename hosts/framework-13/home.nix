@@ -1,58 +1,73 @@
 user:
-{ inputs, ... }:
+{ ... }:
 {
   imports = [
     ../../home/options.nix
-
-    ../../home/features/application/beeper.nix
-    ../../home/features/application/datagrip.nix
-    ../../home/features/application/discord.nix
-    ../../home/features/application/google-chrome.nix
-    ../../home/features/application/kitty
-    ../../home/features/application/loupe.nix
-    ../../home/features/application/mangohud.nix
-    ../../home/features/application/obsidian.nix
-    ../../home/features/application/onlyoffice.nix
-    ../../home/features/application/transmission.nix
-    ../../home/features/application/vlc.nix
-    ../../home/features/application/zen
-
-    ../../home/features/cli/atuin.nix
-    ../../home/features/cli/bat.nix
-    ../../home/features/cli/btop.nix
-    ../../home/features/cli/codex
-    ../../home/features/cli/direnv.nix
-    ../../home/features/cli/eza.nix
-    ../../home/features/cli/fastfetch.nix
-    ../../home/features/cli/fzf.nix
-    ../../home/features/cli/helm.nix
-    ../../home/features/cli/jq-yq.nix
-    ../../home/features/cli/git
-    ../../home/features/cli/gh-cli.nix
-    ../../home/features/cli/k9s.nix
-    ../../home/features/cli/kubectl.nix
-    ../../home/features/cli/lazygit.nix
-    ../../home/features/cli/nh.nix
-    ../../home/features/cli/nix-index.nix
-    ../../home/features/cli/qlty.nix
-    ../../home/features/cli/ripgrep.nix
-    ../../home/features/cli/starship.nix
-    ../../home/features/cli/stay-awake.nix
-    ../../home/features/cli/uncompress.nix
-    ../../home/features/cli/neovim
-    ../../home/features/cli/udiskie.nix
-    ../../home/features/cli/wget.nix
-    ../../home/features/cli/zoxide.nix
-    ../../home/features/cli/zsh.nix
-
-    ../../home/features/fonts/nerd.nix
-
-    ../../home/features/service/ssh.nix
-    ../../home/features/service/xdg.nix
-
-    ../../home/flavors/hyprland.nix
-
     ../../catppuccin.nix
+
+    ../../home/appearance/fonts.nix
+
+    ../../home/applications/beeper.nix
+    ../../home/applications/datagrip.nix
+    ../../home/applications/discord.nix
+    ../../home/applications/google-chrome.nix
+    ../../home/applications/kitty
+    ../../home/applications/loupe.nix
+    ../../home/applications/mangohud.nix
+    ../../home/applications/obsidian.nix
+    ../../home/applications/onlyoffice.nix
+    ../../home/applications/transmission.nix
+    ../../home/applications/vlc.nix
+    ../../home/applications/zen
+
+    ../../home/desktop/awww.nix
+    ../../home/desktop/gtk.nix
+    ../../home/desktop/hyprcursor.nix
+    ../../home/desktop/hypridle.nix
+    ../../home/desktop/hyprland
+    ../../home/desktop/hyprlock.nix
+    ../../home/desktop/hyprpicker.nix
+    ../../home/desktop/hyprshot.nix
+    ../../home/desktop/hyprsunset.nix
+    ../../home/desktop/power-menu.nix
+    ../../home/desktop/stay-awake.nix
+    ../../home/desktop/swaync
+    ../../home/desktop/walker
+    ../../home/desktop/waybar/waybar.nix
+    ../../home/desktop/waycorner.nix
+    ../../home/desktop/wl-clipboard.nix
+
+    ../../home/development/codex
+    ../../home/development/git
+    ../../home/development/gh-cli.nix
+    ../../home/development/helm.nix
+    ../../home/development/k9s.nix
+    ../../home/development/kubectl.nix
+    ../../home/development/lazygit.nix
+    ../../home/development/neovim
+    ../../home/development/nh.nix
+    ../../home/development/nix-index.nix
+    ../../home/development/ripgrep.nix
+
+    ../../home/services/1password.nix
+    ../../home/services/easyeffects
+    ../../home/services/ssh.nix
+    ../../home/services/udiskie.nix
+    ../../home/services/xdg.nix
+
+    ../../home/shell/atuin.nix
+    ../../home/shell/bat.nix
+    ../../home/shell/btop.nix
+    ../../home/shell/direnv.nix
+    ../../home/shell/eza.nix
+    ../../home/shell/fastfetch.nix
+    ../../home/shell/fzf.nix
+    ../../home/shell/jq-yq.nix
+    ../../home/shell/starship.nix
+    ../../home/shell/uncompress.nix
+    ../../home/shell/wget.nix
+    ../../home/shell/zoxide.nix
+    ../../home/shell/zsh.nix
   ];
 
   home = {

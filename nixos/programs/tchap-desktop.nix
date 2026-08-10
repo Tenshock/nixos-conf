@@ -2,6 +2,6 @@
 
 {
   environment.systemPackages = [
-    (pkgs.callPackage ../packages/tchap-desktop { })
+    (pkgs.callPackage ../../packages/tchap-desktop { })
   ];
 }

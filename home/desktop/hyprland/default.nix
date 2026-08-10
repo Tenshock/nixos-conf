@@ -23,7 +23,7 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "lua";
-    systemd.enable = false; # Necessary for UWSM integration. See nixos/hyprland.nix
+    systemd.enable = false; # Necessary for UWSM integration. See nixos/desktop/hyprland.nix
     extraConfig =
       # lua
       ''

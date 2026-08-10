@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  wallpaperSourceDir = ../../../wallpapers;
+  wallpaperSourceDir = ../../wallpapers;
   wallpaperDestDir = "${config.xdg.configHome}/wallpapers";
   awwwSwitch = pkgs.writeShellApplication {
     name = "awww-switch";
@@ -102,14 +102,14 @@ in
   wayland.windowManager.hyprland.extraConfig =
     # lua
     ''
-    local restore_awww_after_monitor_change = function()
-      hl.exec_cmd("${pkgs.systemd}/bin/systemctl --user start awww-restore-after-monitor.service")
-    end
+      local restore_awww_after_monitor_change = function()
+        hl.exec_cmd("${pkgs.systemd}/bin/systemctl --user start awww-restore-after-monitor.service")
+      end
 
-    hl.on("monitor.added", restore_awww_after_monitor_change)
-    hl.on("monitor.layout_changed", restore_awww_after_monitor_change)
-    hl.on("monitor.removed", restore_awww_after_monitor_change)
-  '';
+      hl.on("monitor.added", restore_awww_after_monitor_change)
+      hl.on("monitor.layout_changed", restore_awww_after_monitor_change)
+      hl.on("monitor.removed", restore_awww_after_monitor_change)
+    '';
 
   home.file."wallpapers" = {
     source = wallpaperSourceDir;

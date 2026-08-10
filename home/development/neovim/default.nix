@@ -5,7 +5,7 @@
   ...
 }:
 let
-  lazyLockPath = "${config.dotfiles.repositoryRoot}/home/features/cli/neovim/lazy-lock.json";
+  lazyLockPath = "${config.dotfiles.repositoryRoot}/home/development/neovim/lazy-lock.json";
 in
 {
   imports = [

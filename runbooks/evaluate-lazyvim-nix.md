@@ -17,7 +17,7 @@ The current hybrid model is:
 - Nix owns Neovim, LSP servers, formatters, linters, runtimes, and CLI tools;
 - lazy.nvim owns plugins and `lazy-lock.json`;
 - each ecosystem is grouped under
-  `home/features/cli/neovim/tooling/<ecosystem>/`;
+  `home/development/neovim/tooling/<ecosystem>/`;
 - LazyVim core loads first, then LazyVim extras, then local plugin overrides.
 
 The upstream audit used `lazyvim-nix` commit
@@ -57,17 +57,17 @@ changes directly into the production NixOS repository.
 Capture the current implementation:
 
 ```sh
-sed -n '1,260p' home/features/cli/neovim/default.nix
-sed -n '1,240p' home/features/cli/neovim/config/lua/lazy.lua
-find home/features/cli/neovim/tooling -maxdepth 2 -type f -print | sort
-find home/features/cli/neovim/plugins -maxdepth 1 -type f -print | sort
+sed -n '1,260p' home/development/neovim/default.nix
+sed -n '1,240p' home/development/neovim/config/lua/lazy.lua
+find home/development/neovim/tooling -maxdepth 2 -type f -print | sort
+find home/development/neovim/plugins -maxdepth 1 -type f -print | sort
 ```
 
 Record current plugin lock size and plugin names:
 
 ```sh
-jq -r 'keys[]' home/features/cli/neovim/lazy-lock.json | sort
-jq 'length' home/features/cli/neovim/lazy-lock.json
+jq -r 'keys[]' home/development/neovim/lazy-lock.json | sort
+jq 'length' home/development/neovim/lazy-lock.json
 ```
 
 From a running production Neovim, record:

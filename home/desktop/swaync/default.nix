@@ -1,5 +1,5 @@
 let
-  colors = import ../../../theme/colors.nix;
+  colors = import ../../appearance/colors.nix;
 in
 {
   services.swaync = {
