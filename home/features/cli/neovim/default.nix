@@ -10,19 +10,14 @@ in
 {
   imports = [
     ./tooling/docker
-    ./tooling/dotnet
-    ./tooling/go
-    ./tooling/helm
     ./tooling/hyprland
     ./tooling/js-ts
     ./tooling/lua.nix
     ./tooling/markdown
     ./tooling/nix
     ./tooling/python
-    ./tooling/rust
     ./tooling/shell
     ./tooling/sql
-    ./tooling/terraform
     ./tooling/toml
     ./tooling/typst
     ./tooling/yaml
