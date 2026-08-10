@@ -2,8 +2,9 @@ user:
 { ... }:
 {
   imports = [
+    ../../flakes/catppuccin.nix
+
     ../../home/options.nix
-    ../../catppuccin.nix
 
     ../../home/appearance/fonts.nix
 

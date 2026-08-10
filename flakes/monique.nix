@@ -1,0 +1,3 @@
+{
+  programs.monique.enable = true;
+}

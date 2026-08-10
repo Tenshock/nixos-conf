@@ -2,7 +2,10 @@ user:
 { pkgs, ... }:
 {
   imports = [
-    ../../catppuccin.nix
+    ../../flakes/catppuccin.nix
+
+    ../../flakes/chatgpt-desktop.nix
+    ../../flakes/monique.nix
 
     ../../nixos/core/i18n.nix
     ../../nixos/core/nix.nix
@@ -24,7 +27,6 @@ user:
 
     (import ../../nixos/programs/1password.nix user)
     ../../nixos/programs/cameractrls-gtk4.nix
-    ../../nixos/programs/chatgpt-desktop.nix
     ../../nixos/programs/mattermost.nix
     (import ../../nixos/programs/minecraft.nix user)
     ../../nixos/programs/neovim.nix
@@ -64,8 +66,6 @@ user:
     brightnessctl # enables hotkey brightness control
     ddcutil
   ];
-
-  programs.monique.enable = true;
 
   #####################
 

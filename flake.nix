@@ -19,34 +19,28 @@
       url = "github:ToRvaLDz/monique";
       inputs.nixpkgs.follows = "nixos";
     };
-
     chatgpt-desktop-linux = {
       url = "github:Tenshock/chatgpt-desktop-linux";
       inputs.nixpkgs.follows = "nixos";
     };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixos";
     };
-
     # TODO: remove when https://github.com/nix-community/home-manager/pull/9785 merged
     home-manager-git = {
       url = "github:Tenshock/home-manager/8e09684fbb2a1121b8ce416bba791979dafff5d4";
       inputs.nixpkgs.follows = "nixos";
     };
-
     # TODO: remove when https://github.com/nix-community/home-manager/pull/9782 merged
     home-manager-xdph = {
       url = "github:Tenshock/home-manager/f0d9d6468869bad5088aabe86f8c0b4a16411c6b";
       inputs.nixpkgs.follows = "nixos";
     };
-
     # TODO: remove when https://github.com/NixOS/nixpkgs/pull/538136 merged
     nvbroadcast-nixpkgs = {
       url = "github:Tenshock/nixpkgs/a996b4ad0e6d7445afb231340e3d2d6a2cbaa3b9";
     };
-
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
@@ -54,7 +48,6 @@
         home-manager.follows = "home-manager";
       };
     };
-
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixos";
@@ -71,22 +64,24 @@
         {
           host,
           nixos,
-          nixos-hardware,
           home-manager,
-          catppuccin,
-          monique,
         }:
         nixos.lib.nixosSystem {
           system = host.arch;
           specialArgs = { inherit inputs; };
           modules = [
+            inputs.catppuccin.nixosModules.catppuccin
+            inputs.chatgpt-desktop-linux.nixosModules.default
+            inputs.monique.nixosModules.default
+
+            inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
+
             (import ./hosts/${host.dir}/configuration.nix host.user)
             ./hosts/${host.dir}/hardware-configuration.nix
             (import ./hosts/${host.dir}/networking.nix {
               hostName = host.hostname;
               inherit (host) user;
             })
-            nixos-hardware.nixosModules.framework-amd-ai-300-series
             # TODO: remove when https://github.com/NixOS/nixpkgs/pull/538136 merged
             {
               imports = [
@@ -100,8 +95,6 @@
               programs.nvbroadcast.package = inputs.nvbroadcast-nixpkgs.legacyPackages.${host.arch}.nvbroadcast;
             }
             home-manager.nixosModules.home-manager
-            catppuccin.nixosModules.catppuccin
-            monique.nixosModules.default
             {
               home-manager = {
                 useGlobalPkgs = true;
@@ -120,7 +113,7 @@
                     # TODO: remove when https://github.com/nix-community/home-manager/pull/9782 merged
                     (inputs.home-manager-xdph.outPath + "/modules/services/window-managers/hyprland.nix")
                     (import ./hosts/${host.dir}/home.nix host.user)
-                    catppuccin.homeModules.catppuccin
+                    inputs.catppuccin.homeModules.catppuccin
                   ];
                 };
               };
@@ -137,10 +130,7 @@
       nixosConfigurations."${hosts.framework-13.hostname}" = mkNixOSConfiguration {
         host = hosts.framework-13;
         inherit (inputs) nixos;
-        inherit (inputs) nixos-hardware;
         inherit (inputs) home-manager;
-        inherit (inputs) catppuccin;
-        inherit (inputs) monique;
       };
     };
 }
