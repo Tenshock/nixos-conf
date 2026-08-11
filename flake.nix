@@ -38,7 +38,7 @@
       inputs.nixpkgs.follows = "nixos";
     };
     # TODO: remove when https://github.com/NixOS/nixpkgs/pull/538136 merged
-    nvbroadcast-nixpkgs = {
+    nixpkgs-nvbroadcast = {
       url = "github:Tenshock/nixpkgs/a996b4ad0e6d7445afb231340e3d2d6a2cbaa3b9";
     };
     zen-browser = {
@@ -85,7 +85,7 @@
             # TODO: remove when https://github.com/NixOS/nixpkgs/pull/538136 merged
             {
               imports = [
-                (inputs.nvbroadcast-nixpkgs.outPath + "/nixos/modules/programs/nvbroadcast.nix")
+                (inputs.nixpkgs-nvbroadcast.outPath + "/nixos/modules/programs/nvbroadcast.nix")
               ];
 
               # The imported module's manual anchor is absent from the locked
