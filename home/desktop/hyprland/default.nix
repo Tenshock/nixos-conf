@@ -94,6 +94,10 @@ in
           stay_focused = true;
         }
         {
+          match.class = "^1password$";
+          no_screen_share = true;
+        }
+        {
           match.title = "Archive password";
           stay_focused = true;
           focus_on_activate = true;
