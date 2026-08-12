@@ -5,7 +5,7 @@
     text =
       # bash
       ''
-        export GH_TOKEN='op://Personal/github.com/NixOS PAT'
+        export GH_TOKEN='op://Personal/Github - Personal/1Password PAT'
         exec /run/wrappers/bin/op run -- ${pkgs.gh}/bin/gh "$@"
       '';
   };

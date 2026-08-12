@@ -32,7 +32,7 @@ user:
     ../../nixos/programs/neovim.nix
     ../../nixos/programs/nvbroadcast.nix
     ../../nixos/programs/obs-studio.nix
-    ../../nixos/programs/opendeck.nix
+    # ../../nixos/programs/opendeck.nix
     ../../nixos/programs/smile.nix
     ../../nixos/programs/steam.nix
     ../../nixos/programs/tchap-desktop.nix

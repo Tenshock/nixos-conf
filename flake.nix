@@ -92,7 +92,7 @@
               # official NixOS redirects, so validation cannot cover this mixed revision.
               documentation.nixos.checkRedirects = false;
 
-              programs.nvbroadcast.package = inputs.nvbroadcast-nixpkgs.legacyPackages.${host.arch}.nvbroadcast;
+              programs.nvbroadcast.package = inputs.nixpkgs-nvbroadcast.legacyPackages.${host.arch}.nvbroadcast;
             }
             home-manager.nixosModules.home-manager
             {
