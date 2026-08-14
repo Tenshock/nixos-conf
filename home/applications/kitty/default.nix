@@ -167,6 +167,7 @@ in
 
     settings = {
       enabled_layouts = "splits";
+      touch_scroll_multiplier = 4.0;
       watcher = "pristine_tabs.py";
       tab_bar_min_tabs = 1;
       tab_bar_edge = "top";
