@@ -43,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786278734,
-        "narHash": "sha256-KjyS051Sko4Rx/a+FuyM27n5xSZ77xDWXTVpVbUfrqY=",
+        "lastModified": 1786702827,
+        "narHash": "sha256-GHyVYDmupJtOHu04fuCIwr11EFMmOjU0qHmSCb0ecbg=",
         "owner": "Tenshock",
         "repo": "chatgpt-desktop-linux",
-        "rev": "fefdb14e3921131e91bee6d055d656488b2f30b7",
+        "rev": "7ffde9182e35b447b11868b269c8248d08970640",
         "type": "github"
       },
       "original": {
@@ -316,6 +316,7 @@
         "nixos": "nixos",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs-nvbroadcast": "nixpkgs-nvbroadcast",
+        "tchap-desktop": "tchap-desktop",
         "telescope-terraform-doc-nvim": "telescope-terraform-doc-nvim",
         "telescope-terraform-nvim": "telescope-terraform-nvim",
         "zen-browser": "zen-browser"
@@ -333,6 +334,27 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tchap-desktop": {
+      "inputs": {
+        "nixpkgs": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786705653,
+        "narHash": "sha256-LNbinn+HK82ys0X6MzuEvkI/qM0K6Ltdyz1G2sa5+is=",
+        "owner": "Tenshock",
+        "repo": "tchap-desktop",
+        "rev": "7c3c954e8ca57976cff27ce158109cec0a0c3787",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Tenshock",
+        "ref": "feat/nix-package",
+        "repo": "tchap-desktop",
         "type": "github"
       }
     },

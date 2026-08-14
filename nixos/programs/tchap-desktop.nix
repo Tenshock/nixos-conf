@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   environment.systemPackages = [
-    (pkgs.callPackage ../../packages/tchap-desktop { })
+    inputs.tchap-desktop.packages.${pkgs.stdenv.hostPlatform.system}.tchap-desktop
   ];
 }
