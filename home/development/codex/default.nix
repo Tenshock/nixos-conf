@@ -95,7 +95,15 @@ in
       model_provider = "openai";
       approval_policy = "on-request";
       approvals_reviewer = "auto_review";
-      sandbox_mode = "workspace-write";
+      default_permissions = "workspace-lix";
+      permissions."workspace-lix" = {
+        description = "Workspace access with Lix daemon connectivity.";
+        extends = ":workspace";
+        network = {
+          enabled = true;
+          unix_sockets."/nix/var/nix/daemon-socket/socket" = "allow";
+        };
+      };
       tui = {
         status_line = [
           "model-with-reasoning"
