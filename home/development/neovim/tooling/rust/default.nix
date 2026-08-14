@@ -5,10 +5,12 @@ let
   '';
 in
 {
-  programs.neovim.extraPackages = [
-    codelldb
-    pkgs.rust-analyzer
-  ];
+  programs.lazyvim = {
+    extraPackages = [
+      codelldb
+      pkgs.rust-analyzer
+    ];
 
-  xdg.configFile."nvim/lua/tooling-extras/rust.lua".source = ./extras.lua;
+    extras.lang.rust.enable = true;
+  };
 }

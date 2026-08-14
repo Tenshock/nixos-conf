@@ -1,13 +1,13 @@
 { pkgs, ... }:
 {
-  programs.neovim.extraPackages = with pkgs; [
-    nixd
-    nixfmt
-    statix
-  ];
+  programs.lazyvim = {
+    extraPackages = with pkgs; [
+      nixd
+      nixfmt
+      statix
+    ];
 
-  xdg.configFile = {
-    "nvim/lua/tooling-extras/nix.lua".source = ./extras.lua;
-    "nvim/lua/tooling-plugins/nix.lua".source = ./config.lua;
+    extras.lang.nix.enable = true;
+    plugins.tooling-nix = builtins.readFile ./config.lua;
   };
 }

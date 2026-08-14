@@ -1,6 +1,12 @@
 { pkgs, ... }:
 {
-  programs.neovim.extraPackages = [ pkgs.shfmt ];
+  programs.lazyvim = {
+    extraPackages = [ pkgs.shfmt ];
+    treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+      ini
+      zsh
+    ];
 
-  xdg.configFile."nvim/lua/tooling-plugins/shell.lua".source = ./config.lua;
+    plugins.tooling-shell = builtins.readFile ./config.lua;
+  };
 }

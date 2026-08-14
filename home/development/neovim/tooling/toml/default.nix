@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
-  programs.neovim.extraPackages = [ pkgs.taplo ];
+  programs.lazyvim = {
+    extraPackages = [ pkgs.taplo ];
 
-  xdg.configFile."nvim/lua/tooling-extras/toml.lua".source = ./extras.lua;
+    extras.lang.toml.enable = true;
+  };
 }

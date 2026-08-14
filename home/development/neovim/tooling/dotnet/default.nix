@@ -1,20 +1,18 @@
 { pkgs, ... }:
 {
-  programs.neovim.extraPackages = with pkgs; [
-    csharpier
-    dotnet-sdk_10
-    fantomas
-    fsautocomplete
-    netcoredbg
-    roslyn-ls
-  ];
-  programs.neovim.extraWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    "${pkgs.dotnet-sdk_10}/bin"
-  ];
+  programs = {
+    lazyvim = {
+      extraPackages = with pkgs; [
+        csharpier
+        dotnet-sdk_10
+        fantomas
+        fsautocomplete
+        netcoredbg
+        roslyn-ls
+      ];
 
-  xdg.configFile."nvim/lua/tooling-extras/dotnet.lua".source = ./extras.lua;
-  xdg.configFile."nvim/lua/tooling-plugins/dotnet.lua".source = ./config.lua;
+      extras.lang.dotnet.enable = true;
+      plugins.tooling-dotnet = builtins.readFile ./config.lua;
+    };
+  };
 }

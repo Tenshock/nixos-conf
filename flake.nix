@@ -15,6 +15,10 @@
       url = "github:JuliusBrussee/caveman";
       flake = false;
     };
+    codex-nvim = {
+      url = "github:kkrampis/codex.nvim";
+      flake = false;
+    };
     monique = {
       url = "github:ToRvaLDz/monique";
       inputs.nixpkgs.follows = "nixos";
@@ -26,6 +30,26 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixos";
+    };
+    lazyvim-nix = {
+      url = "github:pfassina/lazyvim-nix";
+      inputs.nixpkgs.follows = "nixos";
+    };
+    neotest-nodejs = {
+      url = "github:AkisArou/neotest-nodejs";
+      flake = false;
+    };
+    neotest-vstest = {
+      url = "github:Nsidorenco/neotest-vstest";
+      flake = false;
+    };
+    telescope-terraform-doc-nvim = {
+      url = "github:ANGkeith/telescope-terraform-doc.nvim";
+      flake = false;
+    };
+    telescope-terraform-nvim = {
+      url = "github:cappyzawa/telescope-terraform.nvim";
+      flake = false;
     };
     # TODO: remove when https://github.com/nix-community/home-manager/pull/9785 merged
     home-manager-git = {
@@ -114,6 +138,7 @@
                     (inputs.home-manager-xdph.outPath + "/modules/services/window-managers/hyprland.nix")
                     (import ./hosts/${host.dir}/home.nix host.user)
                     inputs.catppuccin.homeModules.catppuccin
+                    inputs.lazyvim-nix.homeManagerModules.default
                   ];
                 };
               };

@@ -1,9 +1,9 @@
 { pkgs, ... }:
 {
-  programs.neovim.extraPackages = [ pkgs.yaml-language-server ];
+  programs.lazyvim = {
+    extraPackages = [ pkgs.yaml-language-server ];
 
-  xdg.configFile = {
-    "nvim/lua/tooling-extras/yaml.lua".source = ./extras.lua;
-    "nvim/lua/tooling-plugins/yaml.lua".source = ./config.lua;
+    extras.lang.yaml.enable = true;
+    plugins.tooling-yaml = builtins.readFile ./config.lua;
   };
 }

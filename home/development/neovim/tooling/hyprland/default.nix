@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  programs.neovim.extraPackages = [ pkgs.hyprls ];
+  programs.lazyvim = {
+    extraPackages = [ pkgs.hyprls ];
+    treesitterParsers = [ pkgs.vimPlugins.nvim-treesitter-parsers.hyprlang ];
 
-  xdg.configFile."nvim/lua/tooling-plugins/hyprland.lua".source = ./config.lua;
+    plugins.tooling-hyprland = builtins.readFile ./config.lua;
+  };
 }
