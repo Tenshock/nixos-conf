@@ -10,6 +10,10 @@
       "Discord Voice" = import ./discord-voice.nix;
     };
     settings = {
+      EffectsPipelines.bypass = false;
+
+      Window.autostartOnLogin = false;
+
       StreamInputs = {
         blocklist = null;
         useDefaultInputDevice = true;
@@ -23,5 +27,15 @@
         blocklistUsesMediaName = false;
       };
     };
+  };
+
+  xdg.configFile."autostart/com.github.wwmm.easyeffects.desktop" = {
+    force = true;
+    text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=Easy Effects
+      Hidden=true
+    '';
   };
 }
