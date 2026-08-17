@@ -114,6 +114,7 @@ in
         };
         dap.core.enable = true;
         editor = {
+          harpoon2.enable = true;
           refactoring.enable = true;
           neo-tree.enable = true;
           snacks-picker.enable = true;
