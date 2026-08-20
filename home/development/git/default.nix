@@ -13,10 +13,6 @@ in
     git = {
       enable = true;
 
-      ignores = [
-        ".serena"
-      ];
-
       signing = {
         allowedSigners = ''
           cedric.prezelin@gmail.com,cedric.prezelin.ext@beta.gouv.fr namespaces="git" ${signingKey}

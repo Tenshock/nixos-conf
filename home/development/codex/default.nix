@@ -10,7 +10,6 @@ let
     ./extensions/caveman.nix
     ./extensions/context7.nix
     ./extensions/openai-docs.nix
-    ./extensions/serena.nix
   ];
 
   importIntegration =
@@ -82,7 +81,6 @@ in
     context = ''
       Use caveman skill in full mode by default in every session.
       Keep all technical details exact.
-      For coding tasks, use Serena MCP server: read its initial instructions first, then prefer semantic tools when useful.
       For OpenAI products, use OpenAI Developer Docs MCP server.
       For other current library, framework, SDK, API, CLI, or cloud-service documentation, use Context7 MCP server.
       For supported shell commands, use RTK CLI when raw output would otherwise be large.
