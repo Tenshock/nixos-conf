@@ -2,6 +2,8 @@ user:
 { pkgs, ... }:
 {
   imports = [
+    ./betagouv.nix
+
     ../../flakes/catppuccin.nix
 
     ../../flakes/chatgpt-desktop.nix
