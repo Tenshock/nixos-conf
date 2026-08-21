@@ -73,6 +73,9 @@ git status --short
 
 Check the current disk and mounted storage stack:
 
+Run these commands directly on the installed host, not from a sandbox or
+container with a restricted `/dev` namespace.
+
 ```sh
 lsblk -o NAME,PATH,TYPE,SIZE,FSTYPE,FSVER,LABEL,PARTLABEL,UUID,MOUNTPOINTS,PKNAME
 findmnt -no TARGET,SOURCE,FSTYPE,OPTIONS /
@@ -100,13 +103,20 @@ Assert that the existing labels resolve to the expected partitions and that
 the unused Disko default labels do not exist:
 
 ```sh
-test "$(readlink -e /dev/disk/by-partlabel/EFI)" = /dev/nvme0n1p1
-test "$(readlink -e /dev/disk/by-partlabel/root)" = /dev/nvme0n1p2
-test ! -e /dev/disk/by-partlabel/disk-main-ESP
-test ! -e /dev/disk/by-partlabel/disk-main-luks
+(
+  set -eu
+  test -d /dev/disk/by-id
+  test "$(readlink -e /dev/disk/by-id/nvme-WD_BLACK_SN7100_1TB_24461K801503)" = /dev/nvme0n1
+  test "$(readlink -e /dev/disk/by-partlabel/EFI)" = /dev/nvme0n1p1
+  test "$(readlink -e /dev/disk/by-partlabel/root)" = /dev/nvme0n1p2
+  test ! -e /dev/disk/by-partlabel/disk-main-ESP
+  test ! -e /dev/disk/by-partlabel/disk-main-luks
+  printf 'storage preflight assertions passed\n'
+)
 ```
 
-Stop on any failed assertion.
+Do not continue unless the subshell prints `storage preflight assertions
+passed` and exits with status 0.
 
 ## 2. Backup Decision
 
@@ -130,37 +140,53 @@ If external storage becomes available, mount it at `/mnt/backup`, then copy root
 and boot:
 
 ```sh
-mountpoint -q /mnt/backup
-findmnt -no TARGET,SOURCE,FSTYPE,OPTIONS /mnt/backup
-df -h /mnt/backup
+(
+  set -eu
 
-sudo mkdir -p /mnt/backup/framework-13-root /mnt/backup/framework-13-boot
+  mountpoint -q /mnt/backup
+  root_source="$(findmnt -n -o SOURCE --target /)"
+  backup_source="$(findmnt -n -o SOURCE --target /mnt/backup)"
+  test -n "$root_source"
+  test -n "$backup_source"
+  test "$backup_source" != "$root_source"
+  findmnt -no TARGET,SOURCE,FSTYPE,OPTIONS /mnt/backup
+  df -h /mnt/backup
 
-sudo rsync -aHAXS --numeric-ids --info=progress2 --delete \
-  --exclude='/dev/*' \
-  --exclude='/proc/*' \
-  --exclude='/sys/*' \
-  --exclude='/run/*' \
-  --exclude='/tmp/*' \
-  --exclude='/mnt/*' \
-  --exclude='/media/*' \
-  --exclude='/lost+found' \
-  / /mnt/backup/framework-13-root/
+  sudo mkdir -p /mnt/backup/framework-13-root /mnt/backup/framework-13-boot
 
-sudo rsync -aHAX --numeric-ids --info=progress2 --delete \
-  /boot/ /mnt/backup/framework-13-boot/
+  sudo rsync -aHAXS --numeric-ids --info=progress2 --delete \
+    --exclude='/dev/*' \
+    --exclude='/proc/*' \
+    --exclude='/sys/*' \
+    --exclude='/run/*' \
+    --exclude='/tmp/*' \
+    --exclude='/mnt/*' \
+    --exclude='/media/*' \
+    --exclude='/lost+found' \
+    / /mnt/backup/framework-13-root/
+
+  sudo rsync -aHAX --numeric-ids --info=progress2 --delete \
+    /boot/ /mnt/backup/framework-13-boot/
+)
 ```
+
+The subshell stops before creating or copying anything if `/mnt/backup` is not
+a mount point or resolves to the root filesystem.
 
 Verify critical state exists in the backup:
 
 ```sh
-sudo test -d /mnt/backup/framework-13-root/home/cedric
-sudo test -d /mnt/backup/framework-13-root/home/cedric/.config/nixos
-sudo test -d /mnt/backup/framework-13-root/etc/NetworkManager
-sudo test -d /mnt/backup/framework-13-root/var/lib/docker
-sudo test -d /mnt/backup/framework-13-root/var/lib/bluetooth
-sudo test -d /mnt/backup/framework-13-root/var/lib/fprint
-sudo test -d /mnt/backup/framework-13-boot/EFI
+(
+  set -eu
+  sudo test -d /mnt/backup/framework-13-root/home/cedric
+  sudo test -d /mnt/backup/framework-13-root/home/cedric/.config/nixos
+  sudo test -d /mnt/backup/framework-13-root/etc/NetworkManager
+  sudo test -d /mnt/backup/framework-13-root/var/lib/docker
+  sudo test -d /mnt/backup/framework-13-root/var/lib/bluetooth
+  sudo test -d /mnt/backup/framework-13-root/var/lib/fprint
+  sudo test -d /mnt/backup/framework-13-boot/EFI
+  printf 'backup presence assertions passed\n'
+)
 ```
 
 ## 3. Add Disko To The Flake
@@ -168,58 +194,25 @@ sudo test -d /mnt/backup/framework-13-boot/EFI
 Add the Disko input in `flake.nix`:
 
 ```nix
-disko.url = "github:nix-community/disko/latest";
-disko.inputs.nixpkgs.follows = "nixos";
-```
-
-Pass `disko` into `mkNixOSConfiguration`:
-
-```nix
-mkNixOSConfiguration =
-  {
-    host,
-    nixos,
-    nixos-hardware,
-    disko,
-    home-manager,
-    catppuccin,
-    monique,
-  }:
-```
-
-Add Disko modules for the Framework 13 NixOS host:
-
-```nix
-modules = [
-  (import ./hosts/${host.dir}/configuration.nix host.user)
-  ./hosts/${host.dir}/hardware-configuration.nix
-  (import ./hosts/${host.dir}/networking.nix {
-    hostName = host.hostname;
-    inherit (host) user;
-  })
-  disko.nixosModules.disko
-  ./hosts/${host.dir}/disko.nix
-  nixos-hardware.nixosModules.framework-amd-ai-300-series
-  home-manager.nixosModules.home-manager
-  catppuccin.nixosModules.catppuccin
-  monique.nixosModules.default
-  # Keep the existing Home Manager configuration module here too.
-];
-```
-
-Pass `disko` when creating the Framework 13 configuration:
-
-```nix
-nixosConfigurations."${hosts.framework-13.hostname}" = mkNixOSConfiguration {
-  host = hosts.framework-13;
-  inherit (inputs) nixos;
-  inherit (inputs) nixos-hardware;
-  inherit (inputs) disko;
-  inherit (inputs) home-manager;
-  inherit (inputs) catppuccin;
-  inherit (inputs) monique;
+disko = {
+  url = "github:nix-community/disko/latest";
+  inputs.nixpkgs.follows = "nixos";
 };
 ```
+
+The current flake already exposes all inputs through the `inputs` binding. Do
+not change the `mkNixOSConfiguration` arguments or its call site. Add only these
+two entries to its existing `modules` list, after
+`./hosts/${host.dir}/hardware-configuration.nix`:
+
+```nix
+inputs.disko.nixosModules.disko
+./hosts/${host.dir}/disko.nix
+```
+
+Do not replace the existing module list. It contains the current ChatGPT
+Desktop, NVBroadcast, Home Manager, Catppuccin, LazyVim, hardware, and Monique
+wiring.
 
 Add only the new Disko lock input. Current Lix uses `nix flake update`; the old
 `nix flake lock --update-input` form is deprecated:
@@ -495,35 +488,41 @@ generation, installs the exact closure already built in step 8, then verifies
 that both generations remain bootable:
 
 ```sh
-old_generation="$(readlink /nix/var/nix/profiles/system)"
-old_number="${old_generation#system-}"
-old_number="${old_number%-link}"
-old_system="$(readlink -e /nix/var/nix/profiles/system)"
-new_system="$(readlink -e /tmp/framework-13-disko-system)"
+(
+  set -eu
 
-test -n "$old_number"
-test -e "$old_system"
-test -e "$new_system"
-test "$old_system" != "$new_system"
-printf 'old generation: %s\nold system: %s\nnew system: %s\n' \
-  "$old_generation" "$old_system" "$new_system"
+  old_generation="$(readlink /nix/var/nix/profiles/system)"
+  old_number="${old_generation#system-}"
+  old_number="${old_number%-link}"
+  old_system="$(readlink -e /nix/var/nix/profiles/system)"
+  new_system="$(readlink -e /tmp/framework-13-disko-system)"
 
-sudo nixos-rebuild boot --store-path "$new_system"
+  test -n "$old_number"
+  test -e "$old_system"
+  test -e "$new_system"
+  test "$old_system" != "$new_system"
+  printf 'old generation: %s\nold system: %s\nnew system: %s\n' \
+    "$old_generation" "$old_system" "$new_system"
 
-new_generation="$(readlink /nix/var/nix/profiles/system)"
-new_number="${new_generation#system-}"
-new_number="${new_number%-link}"
+  sudo nixos-rebuild boot --store-path "$new_system"
 
-test "$new_generation" != "$old_generation"
-test -e "/nix/var/nix/profiles/$old_generation"
-test -e "/nix/var/nix/profiles/$new_generation"
-test "$(readlink -e /nix/var/nix/profiles/system)" = "$new_system"
-sudo grep -RIl "^version Generation $old_number " /boot/loader/entries
-sudo grep -RIl "^version Generation $new_number " /boot/loader/entries
+  new_generation="$(readlink /nix/var/nix/profiles/system)"
+  new_number="${new_generation#system-}"
+  new_number="${new_number%-link}"
+
+  test "$new_generation" != "$old_generation"
+  test -e "/nix/var/nix/profiles/$old_generation"
+  test -e "/nix/var/nix/profiles/$new_generation"
+  test "$(readlink -e /nix/var/nix/profiles/system)" = "$new_system"
+  sudo grep -RIl "^version Generation $old_number " /boot/loader/entries
+  sudo grep -RIl "^version Generation $new_number " /boot/loader/entries
+  printf 'boot generation assertions passed\n'
+)
 ```
 
-Do not reboot if any assertion fails. Do not run `nh clean`,
-`nix-collect-garbage`, or any other generation cleanup.
+Do not reboot unless the subshell prints `boot generation assertions passed`
+and exits with status 0. Do not run `nh clean`, `nix-collect-garbage`, or any
+other generation cleanup.
 
 ## 10. Reboot And Verify
 
@@ -534,12 +533,19 @@ After the new generation boots:
 
 ```sh
 lsblk -o NAME,PATH,TYPE,SIZE,FSTYPE,FSVER,LABEL,PARTLABEL,UUID,MOUNTPOINTS,PKNAME
-test "$(readlink -e /dev/disk/by-partlabel/EFI)" = /dev/nvme0n1p1
-test "$(readlink -e /dev/disk/by-partlabel/root)" = /dev/nvme0n1p2
 findmnt -no TARGET,SOURCE,FSTYPE,OPTIONS /
 findmnt -no TARGET,SOURCE,FSTYPE,OPTIONS /boot
 swapon --show
 cat /proc/cmdline
+
+(
+  set -eu
+  test "$(readlink -e /dev/disk/by-id/nvme-WD_BLACK_SN7100_1TB_24461K801503)" = /dev/nvme0n1
+  test "$(readlink -e /dev/disk/by-partlabel/EFI)" = /dev/nvme0n1p1
+  test "$(readlink -e /dev/disk/by-partlabel/root)" = /dev/nvme0n1p2
+  grep -qw 'resume=/dev/vg/swap' /proc/cmdline
+  printf 'post-reboot storage assertions passed\n'
+)
 ```
 
 Verify:
