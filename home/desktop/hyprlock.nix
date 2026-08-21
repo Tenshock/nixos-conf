@@ -11,6 +11,14 @@ in
     enable = true;
 
     settings = {
+      auth = {
+        pam = {
+          enabled = true;
+          module = "hyprlock";
+        };
+        fingerprint.enabled = true;
+      };
+
       general = {
         hide_cursor = true;
         animation = "fade, 1, 1.8, linear";

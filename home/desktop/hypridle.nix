@@ -3,7 +3,9 @@
     enable = true;
     settings = {
       general = {
-        before_sleep_cmd = "hyprlock";
+        lock_cmd = "pidof hyprlock || hyprlock";
+        before_sleep_cmd = "loginctl lock-session";
+        inhibit_sleep = 3;
       };
 
       listener = [
@@ -22,7 +24,7 @@
         {
           # 10min: lock session
           timeout = 600;
-          on-timeout = "hyprlock";
+          on-timeout = "loginctl lock-session";
         }
         {
           # 10min30s: turn screen off and suspend, then hibernate after HibernateDelaySec.
