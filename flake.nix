@@ -99,8 +99,7 @@
             inputs.disko.nixosModules.disko
             inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
 
-            (import ./hosts/${host.dir}/configuration.nix host.user)
-            (import ./hosts/${host.dir}/networking.nix {
+            (import ./hosts/${host.dir}/configuration.nix {
               hostName = host.hostname;
               inherit (host) user;
             })

@@ -1,4 +1,4 @@
-user:
+{ hostName, user }:
 { pkgs, ... }:
 {
   imports = [
@@ -6,8 +6,9 @@ user:
     ./hardware-configuration.nix
     ./betagouv.nix
 
-    ../../flakes/catppuccin.nix
+    (import ./networking.nix { inherit hostName user; })
 
+    ../../flakes/catppuccin.nix
     ../../flakes/chatgpt-desktop.nix
     ../../flakes/monique.nix
 
