@@ -65,7 +65,10 @@ in
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
     };
-    Service.RestartSec = 10;
+    Service = {
+      Environment = [ "GSK_RENDERER=cairo" ];
+      RestartSec = 10;
+    };
   };
 
   systemd.user.services.elephant = {

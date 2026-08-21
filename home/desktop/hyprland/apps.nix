@@ -15,6 +15,6 @@
     teams._var = "uwsm app -- teams-for-linux";
     terminal._var = "uwsm app -- kitty";
     vesktop._var = "uwsm app -- vesktop";
-    walker._var = "uwsm app -- walker";
+    walker._var = "uwsm app -- env GSK_RENDERER=cairo walker";
   };
 }
