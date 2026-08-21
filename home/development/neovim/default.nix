@@ -19,10 +19,6 @@ let
 
   customPlugins = {
     auto-save-nvim = pkgs.vimPlugins.auto-save-nvim;
-    codex-nvim = mkInputPlugin {
-      pname = "codex.nvim";
-      src = inputs.codex-nvim;
-    };
     catppuccin-nvim = pkgs.vimPlugins.catppuccin-nvim;
     material-nvim = pkgs.vimPlugins.material-nvim;
     lazy-nvim = pkgs.vimPlugins.lazy-nvim;
@@ -126,7 +122,7 @@ in
         autosave = pinPlugin "okuuva/auto-save.nvim" customPlugins.auto-save-nvim ./plugins/autosave.lua;
         blink-cmp = builtins.readFile ./plugins/blink-cmp.lua;
         bufferline = builtins.readFile ./plugins/bufferline.lua;
-        codex = pinPlugin "kkrampis/codex.nvim" customPlugins.codex-nvim ./plugins/codex.lua;
+        sidekick = pinPlugin "folke/sidekick.nvim" pkgs.vimPlugins.sidekick-nvim ./plugins/sidekick.lua;
         colorscheme =
           pinPlugin "marko-cerovac/material.nvim" customPlugins.material-nvim
             ./plugins/colorscheme.lua;
@@ -163,6 +159,7 @@ in
       };
       extraPackages = with pkgs; [
         clang
+        codex
         curl
         fd
         fzf

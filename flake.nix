@@ -15,10 +15,6 @@
       url = "github:JuliusBrussee/caveman";
       flake = false;
     };
-    codex-nvim = {
-      url = "github:kkrampis/codex.nvim";
-      flake = false;
-    };
     monique = {
       url = "github:ToRvaLDz/monique";
       inputs.nixpkgs.follows = "nixos";
