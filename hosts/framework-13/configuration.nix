@@ -2,6 +2,8 @@ user:
 { pkgs, ... }:
 {
   imports = [
+    ./disko.nix
+    ./hardware-configuration.nix
     ./betagouv.nix
 
     ../../flakes/catppuccin.nix

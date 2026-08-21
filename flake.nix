@@ -96,13 +96,10 @@
             inputs.catppuccin.nixosModules.catppuccin
             inputs.chatgpt-desktop-linux.nixosModules.default
             inputs.monique.nixosModules.default
-
+            inputs.disko.nixosModules.disko
             inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
 
             (import ./hosts/${host.dir}/configuration.nix host.user)
-            ./hosts/${host.dir}/hardware-configuration.nix
-            inputs.disko.nixosModules.disko
-            ./hosts/${host.dir}/disko.nix
             (import ./hosts/${host.dir}/networking.nix {
               hostName = host.hostname;
               inherit (host) user;
