@@ -21,27 +21,9 @@
         "sd_mod"
       ];
       kernelModules = [ "amdgpu" ];
-      luks.devices.cryptroot.device = "/dev/disk/by-uuid/7ae1e520-7304-4223-a9c1-7c17f7ecf2d3";
     };
     kernelModules = [ "kvm-amd" ];
-    resumeDevice = "/dev/disk/by-uuid/96c110f0-9666-4447-8bf6-6673afa64eaf";
   };
-
-  fileSystems."/" = {
-    device = "/dev/vg/root";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/FFB8-3258";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
-  };
-
-  swapDevices = [ { device = "/dev/disk/by-uuid/96c110f0-9666-4447-8bf6-6673afa64eaf"; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

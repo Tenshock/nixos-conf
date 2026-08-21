@@ -3,6 +3,10 @@
 
   inputs = {
     nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixos";
+    };
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixos";
@@ -97,6 +101,8 @@
 
             (import ./hosts/${host.dir}/configuration.nix host.user)
             ./hosts/${host.dir}/hardware-configuration.nix
+            inputs.disko.nixosModules.disko
+            ./hosts/${host.dir}/disko.nix
             (import ./hosts/${host.dir}/networking.nix {
               hostName = host.hostname;
               inherit (host) user;
