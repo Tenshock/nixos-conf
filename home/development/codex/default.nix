@@ -85,6 +85,7 @@ in
       For other current library, framework, SDK, API, CLI, or cloud-service documentation, use Context7 MCP server.
       For supported shell commands, use RTK CLI when raw output would otherwise be large.
       Use raw shell commands when exact unfiltered output is needed or RTK CLI does not support command.
+      Never push to remote. If not asked and justified in work, ask before creating/updating commits.
     '';
     settings = {
       model = "gpt-5.6-sol";
