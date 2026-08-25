@@ -57,12 +57,12 @@
     };
     # TODO: remove when https://github.com/nix-community/home-manager/pull/9785 merged
     home-manager-git = {
-      url = "github:Tenshock/home-manager/8e09684fbb2a1121b8ce416bba791979dafff5d4";
+      url = "github:Tenshock/home-manager/git-allowed-signers";
       inputs.nixpkgs.follows = "nixos";
     };
     # TODO: remove when https://github.com/NixOS/nixpkgs/pull/538136 merged
     nixpkgs-nvbroadcast = {
-      url = "github:Tenshock/nixpkgs/a996b4ad0e6d7445afb231340e3d2d6a2cbaa3b9";
+      url = "github:Tenshock/nixpkgs/add-nvbroadcast";
     };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
