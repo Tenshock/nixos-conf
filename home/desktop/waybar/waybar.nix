@@ -21,6 +21,17 @@
               "eDP-1" = [ 1 ];
             };
           };
+          "custom/music" = {
+            "format" = "  {}";
+            "escape" = true;
+            "interval" = 1;
+            "tooltip" = false;
+            "exec" = "playerctl metadata --format='{{ title }}'";
+            "on-click" = "playerctl play-pause";
+            "max-length" = 50;
+          };
+        };
+        shared-modules = {
           "clock#date" = {
             "format" = "{:%a %d %b}";
             "tooltip" = false;
@@ -33,17 +44,6 @@
             "interval" = 1;
             "on-click" = "uwsm app -- gsimplecal";
           };
-          "custom/music" = {
-            "format" = "  {}";
-            "escape" = true;
-            "interval" = 1;
-            "tooltip" = false;
-            "exec" = "playerctl metadata --format='{{ title }}'";
-            "on-click" = "playerctl play-pause";
-            "max-length" = 50;
-          };
-        };
-        shared-modules = {
           "hyprland/workspaces" = {
             "disable-scroll" = true;
             "all-outputs" = false;
@@ -242,8 +242,12 @@
         )
         (
           {
-            "output" = "!eDP-1";
             "layer" = "top";
+            "output" = "!eDP-1";
+            "modules-left" = [
+              "clock#date"
+              "clock#time"
+            ];
             "modules-center" = [ "hyprland/workspaces" ];
             "modules-right" = [
               "custom/left-spacer"
@@ -267,9 +271,9 @@
     style =
       # css
       ''
-      @import "style/mocha.css";
-      @import "style/general.css";
-      @import "style/main-bar.css";
-    '';
+        @import "style/mocha.css";
+        @import "style/general.css";
+        @import "style/main-bar.css";
+      '';
   };
 }
