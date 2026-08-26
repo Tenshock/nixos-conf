@@ -24,7 +24,7 @@ let
           "$idle_toggle" \
           '  Suspend' \
           '  Hibernate' \
-          | env GSK_RENDERER=cairo walker --dmenu --width 250 --height 259 --placeholder Power
+          | env GSK_RENDERER=cairo walker --dmenu --width 250 --height 530 --placeholder Power
       )"
 
       case "$choice" in
