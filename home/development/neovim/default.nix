@@ -126,6 +126,7 @@ in
         colorscheme =
           pinPlugin "marko-cerovac/material.nvim" customPlugins.material-nvim
             ./plugins/colorscheme.lua;
+        json = builtins.readFile ./plugins/json.lua;
         leetcode = pinPlugin "kawre/leetcode.nvim" pkgs.vimPlugins.leetcode-nvim ./plugins/leetcode.lua;
         lualine = builtins.readFile ./plugins/lualine.lua;
         mason = builtins.readFile ./plugins/mason.lua;
