@@ -42,6 +42,12 @@ return {
 		window = {
 			width = "30",
 			mappings = {
+				["gx"] = function(state)
+					local node = state.tree:get_node()
+					if node then
+						vim.ui.open(node:get_id())
+					end
+				end,
 				["p"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
 			},
 		},
