@@ -101,9 +101,6 @@
               "beepertexts" = "${./style/icons/beeper-message-circle-red.png}";
               "Beeper" = "${./style/icons/beeper-message-circle-red.png}";
               "easyeffects" = "${./style/icons/easyeffects-adjustments-red.png}";
-              "mattermost" = "${./style/icons/mattermost-red.png}";
-              "mattermost-desktop" = "${./style/icons/mattermost-red.png}";
-              "Mattermost" = "${./style/icons/mattermost-red.png}";
               "slack" = "${./style/icons/slack-red.png}";
               "Slack" = "${./style/icons/slack-red.png}";
               "slack_status_icon_1" = "${./style/icons/slack-red.png}";

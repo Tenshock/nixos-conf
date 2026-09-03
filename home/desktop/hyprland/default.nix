@@ -129,7 +129,6 @@ in
               hl.exec_cmd(terminal, { workspace = "1 silent" })
 
               if app_profile == "work" then
-                hl.exec_cmd(mattermost, { workspace = "2 silent" })
                 hl.exec_cmd(tchap, { workspace = "2 silent" })
                 hl.exec_cmd(vesktop, { workspace = "2 silent" })
                 hl.exec_cmd(obsidian, { workspace = "3 silent" })

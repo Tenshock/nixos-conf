@@ -32,7 +32,6 @@
 
     (import ../../nixos/programs/1password.nix user)
     ../../nixos/programs/cameractrls-gtk4.nix
-    ../../nixos/programs/mattermost.nix
     (import ../../nixos/programs/minecraft.nix user)
     ../../nixos/programs/neovim.nix
     ../../nixos/programs/nvbroadcast.nix
