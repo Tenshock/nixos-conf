@@ -55,11 +55,6 @@
       url = "github:cappyzawa/telescope-terraform.nvim";
       flake = false;
     };
-    # TODO: remove when https://github.com/nix-community/home-manager/pull/9785 merged
-    home-manager-git = {
-      url = "github:Tenshock/home-manager/git-allowed-signers";
-      inputs.nixpkgs.follows = "nixos";
-    };
     # TODO: remove when https://github.com/NixOS/nixpkgs/pull/538136 merged
     nixpkgs-nvbroadcast = {
       url = "github:Tenshock/nixpkgs/add-nvbroadcast";
@@ -122,13 +117,7 @@
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs; };
                 users."${host.user}" = {
-                  disabledModules = [
-                    # TODO: remove when https://github.com/nix-community/home-manager/pull/9785 merged
-                    "programs/git.nix"
-                  ];
                   imports = [
-                    # TODO: remove when https://github.com/nix-community/home-manager/pull/9785 merged
-                    (inputs.home-manager-git.outPath + "/modules/programs/git.nix")
                     (import ./hosts/${host.dir}/home.nix host.user)
                     inputs.catppuccin.homeModules.catppuccin
                     inputs.lazyvim-nix.homeManagerModules.default
