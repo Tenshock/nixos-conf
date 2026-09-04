@@ -16,12 +16,14 @@
           "customizableui-special-spring2"
           "unified-extensions-button"
           "_d634138d-c276-4fc8-924b-40a0ea21d284_-browser-action"
+          "_50864413-c4c8-43b0-80b8-982c4a368ac9_-browser-action"
           "reset-pbm-toolbar-button"
         ];
       };
       seen = [
         "ublock0_raymondhill_net-browser-action"
         "_d634138d-c276-4fc8-924b-40a0ea21d284_-browser-action"
+        "_50864413-c4c8-43b0-80b8-982c4a368ac9_-browser-action"
       ];
       currentVersion = 24;
     };

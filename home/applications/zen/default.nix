@@ -30,6 +30,7 @@ in
       extensions.packages = with firefox-addons; [
         ublock-origin
         onepassword-password-manager
+        visbug
       ];
 
       settings = {
