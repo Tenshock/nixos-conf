@@ -106,9 +106,9 @@ in
       State only the resulting scope and requirements.
     '';
     settings = {
-      model = "gpt-5.6-sol";
+      model = "gpt-6-astra";
       model_reasoning_effort = "medium";
-      review_model = "gpt-5.6-sol";
+      review_model = "gpt-6-astra";
       model_provider = "openai";
       approval_policy = "on-request";
       approvals_reviewer = "auto_review";
