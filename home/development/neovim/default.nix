@@ -1,5 +1,7 @@
 {
+  config,
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -91,6 +93,12 @@ in
   ];
 
   _module.args.lazyvimCustomPlugins = customPlugins;
+
+  # Nix timestamps and unchanged file sizes can leave cached Lua using old store paths.
+  home.activation.clearLazyvimCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${pkgs.coreutils}/bin/rm -rf -- \
+      ${lib.escapeShellArg "${config.xdg.cacheHome}/${appName}/luac"}
+  '';
 
   programs = {
     lazyvim = {
