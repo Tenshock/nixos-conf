@@ -9,6 +9,7 @@ let
 in
 {
   boot = {
-    kernelParams = themeValues;
+    consoleLogLevel = 0;
+    kernelParams = themeValues ++ [ "systemd.show_status=false" ];
   };
 }
