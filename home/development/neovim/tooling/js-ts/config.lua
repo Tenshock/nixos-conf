@@ -38,6 +38,11 @@ return {
 			adapters = {
 				["neotest-vitest"] = {},
 				["neotest-nodejs"] = {
+					-- TOFIX: remove PR https://github.com/AkisArou/neotest-nodejs/pull/1 workaround once included in the pinned version.
+					isTestFile = function(path)
+						return require("neotest-nodejs.node-util").defaultIsTestFile(path)
+							and not require("neotest-vitest").is_test_file(path)
+					end,
 					nodeArguments = function(default_args)
 						return vim.list_extend({ "--import", "tsx" }, default_args)
 					end,
