@@ -34,6 +34,7 @@ in
       ];
 
       settings = {
+        "browser.shell.checkDefaultBrowser" = false;
         "extensions.autoDisableScopes" = 0;
         "zen.welcome-screen.seen" = true;
       };
