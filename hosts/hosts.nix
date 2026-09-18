@@ -9,6 +9,12 @@ let
         arch = "x86_64-linux";
         inherit user;
       };
+
+      asus = {
+        hostname = "asus";
+        arch = "x86_64-linux";
+        inherit user;
+      };
     };
 
   formattedSystems = builtins.mapAttrs (name: value: value // { dir = name; }) systems;

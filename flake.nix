@@ -113,13 +113,21 @@
         };
     in
     {
-      checks.x86_64-linux.nixos =
-        self.nixosConfigurations."${hosts.framework-13.hostname}".config.system.build.toplevel;
+      checks.x86_64-linux = {
+        nixos = self.nixosConfigurations."${hosts.framework-13.hostname}".config.system.build.toplevel;
+        asus = self.nixosConfigurations."${hosts.asus.hostname}".config.system.build.toplevel;
+      };
 
       formatter.x86_64-linux = inputs.nixos.legacyPackages.x86_64-linux.nixfmt-tree;
 
       nixosConfigurations."${hosts.framework-13.hostname}" = mkNixOSConfiguration {
         host = hosts.framework-13;
+        inherit (inputs) nixos;
+        inherit (inputs) home-manager;
+      };
+
+      nixosConfigurations."${hosts.asus.hostname}" = mkNixOSConfiguration {
+        host = hosts.asus;
         inherit (inputs) nixos;
         inherit (inputs) home-manager;
       };

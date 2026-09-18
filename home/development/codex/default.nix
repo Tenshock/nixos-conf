@@ -49,7 +49,7 @@ let
   trustedOwnedProjects =
     directory:
     let
-      entries = builtins.readDir directory;
+      entries = if builtins.pathExists directory then builtins.readDir directory else { };
       directories = lib.attrNames (lib.filterAttrs (_: type: type == "directory") entries);
     in
     map (project: "${directory}/${project}") directories;
