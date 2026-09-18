@@ -57,7 +57,6 @@ user:
     ../../home/shell/tmux
     ../../home/shell/uncompress.nix
     ../../home/shell/wget.nix
-    ../../home/shell/yazi.nix
     ../../home/shell/zoxide.nix
     ../../home/shell/zsh.nix
   ];
