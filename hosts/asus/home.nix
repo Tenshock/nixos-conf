@@ -41,6 +41,7 @@ user:
     ../../home/development/ripgrep.nix
 
     ../../home/services/1password.nix
+    ../../home/services/easyeffects
     ../../home/services/ssh.nix
     ../../home/services/udiskie.nix
 
