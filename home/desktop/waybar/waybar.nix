@@ -1,3 +1,7 @@
+{ config, lib, ... }:
+let
+  cpuCoreCount = config.dotfiles.waybar.cpuCoreCount;
+in
 {
   imports = [ ./widget/gsimplecal.nix ];
 
@@ -56,7 +60,7 @@
           };
           "cpu" = {
             "interval" = 1;
-            "format" = "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}";
+            "format" = lib.concatMapStrings (core: "{icon${toString core}}") (lib.range 0 (cpuCoreCount - 1));
             "format-icons" = [
               "<span color='#74c7ec'>▁</span>" # sapphire
               "<span color='#89dceb'>▂</span>" # sky

@@ -7,7 +7,10 @@ user:
     ../../home/options.nix
     ../../home/appearance/fonts.nix
 
+    ../../home/applications/beeper.nix
+    ../../home/applications/datagrip.nix
     ../../home/applications/discord.nix
+    ../../home/applications/google-chrome.nix
     ../../home/applications/kitty
     ../../home/applications/loupe.nix
     ../../home/applications/obsidian.nix
@@ -45,6 +48,7 @@ user:
     ../../home/services/easyeffects
     ../../home/services/ssh.nix
     ../../home/services/udiskie.nix
+    ../../home/services/xdg.nix
 
     ../../home/shell/atuin.nix
     ../../home/shell/bat.nix
@@ -76,6 +80,8 @@ user:
       }
     ];
   };
+
+  dotfiles.waybar.cpuCoreCount = 4;
 
   home = {
     username = user;

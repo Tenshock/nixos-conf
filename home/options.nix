@@ -6,6 +6,12 @@
     description = "Absolute path to the writable dotfiles repository checkout.";
   };
 
+  options.dotfiles.waybar.cpuCoreCount = lib.mkOption {
+    type = lib.types.ints.positive;
+    default = 12;
+    description = "Number of logical CPU cores shown in Waybar.";
+  };
+
   config.assertions = [
     {
       assertion = lib.hasPrefix "/" config.dotfiles.repositoryRoot;

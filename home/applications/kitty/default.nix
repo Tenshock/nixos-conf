@@ -156,7 +156,6 @@ in
     };
 
     keybindings = {
-      "ctrl+c" = "copy_or_interrupt";
       "ctrl+v" = "paste_from_clipboard";
 
       # Match tmux split geometry: -h is side-by-side, -v is top-and-bottom.
