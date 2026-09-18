@@ -37,6 +37,15 @@
   services.fwupd.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  fileSystems."/mnt/data" = {
+    device = "/dev/disk/by-uuid/eda0fb17-411c-4cf3-b861-67d221267e01";
+    fsType = "ext4";
+    options = [
+      "nofail"
+      "x-gvfs-show"
+    ];
+  };
+
   hardware.nvidia = {
     open = false;
     modesetting.enable = true;
