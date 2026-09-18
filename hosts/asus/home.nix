@@ -10,6 +10,7 @@ user:
     ../../home/applications/discord.nix
     ../../home/applications/kitty
     ../../home/applications/loupe.nix
+    ../../home/applications/obsidian.nix
     ../../home/applications/vlc.nix
     ../../home/applications/zen
 
