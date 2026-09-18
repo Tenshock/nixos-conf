@@ -1,5 +1,5 @@
 { hostName, user }:
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -35,6 +35,19 @@
   };
 
   services.fwupd.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    open = false;
+    modesetting.enable = true;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+
+    prime = {
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+      offload.enable = true;
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     brightnessctl
