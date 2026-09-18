@@ -2,6 +2,35 @@
 let
   wallpaperSourceDir = ../../wallpapers;
   wallpaperDestDir = "${config.xdg.configHome}/wallpapers";
+  lockWallpaperCache = "${config.xdg.cacheHome}/hyprlock/current.png";
+  updateLockWallpaper = pkgs.writeShellApplication {
+    name = "update-lock-wallpaper";
+    runtimeInputs = [
+      pkgs.awww
+      pkgs.coreutils
+      pkgs.imagemagick
+      pkgs.gnused
+    ];
+    text = ''
+      wallpaper="''${1:-}"
+      if [ -z "$wallpaper" ] && query="$(awww query 2>/dev/null)"; then
+        wallpaper="$(printf '%s\n' "$query" | sed -n '/currently displaying: image: /{s/.*currently displaying: image: //;p;q;}')"
+      fi
+
+      cache_path="${lockWallpaperCache}"
+      if [ -n "$wallpaper" ] && [ -f "$wallpaper" ]; then
+        cache_dir="$(dirname "$cache_path")"
+        mkdir -p -- "$cache_dir"
+        temporary="$(mktemp "$cache_dir/wallpaper.XXXXXX")"
+        if magick "''${wallpaper}[0]" "PNG:$temporary" && mv -- "$temporary" "$cache_path"; then
+          exit 0
+        fi
+        rm -f -- "$temporary"
+      fi
+
+      install -Dm600 "${../../wallpapers/chill-house.png}" "$cache_path"
+    '';
+  };
   awwwSwitch = pkgs.writeShellApplication {
     name = "awww-switch";
     runtimeInputs = [
@@ -21,6 +50,7 @@ let
       fi
 
       awww img --resize crop --transition-type random "$wallpaper"
+      ${updateLockWallpaper}/bin/update-lock-wallpaper "$wallpaper"
     '';
   };
   awwwRestoreAfterMonitor = pkgs.writeShellScript "awww-restore-after-monitor" ''
@@ -30,6 +60,7 @@ let
       if ${pkgs.awww}/bin/awww restore -a; then
         if ! ${pkgs.awww}/bin/awww query | ${pkgs.gnugrep}/bin/grep -q "currently displaying: color:"; then
           echo "awww restore succeeded after monitor change"
+          ${updateLockWallpaper}/bin/update-lock-wallpaper
           exit 0
         fi
       fi
@@ -71,6 +102,7 @@ in
         ${pkgs.coreutils}/bin/sleep 1
         if ${pkgs.awww}/bin/awww restore -a; then
           if ! ${pkgs.awww}/bin/awww query | ${pkgs.gnugrep}/bin/grep -q "currently displaying: color:"; then
+            ${updateLockWallpaper}/bin/update-lock-wallpaper
             exit 0
           fi
         fi

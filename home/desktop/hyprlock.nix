@@ -1,3 +1,4 @@
+{ config, ... }:
 let
   colors = {
     base = "rgba(1e1e2eff)";
@@ -21,11 +22,12 @@ in
 
       general = {
         hide_cursor = true;
-        animation = "fade, 1, 1.8, linear";
       };
 
+      animations.animation = "fade, 0";
+
       background = {
-        path = "$XDG_CONFIG_HOME/wallpapers/chill-house.png";
+        path = "${config.xdg.cacheHome}/hyprlock/current.png";
         blur_passes = 1;
         blur_size = 5;
         color = colors.base;
