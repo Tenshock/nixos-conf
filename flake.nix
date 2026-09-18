@@ -89,27 +89,11 @@
           specialArgs = { inherit inputs; };
           modules = [
             inputs.catppuccin.nixosModules.catppuccin
-            inputs.chatgpt-desktop-linux.nixosModules.default
-            inputs.monique.nixosModules.default
-            inputs.disko.nixosModules.disko
-            inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
 
             (import ./hosts/${host.dir}/configuration.nix {
               hostName = host.hostname;
               inherit (host) user;
             })
-            # TODO: remove when https://github.com/NixOS/nixpkgs/pull/538136 merged
-            {
-              imports = [
-                (inputs.nixpkgs-nvbroadcast.outPath + "/nixos/modules/programs/nvbroadcast.nix")
-              ];
-
-              # The imported module's manual anchor is absent from the locked
-              # official NixOS redirects, so validation cannot cover this mixed revision.
-              documentation.nixos.checkRedirects = false;
-
-              programs.nvbroadcast.package = inputs.nixpkgs-nvbroadcast.legacyPackages.${host.arch}.nvbroadcast;
-            }
             home-manager.nixosModules.home-manager
             {
               home-manager = {

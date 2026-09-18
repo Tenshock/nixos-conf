@@ -1,7 +1,13 @@
 { hostName, user }:
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
+    inputs.chatgpt-desktop-linux.nixosModules.default
+    inputs.monique.nixosModules.default
+    inputs.disko.nixosModules.disko
+    inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
+    (inputs.nixpkgs-nvbroadcast.outPath + "/nixos/modules/programs/nvbroadcast.nix")
+
     ./disko.nix
     ./hardware-configuration.nix
     ./betagouv.nix
@@ -68,6 +74,11 @@
     brightnessctl # enables hotkey brightness control
     ddcutil
   ];
+
+  # TODO: remove when https://github.com/NixOS/nixpkgs/pull/538136 merged
+  documentation.nixos.checkRedirects = false;
+  programs.nvbroadcast.package =
+    inputs.nixpkgs-nvbroadcast.legacyPackages.${pkgs.stdenv.hostPlatform.system}.nvbroadcast;
 
   #####################
 
