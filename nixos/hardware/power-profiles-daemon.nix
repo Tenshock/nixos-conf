@@ -4,7 +4,7 @@
 
   systemd.services.auto-power-profile = {
     description = "Switch power profile based on AC state";
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = [ "graphical.target" ];
     after = [ "power-profiles-daemon.service" ];
     requires = [ "power-profiles-daemon.service" ];
     path = [
