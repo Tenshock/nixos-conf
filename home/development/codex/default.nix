@@ -92,7 +92,10 @@ in
       Use raw shell commands when exact unfiltered output is needed or RTK CLI does not support command.
 
       # Git
-      Never push to remote. If not asked and justified in work, ask before creating/updating commits.
+      Never push to remote.
+      Ask before creating/updating commits if not asked explicitely.
+      Always create atomic commits: commit message is clear, succint (infer format from project, usually following conventional commit),
+      commit must build, tests must pass, commit must target one unit of work.
 
       # Public artifacts
       For public artifacts (issues, pull requests, commit messages, and comments), write only direct,
@@ -106,9 +109,9 @@ in
       State only the resulting scope and requirements.
     '';
     settings = {
-      model = "gpt-6-astra";
+      model = "gpt-5.6-sol";
       model_reasoning_effort = "medium";
-      review_model = "gpt-6-astra";
+      review_model = "gpt-5.6-sol";
       model_provider = "openai";
       approval_policy = "on-request";
       approvals_reviewer = "auto_review";
