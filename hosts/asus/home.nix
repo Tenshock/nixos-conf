@@ -34,7 +34,6 @@ user:
     ../../home/desktop/waycorner.nix
     ../../home/desktop/wl-clipboard.nix
 
-    ../../home/development/cocogitto.nix
     ../../home/development/codex
     ../../home/development/git
     ../../home/development/gh-cli.nix
@@ -45,7 +44,6 @@ user:
     ../../home/development/ripgrep.nix
 
     ../../home/services/1password.nix
-    ../../home/services/easyeffects
     ../../home/services/ssh.nix
     ../../home/services/udiskie.nix
     ../../home/services/xdg.nix
@@ -60,7 +58,6 @@ user:
     ../../home/shell/jq-yq.nix
     ../../home/shell/less.nix
     ../../home/shell/starship.nix
-    ../../home/shell/tmux
     ../../home/shell/uncompress.nix
     ../../home/shell/wget.nix
     ../../home/shell/zoxide.nix

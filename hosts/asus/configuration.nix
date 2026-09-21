@@ -1,5 +1,10 @@
 { hostName, user }:
-{ config, inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = [
     inputs.monique.nixosModules.default
@@ -40,9 +45,11 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  services.fwupd.enable = true;
-  services.hardware.bolt.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services = {
+    fwupd.enable = true;
+    hardware.bolt.enable = true;
+    xserver.videoDrivers = [ "nvidia" ];
+  };
 
   virtualisation.docker = {
     enable = true;
