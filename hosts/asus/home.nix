@@ -22,6 +22,9 @@ user:
     ../../home/desktop/hyprcursor.nix
     ../../home/desktop/hypridle.nix
     ../../home/desktop/hyprland
+    (import ../../home/desktop/hyprland/bindings.nix {
+      keyboardBacklightDevice = "asus::kbd_backlight";
+    })
     ../../home/desktop/hyprlock.nix
     ../../home/desktop/hyprpicker.nix
     ../../home/desktop/hyprshot.nix

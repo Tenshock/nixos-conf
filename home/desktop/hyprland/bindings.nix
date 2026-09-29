@@ -1,3 +1,4 @@
+{ keyboardBacklightDevice }:
 { lib, ... }:
 let
   lua = lib.generators.mkLuaInline;
@@ -170,6 +171,20 @@ in
           locked = true;
           repeating = true;
         })
+        (bindWithFlags "XF86KbdBrightnessUp"
+          (lua "hl.dsp.exec_cmd(\"brightnessctl --device='${keyboardBacklightDevice}' set +1\")")
+          {
+            locked = true;
+            repeating = true;
+          }
+        )
+        (bindWithFlags "XF86KbdBrightnessDown"
+          (lua "hl.dsp.exec_cmd(\"brightnessctl --device='${keyboardBacklightDevice}' set 1-\")")
+          {
+            locked = true;
+            repeating = true;
+          }
+        )
       ];
     };
 

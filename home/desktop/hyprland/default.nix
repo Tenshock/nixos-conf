@@ -16,7 +16,6 @@ in
 
   imports = [
     ./apps.nix
-    ./bindings.nix
     ./ui.nix
   ];
 
