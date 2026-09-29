@@ -14,6 +14,7 @@ user:
     ../../home/applications/kitty
     ../../home/applications/loupe.nix
     ../../home/applications/obsidian.nix
+    ../../home/applications/onlyoffice.nix
     ../../home/applications/vlc.nix
     ../../home/applications/zen
 
