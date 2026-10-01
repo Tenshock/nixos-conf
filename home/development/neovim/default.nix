@@ -186,9 +186,6 @@ in
         "NVIM_APPNAME"
         appName
         "--set"
-        "LD_LIBRARY_PATH"
-        "${pkgs.sqlite.out}/lib"
-        "--set"
         "CC"
         "${pkgs.clang}/bin/clang"
       ];
