@@ -33,6 +33,7 @@
     ../../nixos/programs/cameractrls-gtk4.nix
     ../../nixos/programs/neovim.nix
     ../../nixos/programs/smile.nix
+    ../../nixos/programs/steam.nix
     ../../nixos/programs/tchap-desktop.nix
     (import ../../nixos/programs/thunar.nix user)
   ];
@@ -82,7 +83,10 @@
     prime = {
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
-      offload.enable = true;
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
     };
   };
 
