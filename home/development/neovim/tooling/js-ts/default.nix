@@ -4,7 +4,7 @@
   ...
 }:
 let
-  # TOFIX: remove PR https://github.com/marilari88/neotest-vitest/pull/99 workaround once included in the packaged version.
+  # FIX: remove PR https://github.com/marilari88/neotest-vitest/pull/99 workaround once included in the packaged version.
   neotestVitest = pkgs.vimPlugins.neotest-vitest.overrideAttrs (old: {
     postPatch = (old.postPatch or "") + ''
       # Vitest 5 joins suite/test names with " > "; older versions use " ".
