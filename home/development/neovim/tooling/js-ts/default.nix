@@ -3,19 +3,6 @@
   pkgs,
   ...
 }:
-let
-  # FIX: remove PR https://github.com/marilari88/neotest-vitest/pull/99 workaround once included in the packaged version.
-  neotestVitest = pkgs.vimPlugins.neotest-vitest.overrideAttrs (old: {
-    postPatch = (old.postPatch or "") + ''
-      # Vitest 5 joins suite/test names with " > "; older versions use " ".
-      substituteInPlace lua/neotest-vitest/init.lua \
-        --replace-fail 'local testNamePattern = table.concat(names, " ")' \
-          'local testNamePattern = table.concat(vim.tbl_map(escapeTestPattern, names), "\\s(?:>\\s)?")' \
-        --replace-fail '"^\\s?" .. escapeTestPattern(testNamePattern)' \
-          '"^\\s?" .. testNamePattern'
-    '';
-  });
-in
 {
   programs.lazyvim = {
     extraPackages = with pkgs; [
@@ -46,7 +33,7 @@ in
         ]
         [
           ''{ "AkisArou/neotest-nodejs", dir = "${lazyvimCustomPlugins.neotest-nodejs}" }''
-          ''{ "marilari88/neotest-vitest", dir = "${neotestVitest}" }''
+          ''{ "marilari88/neotest-vitest", dir = "${pkgs.vimPlugins.neotest-vitest}" }''
         ]
         (builtins.readFile ./config.lua);
     treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
