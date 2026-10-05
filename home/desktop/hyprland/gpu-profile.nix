@@ -23,8 +23,8 @@ writeShellApplication {
       esac
 
       for connector in "/sys/class/drm"/card*-"$output"; do
-        [ -e "$connector/device/vendor" ] || continue
-        cat "$connector/device/vendor"
+        [ -e "$connector/device/device/vendor" ] || continue
+        cat "$connector/device/device/vendor"
         return
       done
     }
@@ -49,22 +49,19 @@ writeShellApplication {
 
     [ -n "''${monitors:-}" ] || exit 0
 
-    printf '%s\n' "$monitors" | jq -r '.[] | [.name, .description] | @tsv' | while IFS="$(printf '\t')" read -r output description; do
+    printf '%s\n' "$monitors" | jq -r '.[].name' | while IFS= read -r output; do
       vendor="$(vendor_for_output "$output")"
 
       if [ "$profile" = "egpu" ]; then
-        case "$vendor:$output:$description" in
-          0x1002:eDP-*:*)
+        case "$vendor:$output" in
+          0x1002:eDP-*)
             ;;
           0x1002:*)
             disable_output "$output"
             ;;
-          0x10de:DP-*:*"Dell Inc. DELL P2425D 68BZZB4"*)
-            disable_output "$output"
-            ;;
         esac
-      else
-        [ "$vendor" = "0x10de" ] && disable_output "$output"
+      elif [ "$vendor" = "0x10de" ]; then
+        disable_output "$output"
       fi
     done
   '';
