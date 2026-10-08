@@ -1,7 +1,17 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   # 1Password "Git Commit Signing" SSH key
   signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII41+k73bU3ax55hLATwqeWLFU/FTKYx+Th0CG7I65Jg";
+
+  gitLogPager = pkgs.writeShellScript "git-log-pager" ''
+    gitArguments="$(${pkgs.coreutils}/bin/tr '\0' ' ' < "/proc/$PPID/cmdline")"
+
+    if [[ "$gitArguments" == *"--decorate=full"* ]]; then
+      ${pkgs.perl}/bin/perl -pe 's{(refs/(?!heads/|remotes/|tags/)[^\s,)\e]+)}{\e[34m$1\e[m}g'
+    else
+      ${pkgs.perl}/bin/perl -pe 's{refs/((?!heads/|remotes/|tags/)[^\s,)\e]+)}{\e[34m$1\e[m}g'
+    fi | ${pkgs.delta}/bin/delta
+  '';
 in
 {
   home.packages = with pkgs; [
@@ -12,6 +22,8 @@ in
   programs = {
     git = {
       enable = true;
+
+      iniContent.pager.log = lib.mkForce "${gitLogPager}";
 
       signing = {
         allowedSigners = ''
@@ -38,6 +50,12 @@ in
 
         commit.gpgSign = true;
 
+        color.decorate = {
+          branch = "green";
+          remoteBranch = "red";
+          tag = "yellow";
+        };
+
         core = {
           autocrlf = false;
           eol = "lf";
@@ -58,6 +76,11 @@ in
         help.autocorrect = true;
 
         init.defaultBranch = "main";
+
+        log = {
+          decorate = "auto";
+          initialDecorationSet = "all";
+        };
 
         merge = {
           conflictstyle = "zdiff3";
