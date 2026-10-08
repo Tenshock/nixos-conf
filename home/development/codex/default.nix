@@ -150,7 +150,7 @@ in
 
       plugins = {
         "build-web-apps@openai-curated".enabled = true;
-        "codex-security@openai-curated".enabled = true;
+        "codex-security@openai-curated".enabled = false;
         "figma@openai-curated".enabled = true;
         "github@openai-curated".enabled = true;
         "linear@openai-curated".enabled = true;
