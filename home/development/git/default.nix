@@ -117,6 +117,11 @@ in
       ];
     };
 
+    zsh.shellAliases = {
+      gl = "git log --oneline --graph";
+      gla = "git log --oneline --graph --all";
+    };
+
     delta = {
       enable = true;
       enableGitIntegration = true;
