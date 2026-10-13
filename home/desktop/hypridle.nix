@@ -27,9 +27,9 @@
           on-timeout = "loginctl lock-session";
         }
         {
-          # 10min30s: turn screen off and suspend, then hibernate after HibernateDelaySec.
+          # 10min30s: turn screen off and hibernate.
           timeout = 630;
-          on-timeout = "hyprctl dispatch 'hl.dsp.dpms(\"off\")'; systemctl suspend-then-hibernate";
+          on-timeout = "hyprctl dispatch 'hl.dsp.dpms(\"off\")'; systemctl hibernate";
           on-resume = "hyprctl dispatch 'hl.dsp.dpms(\"on\")'";
         }
       ];

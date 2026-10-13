@@ -71,7 +71,7 @@ in
         (bind (main "F") (exec "browser"))
         (bind (main "M") (exec "powerMenu"))
         (bind (main "L") (exec "hyprlock"))
-        (bind (shift "L") (lua "hl.dsp.exec_cmd(\"systemctl suspend-then-hibernate\")"))
+        (bind (shift "L") (lua "hl.dsp.exec_cmd(\"systemctl hibernate\")"))
         (bind (main "N") (exec "networkManager"))
         (bind (main "B") (exec "bluetoothManager"))
         (bind (main "H") (exec "audioManager"))

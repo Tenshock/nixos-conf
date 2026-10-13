@@ -34,7 +34,7 @@ let
         '  Shutdown') systemctl poweroff ;;
         '  Keep Awake') systemctl --user start stay-awake.service ;;
         '󰅶  Allow idling') systemctl --user stop stay-awake.service ;;
-        '  Suspend') systemctl suspend-then-hibernate ;;
+        '  Suspend') systemctl suspend ;;
         '  Hibernate') systemctl hibernate ;;
       esac
     '';
