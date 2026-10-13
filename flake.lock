@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791212692,
-        "narHash": "sha256-oPAfsTRNqAFsycAirLU05uTVKo3MaZf7fz88ekCeoO8=",
+        "lastModified": 1791795517,
+        "narHash": "sha256-hmF0FVrUW6UKQ74qyGJSepMYadnIqzVe2h7TQtZdbmo=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "0c0335a1a6d326adb5a5e116aae0d51c7041b2e5",
+        "rev": "2e605f61db52a45a7ff1db414df395ef566565a3",
         "type": "github"
       },
       "original": {
@@ -23,36 +23,16 @@
     "caveman": {
       "flake": false,
       "locked": {
-        "lastModified": 1791257471,
-        "narHash": "sha256-XKMTm1D5/kwYaT007Tf1NHZo8vnlHSWKnV9BlvyLtPY=",
+        "lastModified": 1791438150,
+        "narHash": "sha256-przOot/S0VLw2aP3tOdxF27mZHMp0NQhyTls0eDAjjs=",
         "owner": "JuliusBrussee",
         "repo": "caveman",
-        "rev": "99aafe151a1be72be783e662858e8a0955add59f",
+        "rev": "2e08b9177c07bb7249a8a2d1a6758e5db281d002",
         "type": "github"
       },
       "original": {
         "owner": "JuliusBrussee",
         "repo": "caveman",
-        "type": "github"
-      }
-    },
-    "chatgpt-desktop-linux": {
-      "inputs": {
-        "nixpkgs": [
-          "nixos"
-        ]
-      },
-      "locked": {
-        "lastModified": 1787758777,
-        "narHash": "sha256-jYx/ZI5NZ+CPzPWO1sEO5hiUhzKkPKjahMRLzJO+/BA=",
-        "owner": "Tenshock",
-        "repo": "chatgpt-desktop-linux",
-        "rev": "ff66d5563b3158d43c0c25c926e3ce21f40e09f8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Tenshock",
-        "repo": "chatgpt-desktop-linux",
         "type": "github"
       }
     },
@@ -85,11 +65,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1791345741,
-        "narHash": "sha256-pDuo+bmhoWB7oa+z9DPLNHDTkKQmHKFFjU5Pr6iyy9k=",
+        "lastModified": 1791864154,
+        "narHash": "sha256-pjQlEfH/b71zK6bCyQHWWFFRsZ0Bh/XkSW7Xb/0YDNA=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "b7c7fd22af078860fdefdf18fe3b51e1705dcdd1",
+        "rev": "21011acbf120a5554a218aa9e2764808169b84d0",
         "type": "gitlab"
       },
       "original": {
@@ -124,11 +104,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791306979,
-        "narHash": "sha256-KuLePuhwJM9NLt/gTLHzXaOoSZKGoB3m7NfXjiQ98HY=",
+        "lastModified": 1791642191,
+        "narHash": "sha256-0bK0A59rVUn1SRZzo4cNi4VSqAe7vR1gL2/MZl53Frw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "fae6e9e42c3b762ab47635cddcfaf6f52374a61b",
+        "rev": "c58f54c733a7894d84fa2fdff26cc12088c4b78c",
         "type": "github"
       },
       "original": {
@@ -212,11 +192,11 @@
     },
     "nixos": {
       "locked": {
-        "lastModified": 1791260994,
-        "narHash": "sha256-Miqqk/ammqnTUxaoCyvtwoPeLbI1ksFyLxi/CazZpWY=",
+        "lastModified": 1791734076,
+        "narHash": "sha256-i5qk1kLiit98rRbh1AXmWBNT9QXC/y4l5Wk/u5EdpDQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "151fa4e8ddfdd8dd25d945ad94ed54a13de9f6e4",
+        "rev": "7fd4004d0511991fff3a0524856a9be09e28c5f0",
         "type": "github"
       },
       "original": {
@@ -233,11 +213,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791373788,
-        "narHash": "sha256-c3oMt0QoE+4yiRk6u1m2L9ogjaUw0uTGn9yk808KkgE=",
+        "lastModified": 1791721963,
+        "narHash": "sha256-BYhx89XJltnRyQeuDKHVL5eSqbbfAcOKuDts7QRsrxQ=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "4bc63156b109ee7b4103e3ec30565c8c92bde435",
+        "rev": "60a624466c08787ee8303393b7d4752d1826f14f",
         "type": "github"
       },
       "original": {
@@ -266,7 +246,6 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "caveman": "caveman",
-        "chatgpt-desktop-linux": "chatgpt-desktop-linux",
         "disko": "disko",
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
@@ -361,11 +340,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791367832,
-        "narHash": "sha256-MSFMvb579iNOOx89nEAligQJaLB6Qv1QfAw31eC4JIU=",
+        "lastModified": 1791851212,
+        "narHash": "sha256-92V8wFy1G9ajZcuJNHcckzj8UwF34RYXiZisUQyyWCA=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "a2caf7fe6fb6e4786591acb9cdf1306db1b011f7",
+        "rev": "c495e98991c333c9cb2b6f9dda7e32e49e54d66d",
         "type": "github"
       },
       "original": {

@@ -1,3 +1,0 @@
-{
-  programs.chatgptDesktop.enable = true;
-}

@@ -2,7 +2,6 @@
 { inputs, pkgs, ... }:
 {
   imports = [
-    inputs.chatgpt-desktop-linux.nixosModules.default
     inputs.monique.nixosModules.default
     inputs.disko.nixosModules.disko
     inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
@@ -15,7 +14,6 @@
     (import ./networking.nix { inherit hostName user; })
 
     ../../flakes/catppuccin.nix
-    ../../flakes/chatgpt-desktop.nix
     ../../flakes/monique.nix
 
     ../../nixos/core/i18n.nix

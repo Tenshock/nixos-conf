@@ -23,10 +23,6 @@
       url = "github:ToRvaLDz/monique";
       inputs.nixpkgs.follows = "nixos";
     };
-    chatgpt-desktop-linux = {
-      url = "github:Tenshock/chatgpt-desktop-linux";
-      inputs.nixpkgs.follows = "nixos";
-    };
     tchap-desktop = {
       url = "github:Tenshock/tchap-desktop/feat/nix-package";
       inputs.nixpkgs.follows = "nixos";

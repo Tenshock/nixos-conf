@@ -9,6 +9,7 @@ user:
     ../../home/appearance/fonts.nix
 
     ../../home/applications/beeper.nix
+    ../../home/applications/chatgpt.nix
     ../../home/applications/datagrip.nix
     ../../home/applications/discord.nix
     ../../home/applications/google-chrome.nix
