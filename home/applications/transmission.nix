@@ -1,16 +1,12 @@
 { pkgs, ... }:
 let
-  transmissionWayland = pkgs.symlinkJoin {
-    name = "transmission-wayland";
+  transmissionInhibit = pkgs.symlinkJoin {
+    name = "transmission-inhibit";
     paths = [ pkgs.transmission_4-qt ];
     postBuild = ''
       rm $out/bin/transmission-qt
       cat > $out/bin/transmission-qt <<'EOF'
       #!${pkgs.runtimeShell}
-      unset DISPLAY
-      export QT_QPA_PLATFORM=wayland
-      export QT_PLUGIN_PATH="${pkgs.qt5.qtwayland.bin}/${pkgs.qt5.qtbase.qtPluginPrefix}:''${QT_PLUGIN_PATH:-}"
-
       exec ${pkgs.systemd}/bin/systemd-inhibit \
         --what=sleep:handle-lid-switch \
         --who=Transmission \
@@ -27,5 +23,5 @@ let
   };
 in
 {
-  home.packages = [ transmissionWayland ];
+  home.packages = [ transmissionInhibit ];
 }

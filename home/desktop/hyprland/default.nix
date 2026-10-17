@@ -5,11 +5,12 @@ in
 {
   catppuccin.hyprland.enable = false;
 
-  home = {
-    sessionVariables.NIXOS_OZONE_WL = "1";
-    packages = [ hyprlandGpuProfile ];
-  };
+  home.packages = [ hyprlandGpuProfile ];
 
+  xdg.configFile."uwsm/env".text = ''
+    export NIXOS_OZONE_WL=1
+    export QT_QPA_PLATFORM="wayland;xcb"
+  '';
   xdg.configFile."uwsm/env-hyprland".source = ./env-hyprland.sh;
 
   services.hyprpolkitagent.enable = true;
