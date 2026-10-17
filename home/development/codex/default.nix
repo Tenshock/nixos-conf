@@ -42,6 +42,7 @@ let
   ) { } integrationConfigs;
 
   trustedProjectDirectories = [
+    "${config.home.homeDirectory}/projects"
     "${config.home.homeDirectory}/projects/betagouv"
     "${config.home.homeDirectory}/projects/own"
   ];
