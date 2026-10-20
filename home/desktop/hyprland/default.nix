@@ -15,6 +15,22 @@ in
 
   services.hyprpolkitagent.enable = true;
 
+  systemd.user.services.hyprland-egpu-sleep-inhibitor = {
+    Unit = {
+      Description = "Block sleep while Hyprland uses the eGPU as primary renderer";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      ConditionEnvironment = "HYPRLAND_GPU_PROFILE=egpu";
+    };
+
+    Service = {
+      ExecStart = "${pkgs.systemd}/bin/systemd-inhibit --what=sleep --mode=block --who=Hyprland-eGPU --why=\"eGPU sleep and hibernation are not runtime-validated\" ${pkgs.coreutils}/bin/sleep infinity";
+      Restart = "on-failure";
+    };
+
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   imports = [
     ./apps.nix
     ./ui.nix

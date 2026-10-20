@@ -53,13 +53,9 @@ writeShellApplication {
       vendor="$(vendor_for_output "$output")"
 
       if [ "$profile" = "egpu" ]; then
-        case "$vendor:$output" in
-          0x1002:eDP-*)
-            ;;
-          0x1002:*)
-            disable_output "$output"
-            ;;
-        esac
+        if [ "$vendor" = "0x1002" ]; then
+          disable_output "$output"
+        fi
       elif [ "$vendor" = "0x10de" ]; then
         disable_output "$output"
       fi

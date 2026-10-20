@@ -36,7 +36,7 @@ in
       nvidiaPersistenced = false;
 
       powerManagement = {
-        enable = false;
+        enable = true;
         finegrained = false;
       };
 
