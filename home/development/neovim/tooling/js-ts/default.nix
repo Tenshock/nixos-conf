@@ -1,9 +1,27 @@
 {
+  inputs,
   lazyvimCustomPlugins,
   pkgs,
   ...
 }:
+let
+  typescript-svelte-plugin =
+    inputs.nixpkgs-typescript-svelte-plugin.legacyPackages.${pkgs.stdenv.hostPlatform.system}.typescript-svelte-plugin;
+  masonRoot = pkgs.linkFarm "lazyvim-mason-root" [
+    {
+      name = "packages/svelte-language-server/node_modules/typescript-svelte-plugin";
+      path = "${typescript-svelte-plugin}/lib/node_modules/typescript-svelte-plugin";
+    }
+  ];
+in
 {
+  # LazyVim resolves TypeScript plugins through a Mason-shaped path even when Mason is disabled.
+  programs.neovim.extraWrapperArgs = [
+    "--set"
+    "MASON"
+    "${masonRoot}"
+  ];
+
   programs.lazyvim = {
     extraPackages = with pkgs; [
       eslint

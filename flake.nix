@@ -55,6 +55,10 @@
     nixpkgs-nvbroadcast = {
       url = "github:Tenshock/nixpkgs/add-nvbroadcast";
     };
+    # TODO: remove when https://github.com/NixOS/nixpkgs/pull/552834 merged
+    nixpkgs-typescript-svelte-plugin = {
+      url = "github:Tenshock/nixpkgs/typescript-svelte-plugin-init";
+    };
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {

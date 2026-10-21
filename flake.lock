@@ -242,6 +242,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-typescript-svelte-plugin": {
+      "locked": {
+        "lastModified": 1792568517,
+        "narHash": "sha256-HChzif9g0lAkbAfEOLIhoDZd9IivYEC2Z/dpts68Cng=",
+        "owner": "Tenshock",
+        "repo": "nixpkgs",
+        "rev": "6e7b074025ef1bca5270d5934ac11d8c81f547d0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Tenshock",
+        "ref": "typescript-svelte-plugin-init",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
@@ -256,6 +272,7 @@
         "nixos": "nixos",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs-nvbroadcast": "nixpkgs-nvbroadcast",
+        "nixpkgs-typescript-svelte-plugin": "nixpkgs-typescript-svelte-plugin",
         "tchap-desktop": "tchap-desktop",
         "telescope-terraform-doc-nvim": "telescope-terraform-doc-nvim",
         "telescope-terraform-nvim": "telescope-terraform-nvim",
