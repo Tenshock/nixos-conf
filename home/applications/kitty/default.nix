@@ -140,8 +140,6 @@ in
   home.packages = [ kittyGotoTabs ];
   xdg = {
     configFile = {
-      "kitty/neighboring_window.py".source =
-        "${pkgs.vimPlugins.smart-splits-nvim}/kitty/neighboring_window.py";
       "kitty/pristine_tabs.py".source = ./pristine_tabs.py;
       "kitty/tab_bar.py".source = ./tab_bar.py;
     };

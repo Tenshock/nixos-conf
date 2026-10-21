@@ -27,6 +27,16 @@ let
     mini-cursorword = pkgs.vimPlugins.mini-cursorword;
     neo-tree-nvim = pkgs.vimPlugins.neo-tree-nvim;
     smart-splits-nvim = pkgs.vimPlugins.smart-splits-nvim;
+    smart-splits-backend-kitty = pkgs.vimUtils.buildVimPlugin {
+      pname = "smart-splits-backend-kitty";
+      version = "unstable-2026-10-21";
+      src = pkgs.fetchFromGitHub {
+        owner = "smart-splits-nvim";
+        repo = "backend-kitty";
+        rev = "f892244d69727b8634dd5c085fb041f4e6cc9ef3";
+        hash = "sha256-sV49CezLSlxn2+1uCLvehv37FUdTw5yiO/qhC0CPcGQ=";
+      };
+    };
 
     neotest-nodejs = mkInputPlugin {
       pname = "neotest-nodejs";
@@ -143,8 +153,16 @@ in
             ./plugins/mini-cursorword.lua;
         neo-tree = builtins.readFile ./plugins/neo-tree.lua;
         smart-splits =
-          pinPlugin "mrjones2014/smart-splits.nvim" customPlugins.smart-splits-nvim
-            ./plugins/smart-splits.lua;
+          builtins.replaceStrings
+            [
+              "\"mrjones2014/smart-splits.nvim\""
+              "\"smart-splits-nvim/backend-kitty\""
+            ]
+            [
+              ''"mrjones2014/smart-splits.nvim", dir = "${customPlugins.smart-splits-nvim}"''
+              ''"smart-splits-nvim/backend-kitty", dir = "${customPlugins.smart-splits-backend-kitty}"''
+            ]
+            (builtins.readFile ./plugins/smart-splits.lua);
         snacks = builtins.readFile ./plugins/snacks.lua;
         nix-plugin-dirs = ''
           return {
