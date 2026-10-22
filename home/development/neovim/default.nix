@@ -95,6 +95,7 @@ in
     ./tooling/markdown
     ./tooling/nix
     ./tooling/python
+    ./tooling/pug
     ./tooling/shell
     ./tooling/sql
     ./tooling/toml
