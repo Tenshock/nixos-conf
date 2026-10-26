@@ -97,6 +97,7 @@ in
       Ask before creating/updating commits if not asked explicitely.
       Always create atomic commits: commit message is clear, succint (infer format from project, usually following conventional commit),
       commit must build, tests must pass, commit must target one unit of work.
+      If you create custom references that are not branches nor tags for your internal tasks, remove them afterwards.
 
       # Public artifacts
       For public artifacts (issues, pull requests, commit messages, and comments), write only direct,
