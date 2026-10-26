@@ -48,56 +48,13 @@
     (import ../../nixos/services/virtualization.nix user)
   ];
 
-  # FIX: diff-cover 10.5.1 HTML snapshots are incompatible with Pygments 2.20.0.
-  nixpkgs.overlays = [
-    (_final: prev: {
-      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-        (_pythonFinal: pythonPrev: {
-          diff-cover = pythonPrev.diff-cover.overridePythonAttrs (old: {
-            disabledTests = (old.disabledTests or [ ]) ++ [
-              "test_added_file_pycodestyle_html"
-              "test_all_reports"
-              "test_added_file_pyflakes_html"
-              "test_added_file_pylint_html"
-              "test_fail_under_html"
-              "test_fail_under_pass_html"
-            ];
-          });
-        })
-      ];
-    })
-  ];
-
   boot = {
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
 
-    # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs.linuxPackages_latest.extend (
-      _final: prev: {
-        # FIX: See https://github.com/NixOS/nixpkgs/pull/575818
-        framework-laptop-kmod = prev.framework-laptop-kmod.overrideAttrs (old: {
-          makeFlags = old.makeFlags ++ [
-            "INSTALL_MOD_PATH=${placeholder "out"}"
-            "INSTALL_MOD_DIR=extra"
-            "DEPMOD=true"
-          ];
-          installPhase = null;
-          installTargets = [ "modules_install" ];
-        });
-
-        # FIX: See https://github.com/NixOS/nixpkgs/pull/575861
-        v4l2loopback = prev.v4l2loopback.overrideAttrs {
-          preBuild = null;
-          installFlags = [
-            "DEPMOD=true"
-            "INSTALL_MOD_PATH=${placeholder "out"}"
-          ];
-        };
-      }
-    );
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "i2c-dev" ];
   };
 
